@@ -135,7 +135,11 @@ function updateOrder() {
     })
     .then(res => res.json())
     .then(data => {
-        alert(data.success ? "Cập nhật thành công!" : data.error);
+        if (window.Swal) {
+            Swal.fire({ icon: data.success ? 'success' : 'error', title: data.success ? 'Thành công' : 'Lỗi', text: data.success ? 'Cập nhật thành công!' : data.error, toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+        } else {
+            alert(data.success ? "Cập nhật thành công!" : data.error);
+        }
         if (data.success) location.reload();
     });
 }
@@ -150,7 +154,11 @@ function cancelOrder(orderId) {
     })
     .then(res => res.json())
     .then(data => {
-        alert(data.success ? "Đơn hàng đã bị hủy." : data.error);
+        if (window.Swal) {
+            Swal.fire({ icon: data.success ? 'success' : 'error', title: data.success ? 'Thành công' : 'Lỗi', text: data.success ? 'Đơn hàng đã bị hủy.' : data.error, toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+        } else {
+            alert(data.success ? "Đơn hàng đã bị hủy." : data.error);
+        }
         if (data.success) location.reload();
     });
 }

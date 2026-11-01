@@ -127,15 +127,15 @@
                                     <td class="fw-bold text-danger">{{ format_currency(order.total_price) }}</td>
                                     <td>
                                         {% if order.status == 'pending' %}
-                                            <span class="badge bg-warning text-dark">Chờ xác nhận</span>
+                                            <span class="badge bg-warning text-dark"><i class="fas fa-clock me-1"></i>Chờ xác nhận</span>
                                         {% elif order.status == 'processing' %}
-                                            <span class="badge bg-info">Đang xử lý</span>
+                                            <span class="badge bg-info"><i class="fas fa-box me-1"></i>Đang xử lý</span>
                                         {% elif order.status == 'shipped' %}
-                                            <span class="badge bg-primary">Đang giao</span>
+                                            <span class="badge bg-primary"><i class="fas fa-truck me-1"></i>Đang giao</span>
                                         {% elif order.status == 'completed' %}
-                                            <span class="badge bg-success">Đã giao</span>
+                                            <span class="badge bg-success"><i class="fas fa-check me-1"></i>Đã giao</span>
                                         {% elif order.status == 'cancelled' %}
-                                            <span class="badge bg-danger">Đã hủy</span>
+                                            <span class="badge bg-danger"><i class="fas fa-xmark me-1"></i>Đã hủy</span>
                                         {% else %}
                                             <span class="badge bg-secondary">{{ order.status }}</span>
                                         {% endif %}

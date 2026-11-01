@@ -4,12 +4,104 @@
 {% block page_title %}Chi Tiết Đơn Hàng{% endblock %}
 {% block page_subtitle %}Mã đơn: #{{ order.order_id[:8] }}{% endblock %}
 
+{% block extra_css %}
+<style>
+    .admin-order-detail .card {
+        overflow: hidden;
+        border: 1px solid #d7dde5;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(30, 41, 59, 0.06);
+    }
+
+    .admin-order-detail .card-header {
+        padding: 14px 18px;
+        border-bottom: 0;
+        background: #344256;
+        color: #fff;
+    }
+
+    .admin-order-detail .card-header h5 {
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+
+    .admin-order-detail .card-header i {
+        margin-right: 4px;
+        color: #bfdbfe;
+    }
+
+    .admin-order-detail .table thead th {
+        padding: 14px 12px;
+        background: #e9edf2;
+        color: #293747;
+        font-size: 1rem;
+        vertical-align: middle;
+    }
+
+    .admin-order-detail .table tbody td {
+        padding: 16px 12px;
+        color: #293747;
+        font-size: 1.12rem;
+        vertical-align: middle;
+    }
+
+    .admin-order-detail .table tbody td strong {
+        font-weight: 600;
+    }
+
+    .admin-order-detail .table tfoot td {
+        padding: 14px 12px;
+        font-size: 1.25rem;
+    }
+
+    .admin-order-detail .customer-information p {
+        margin-bottom: 1rem;
+        color: #334155;
+        font-size: 1.08rem;
+        line-height: 1.55;
+        overflow-wrap: anywhere;
+    }
+
+    .admin-order-detail .customer-information p strong {
+        color: #263445;
+        font-weight: 700;
+    }
+
+    .admin-order-detail .badge {
+        padding: 0.5rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .admin-order-detail .order-detail-actions {
+        min-height: 48px;
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        .admin-order-detail .card-header h5 {
+            font-size: 1.15rem;
+        }
+
+        .admin-order-detail .table tbody td,
+        .admin-order-detail .customer-information p {
+            font-size: 1rem;
+        }
+
+        .admin-order-detail .table tfoot td {
+            font-size: 1.08rem;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="row">
+<div class="row admin-order-detail">
     <div class="col-lg-8">
         <div class="card shadow-sm mb-4">
             <div class="card-header bg-primary text-white">
-                <h5 class="mb-0"><i class="fas fa-list me-2"></i>Chi tiết sản phẩm</h5>
+                <h5 class="mb-0"><i class="fas fa-boxes-stacked" aria-hidden="true"></i>Chi tiết sản phẩm</h5>
             </div>
             <div class="card-body p-0">
                 <table class="table table-striped mb-0">
@@ -44,23 +136,46 @@
 
     <div class="col-lg-4">
         <div class="card shadow-sm mb-4">
-            <div class="card-header bg-success text-white">
-                <h5 class="mb-0"><i class="fas fa-user me-2"></i>Thông tin khách hàng</h5>
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-user" aria-hidden="true"></i>Thông tin khách hàng</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body customer-information">
                 <p><strong>Họ tên:</strong> {{ order.username }}</p>
                 <p><strong>Email:</strong> {{ order.email }}</p>
                 <p><strong>SĐT:</strong> {{ order.phone }}</p>
                 <p><strong>Địa chỉ:</strong><br>{{ order.address }}</p>
-                <p><strong>Ngày đặt:</strong></p>
+                <p><strong>Ngày đặt:</strong><br>
+                    {{ order.created_at | strftime('%d/%m/%Y %H:%M') if order.created_at else '—' }}
+                </p>
+                {% if order.expected_delivery %}
+                <p><strong>Ngày giao dự kiến:</strong><br>
+                    {{ order.expected_delivery[8:10] }}/{{ order.expected_delivery[5:7] }}/{{ order.expected_delivery[0:4] }}
+                </p>
+                {% endif %}
                 <p><strong>Trạng thái:</strong>
-                    <span class="badge bg-warning fs-6">Chờ xử lý</span>
+                    {% if order.status == 'pending' %}
+                    <span class="badge bg-warning text-dark"><i class="fas fa-clock me-1"></i>Chờ xác nhận</span>
+                    {% elif order.status == 'processing' %}
+                    <span class="badge bg-info text-white"><i class="fas fa-box me-1"></i>Đang xử lý</span>
+                    {% elif order.status == 'shipped' %}
+                    <span class="badge bg-primary"><i class="fas fa-truck me-1"></i>Đang giao</span>
+                    {% elif order.status == 'completed' %}
+                    <span class="badge bg-success"><i class="fas fa-check me-1"></i>Đã giao</span>
+                    {% elif order.status == 'cancelled' %}
+                    <span class="badge bg-danger"><i class="fas fa-xmark me-1"></i>Đã hủy</span>
+                    {% else %}
+                    <span class="badge bg-secondary">{{ order.status }}</span>
+                    {% endif %}
                 </p>
             </div>
         </div>
 
-        <a href="{{ url_for('admin_orders') }}" class="btn btn-secondary w-100">
-            <i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
+        <a href="{{ url_for('admin_edit_order', order_id=order.order_id) }}"
+           class="btn btn-primary w-100 mb-2 order-detail-actions">
+            <i class="fas fa-pen-to-square me-2" aria-hidden="true"></i>Cập nhật trạng thái
+        </a>
+        <a href="{{ url_for('admin_orders') }}" class="btn btn-secondary w-100 order-detail-actions">
+            <i class="fas fa-arrow-left me-2" aria-hidden="true"></i>Quay lại danh sách
         </a>
     </div>
 </div>

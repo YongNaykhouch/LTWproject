@@ -1,0 +1,360 @@
+{"text":"Xin chào shop","intent":"greeting"}
+{"text":"Alo, cho mình hỏi chút","intent":"greeting"}
+{"text":"Chào bạn, mình cần tư vấn","intent":"greeting"}
+{"text":"Cảm ơn bạn đã tư vấn","intent":"thanks"}
+{"text":"Ok cảm ơn shop nhé","intent":"thanks"}
+{"text":"Sản phẩm nào đang có giá rẻ nhất?","intent":"cheapest_product"}
+{"text":"Cho xem món rẻ nhất trong cửa hàng","intent":"cheapest_product"}
+{"text":"Điện thoại nào có giá thấp nhất?","intent":"cheapest_product"}
+{"text":"Mẫu laptop cao cấp và đắt nhất là mẫu nào?","intent":"expensive_product"}
+{"text":"Cho tôi xem sản phẩm giá cao nhất","intent":"expensive_product"}
+{"text":"Tìm điện thoại dưới 10 triệu","intent":"search_by_budget"}
+{"text":"Có laptop nào khoảng 20 triệu không?","intent":"search_by_budget"}
+{"text":"Tư vấn giúp tôi sản phẩm tầm 5 triệu","intent":"search_by_budget"}
+{"text":"Tôi muốn mua tai nghe dưới 2 triệu","intent":"search_by_budget"}
+{"text":"Cửa hàng có những loại sản phẩm nào?","intent":"product_category"}
+{"text":"Shop có bán laptop không?","intent":"product_category"}
+{"text":"Cho tôi xem danh mục điện thoại","intent":"product_category"}
+{"text":"Tìm iPhone 16 Pro Max","intent":"product_search"}
+{"text":"Có mẫu laptop Asus nào vậy?","intent":"product_search"}
+{"text":"Tôi muốn xem Samsung Galaxy S26 Ultra","intent":"product_search"}
+{"text":"Điện thoại này còn hàng không?","intent":"stock_status"}
+{"text":"Laptop Asus còn hàng chứ?","intent":"stock_status"}
+{"text":"Kiểm tra giúp mình mẫu tai nghe còn không","intent":"stock_status"}
+{"text":"Tôi muốn kiểm tra đơn hàng ORD-a1b2c3d4","intent":"order_status"}
+{"text":"Đơn hàng mã a1b2c3d4 đang ở đâu rồi?","intent":"order_status"}
+{"text":"Cho tôi biết trạng thái đơn hàng","intent":"order_status"}
+{"text":"Xem các đơn hàng gần đây của tôi","intent":"my_orders"}
+{"text":"Lịch sử mua hàng của tôi ở đâu?","intent":"my_orders"}
+{"text":"Sản phẩm được bảo hành bao lâu?","intent":"warranty"}
+{"text":"Chính sách bảo hành của cửa hàng thế nào?","intent":"warranty"}
+{"text":"Nếu không vừa ý thì có được đổi trả không?","intent":"return_policy"}
+{"text":"Tôi có thể hoàn tiền trong trường hợp nào?","intent":"return_policy"}
+{"text":"Phí giao hàng là bao nhiêu và giao mất bao lâu?","intent":"shipping"}
+{"text":"Shop có giao hàng ngoại thành không?","intent":"shipping"}
+{"text":"Cửa hàng nhận thanh toán bằng những cách nào?","intent":"payment_methods"}
+{"text":"Tôi có thể trả tiền khi nhận hàng không?","intent":"payment_methods"}
+{"text":"Cửa hàng có hỗ trợ trả góp 0% không?","intent":"installment"}
+{"text":"Mua laptop trả góp cần điều kiện gì?","intent":"installment"}
+{"text":"Hiện có sản phẩm nào khuyến mãi không?","intent":"promotion_products"}
+{"text":"Cho xem các mặt hàng giá tốt","intent":"promotion_products"}
+{"text":"Cho tôi xin số hotline cửa hàng","intent":"contact"}
+{"text":"Địa chỉ và email của shop là gì?","intent":"contact"}
+{"text":"So sánh iPhone và Samsung giúp tôi","intent":"compare_products"}
+{"text":"Laptop Asus và Dell khác nhau thế nào?","intent":"compare_products"}
+{"text":"Chào cửa hàng, bạn có thể hỗ trợ mình không?","intent":"greeting"}
+{"text":"Xin chào, tôi đang tìm mua đồ điện tử","intent":"greeting"}
+{"text":"Shop ơi, tư vấn cho mình với","intent":"greeting"}
+{"text":"Chào trợ lý, mình muốn hỏi về sản phẩm","intent":"greeting"}
+{"text":"Hi, cửa hàng đang hoạt động chứ?","intent":"greeting"}
+{"text":"Chào buổi sáng, tôi cần tìm một món đồ","intent":"greeting"}
+{"text":"Xin chào bạn, tôi có vài thắc mắc","intent":"greeting"}
+{"text":"A lô, có ai hỗ trợ không?","intent":"greeting"}
+{"text":"Cho mình hỏi cửa hàng một chút nhé","intent":"greeting"}
+{"text":"Chào shop, mình muốn được tư vấn mua hàng","intent":"greeting"}
+{"text":"Cảm ơn, thông tin rất hữu ích","intent":"thanks"}
+{"text":"Mình đã hiểu rồi, cảm ơn nhé","intent":"thanks"}
+{"text":"Cảm ơn cửa hàng đã hỗ trợ","intent":"thanks"}
+{"text":"Cảm ơn bạn nhiều, mình sẽ tham khảo","intent":"thanks"}
+{"text":"Rất cảm ơn vì đã giải đáp","intent":"thanks"}
+{"text":"Vậy là rõ rồi, cảm ơn shop","intent":"thanks"}
+{"text":"Thanks bạn nhé","intent":"thanks"}
+{"text":"Cảm ơn, khi nào cần mình sẽ hỏi tiếp","intent":"thanks"}
+{"text":"Sản phẩm nào rẻ nhất trong cửa hàng vậy?","intent":"cheapest_product"}
+{"text":"Mặt hàng nào có mức giá thấp nhất?","intent":"cheapest_product"}
+{"text":"Cho tôi biết món nào rẻ nhất hiện nay","intent":"cheapest_product"}
+{"text":"Tìm giúp sản phẩm có giá mềm nhất","intent":"cheapest_product"}
+{"text":"Loại quạt nào đang rẻ nhất?","intent":"cheapest_product"}
+{"text":"Tai nghe nào có giá thấp nhất vậy?","intent":"cheapest_product"}
+{"text":"Tôi muốn xem những sản phẩm rẻ nhất","intent":"cheapest_product"}
+{"text":"Có điện thoại nào giá thấp nhất không?","intent":"cheapest_product"}
+{"text":"Mẫu đồng hồ thông minh nào rẻ nhất?","intent":"cheapest_product"}
+{"text":"Sản phẩm đắt nhất bên mình là gì?","intent":"expensive_product"}
+{"text":"Cho xem những mẫu điện thoại cao cấp nhất","intent":"expensive_product"}
+{"text":"Laptop nào có giá cao nhất vậy?","intent":"expensive_product"}
+{"text":"Mặt hàng nào thuộc phân khúc cao cấp?","intent":"expensive_product"}
+{"text":"Tìm giúp tôi sản phẩm đắt tiền nhất","intent":"expensive_product"}
+{"text":"Đồng hồ thông minh cao cấp nhất có giá bao nhiêu?","intent":"expensive_product"}
+{"text":"Mẫu máy ảnh nào đắt nhất cửa hàng?","intent":"expensive_product"}
+{"text":"Cho tôi xem các lựa chọn cao cấp trong danh mục laptop","intent":"expensive_product"}
+{"text":"Điện thoại khoảng 8 đến 12 triệu có mẫu nào?","intent":"search_by_budget"}
+{"text":"Tìm giúp tôi laptop tầm giá 15 triệu","intent":"search_by_budget"}
+{"text":"Có máy ảnh nào dưới 10 triệu không?","intent":"search_by_budget"}
+{"text":"Ngân sách 3 triệu thì mua được tai nghe nào?","intent":"search_by_budget"}
+{"text":"Tôi cần điện thoại không quá 12 triệu","intent":"search_by_budget"}
+{"text":"Gợi ý quạt giá dưới 2 triệu","intent":"search_by_budget"}
+{"text":"Sản phẩm nào phù hợp với ngân sách 7 triệu?","intent":"search_by_budget"}
+{"text":"Mình có khoảng 25 triệu, chọn laptop nào?","intent":"search_by_budget"}
+{"text":"Tìm đồng hồ thông minh trong tầm 5 triệu","intent":"search_by_budget"}
+{"text":"Có tủ lạnh nào giá dưới 15 triệu không?","intent":"search_by_budget"}
+{"text":"Shop đang kinh doanh những mặt hàng gì?","intent":"product_category"}
+{"text":"Cửa hàng có những danh mục sản phẩm nào vậy?","intent":"product_category"}
+{"text":"Bên mình có bán máy ảnh không?","intent":"product_category"}
+{"text":"Tôi muốn xem các loại đồ gia dụng đang bán","intent":"product_category"}
+{"text":"Shop có kinh doanh đồng hồ thông minh chứ?","intent":"product_category"}
+{"text":"Cho hỏi cửa hàng có bán tủ lạnh không","intent":"product_category"}
+{"text":"Có những dòng điện thoại nào để lựa chọn?","intent":"product_category"}
+{"text":"Tôi muốn duyệt danh mục laptop","intent":"product_category"}
+{"text":"Liệt kê các nhóm sản phẩm trong cửa hàng","intent":"product_category"}
+{"text":"Cửa hàng có bán máy giặt và máy sấy không?","intent":"product_category"}
+{"text":"Tìm sản phẩm Samsung Galaxy S26 Ultra giúp tôi","intent":"product_search"}
+{"text":"Cho xem mẫu iPhone 15 Pro Max","intent":"product_search"}
+{"text":"Tôi đang tìm laptop Lenovo ThinkPad","intent":"product_search"}
+{"text":"Có tai nghe JBL không vậy?","intent":"product_search"}
+{"text":"Tìm giúp mẫu tủ lạnh Samsung Inverter","intent":"product_search"}
+{"text":"Tôi muốn xem quạt Senko DH1600","intent":"product_search"}
+{"text":"Cửa hàng có bán đồng hồ Galaxy Watch 6 không?","intent":"product_search"}
+{"text":"Cho tôi thông tin về laptop Asus","intent":"product_search"}
+{"text":"Tìm máy giặt Electrolux trong cửa hàng","intent":"product_search"}
+{"text":"Tìm giúp tôi một chiếc điện thoại Oppo","intent":"product_search"}
+{"text":"Mẫu Samsung Galaxy S26 Ultra còn trong kho không?","intent":"stock_status"}
+{"text":"Kiểm tra tồn kho của laptop Lenovo này","intent":"stock_status"}
+{"text":"Quạt Senko còn hàng để mua không?","intent":"stock_status"}
+{"text":"Máy giặt Electrolux hiện còn sản phẩm không?","intent":"stock_status"}
+{"text":"Tôi muốn biết tai nghe JBL còn sẵn không","intent":"stock_status"}
+{"text":"Trong kho còn điện thoại Oppo không?","intent":"stock_status"}
+{"text":"Mẫu tủ lạnh này đã hết hàng chưa?","intent":"stock_status"}
+{"text":"Cửa hàng còn bán đồng hồ Galaxy Watch 6 không?","intent":"stock_status"}
+{"text":"Sản phẩm máy ảnh Sony có sẵn không vậy?","intent":"stock_status"}
+{"text":"Tình trạng tồn kho của bếp từ thế nào?","intent":"stock_status"}
+{"text":"Mã đơn ORD-1234ABCD đã được xử lý chưa?","intent":"order_status"}
+{"text":"Tra cứu giúp mình đơn ORD-9f8e7d6c","intent":"order_status"}
+{"text":"Đơn hàng có mã 12345678 đang giao hay chưa?","intent":"order_status"}
+{"text":"Tôi muốn xem tiến độ giao đơn ORD-AB12CD34","intent":"order_status"}
+{"text":"Kiểm tra vận đơn ORD-7654fedc giúp tôi","intent":"order_status"}
+{"text":"Đơn ORD-1a2b3c4d hiện có trạng thái gì?","intent":"order_status"}
+{"text":"Mã đơn mua hàng của tôi là 87654321, tra giúp nhé","intent":"order_status"}
+{"text":"Đơn hàng ORD-abc12345 đã giao chưa?","intent":"order_status"}
+{"text":"Tình trạng xử lý đơn mã 1122aabb thế nào?","intent":"order_status"}
+{"text":"Tra cứu đơn hàng ORD-55aa66bb","intent":"order_status"}
+{"text":"Tôi muốn xem toàn bộ đơn đã đặt","intent":"my_orders"}
+{"text":"Bạn kiểm tra giúp các đơn hàng của tôi nhé","intent":"my_orders"}
+{"text":"Trong tài khoản của tôi có những đơn nào?","intent":"my_orders"}
+{"text":"Mở danh sách đơn mua hàng của tôi","intent":"my_orders"}
+{"text":"Tôi đã đặt những đơn hàng nào gần đây?","intent":"my_orders"}
+{"text":"Cho tôi xem các lần mua trước đây","intent":"my_orders"}
+{"text":"Tôi muốn kiểm tra lịch sử đặt hàng của mình","intent":"my_orders"}
+{"text":"Các đơn hàng gần nhất của tôi đang thế nào?","intent":"my_orders"}
+{"text":"Bảo hành điện thoại trong bao lâu?","intent":"warranty"}
+{"text":"Sản phẩm bị lỗi thì được bảo hành thế nào?","intent":"warranty"}
+{"text":"Chính sách bảo hành laptop áp dụng ra sao?","intent":"warranty"}
+{"text":"Mua hàng ở đây có được bảo hành không?","intent":"warranty"}
+{"text":"Thời hạn bảo hành của máy giặt là bao lâu?","intent":"warranty"}
+{"text":"Cửa hàng có nhận kiểm tra bảo hành sản phẩm không?","intent":"warranty"}
+{"text":"Điều kiện để được bảo hành là gì?","intent":"warranty"}
+{"text":"Nếu sản phẩm bị lỗi nhà sản xuất thì xử lý thế nào?","intent":"warranty"}
+{"text":"Tôi muốn đổi sản phẩm mới thì cần điều kiện gì?","intent":"return_policy"}
+{"text":"Hàng đã mua có được trả lại không?","intent":"return_policy"}
+{"text":"Nếu sản phẩm lỗi thì cửa hàng có hoàn tiền không?","intent":"return_policy"}
+{"text":"Thời hạn đổi trả sản phẩm là bao lâu?","intent":"return_policy"}
+{"text":"Tôi có thể đổi hàng sau khi mua trong mấy ngày?","intent":"return_policy"}
+{"text":"Đổi trả có cần giữ lại hộp và phụ kiện không?","intent":"return_policy"}
+{"text":"Cửa hàng xử lý hoàn tiền như thế nào?","intent":"return_policy"}
+{"text":"Sản phẩm đã mở hộp có được đổi không?","intent":"return_policy"}
+{"text":"Đơn hàng bao lâu thì giao tới nhà?","intent":"shipping"}
+{"text":"Phí ship về ngoại thành là bao nhiêu?","intent":"shipping"}
+{"text":"Shop có miễn phí vận chuyển không?","intent":"shipping"}
+{"text":"Cửa hàng giao hàng trong ngày chứ?","intent":"shipping"}
+{"text":"Tôi ở xa thì có đặt giao hàng được không?","intent":"shipping"}
+{"text":"Thời gian vận chuyển đến nội thành mất bao lâu?","intent":"shipping"}
+{"text":"Mua bao nhiêu thì được miễn phí giao hàng?","intent":"shipping"}
+{"text":"Có thể giao sản phẩm đến địa chỉ nhà tôi không?","intent":"shipping"}
+{"text":"Có thể thanh toán bằng thẻ ngân hàng không?","intent":"payment_methods"}
+{"text":"Shop có nhận chuyển khoản không?","intent":"payment_methods"}
+{"text":"Tôi muốn thanh toán qua ví MoMo","intent":"payment_methods"}
+{"text":"Có được trả tiền mặt khi nhận hàng không?","intent":"payment_methods"}
+{"text":"Cửa hàng hỗ trợ những phương thức thanh toán nào?","intent":"payment_methods"}
+{"text":"Tôi có thể dùng ZaloPay để thanh toán chứ?","intent":"payment_methods"}
+{"text":"Thanh toán đơn hàng bằng cách nào vậy?","intent":"payment_methods"}
+{"text":"Có hỗ trợ trả góp bằng thẻ tín dụng không?","intent":"installment"}
+{"text":"Điều kiện mua trả góp 0 phần trăm là gì?","intent":"installment"}
+{"text":"Trả góp được áp dụng cho đơn hàng tối thiểu bao nhiêu?","intent":"installment"}
+{"text":"Tôi muốn mua điện thoại theo hình thức trả góp","intent":"installment"}
+{"text":"Có thể chia khoản thanh toán thành nhiều tháng không?","intent":"installment"}
+{"text":"Mua trả chậm cần giấy tờ gì?","intent":"installment"}
+{"text":"Thời hạn trả góp có những lựa chọn nào?","intent":"installment"}
+{"text":"Chương trình khuyến mãi hiện tại gồm những sản phẩm nào?","intent":"promotion_products"}
+{"text":"Mặt hàng nào đang được giảm giá?","intent":"promotion_products"}
+{"text":"Có ưu đãi nào cho sản phẩm giá rẻ không?","intent":"promotion_products"}
+{"text":"Cho tôi xem danh sách hàng đang sale","intent":"promotion_products"}
+{"text":"Shop có chương trình giảm giá nào không?","intent":"promotion_products"}
+{"text":"Sản phẩm nào đang có giá tốt vậy?","intent":"promotion_products"}
+{"text":"Tôi cần liên hệ nhân viên cửa hàng bằng cách nào?","intent":"contact"}
+{"text":"Số điện thoại chăm sóc khách hàng là gì?","intent":"contact"}
+{"text":"Cho xin địa chỉ cửa hàng","intent":"contact"}
+{"text":"Email hỗ trợ của shop là gì?","intent":"contact"}
+{"text":"Cửa hàng mở cửa vào thời gian nào?","intent":"contact"}
+{"text":"Tôi cần gọi hotline để hỏi về sản phẩm","intent":"contact"}
+{"text":"So sánh giúp mình iPhone 15 và iPhone 16","intent":"compare_products"}
+{"text":"Khác nhau giữa laptop Asus và laptop Dell là gì?","intent":"compare_products"}
+{"text":"So sánh hai mẫu Samsung Galaxy S26 Ultra và iPhone 17","intent":"compare_products"}
+{"text":"Bạn giúp tôi đối chiếu iPhone với Samsung nhé","intent":"compare_products"}
+{"text":"So sánh giá và cấu hình của hai mẫu laptop Asus và Lenovo","intent":"compare_products"}
+{"text":"Mẫu quạt Senko hay Toshiba có thông số tốt hơn?","intent":"compare_products"}
+{"text":"Đặt hai mẫu điện thoại này cạnh nhau để so sánh","intent":"compare_products"}
+{"text":"So sánh máy giặt Samsung với Electrolux","intent":"compare_products"}
+{"text":"Trong hai mẫu iPhone 15 và 16, mẫu nào phù hợp hơn?","intent":"compare_products"}
+{"text":"So sánh đồng hồ Samsung Galaxy Watch 6 và mẫu Garmin","intent":"compare_products"}
+{"text":"Chào shop, mình muốn tìm một sản phẩm phù hợp","intent":"greeting"}
+{"text":"Xin chào, cho mình hỏi thông tin mua hàng","intent":"greeting"}
+{"text":"Hello, tôi cần được hỗ trợ","intent":"greeting"}
+{"text":"Chào bạn, cửa hàng có thể tư vấn không?","intent":"greeting"}
+{"text":"Shop ơi, mình đang cần trợ giúp","intent":"greeting"}
+{"text":"Xin chào trợ lý cửa hàng","intent":"greeting"}
+{"text":"Chào cửa hàng, mình muốn xem sản phẩm","intent":"greeting"}
+{"text":"Cảm ơn đã trả lời câu hỏi của mình","intent":"thanks"}
+{"text":"Cảm ơn shop, mình nhận được thông tin rồi","intent":"thanks"}
+{"text":"Cảm ơn bạn đã kiểm tra giúp","intent":"thanks"}
+{"text":"Cảm ơn nhiều, tư vấn rất rõ ràng","intent":"thanks"}
+{"text":"Mình cảm ơn nhé, vậy là đủ rồi","intent":"thanks"}
+{"text":"Cảm ơn cửa hàng đã phản hồi nhanh","intent":"thanks"}
+{"text":"Cảm ơn, tôi sẽ xem thêm rồi quay lại","intent":"thanks"}
+{"text":"Cảm ơn bạn, chúc cửa hàng buôn bán tốt","intent":"thanks"}
+{"text":"Dạ cảm ơn shop nhé","intent":"thanks"}
+{"text":"Cảm ơn vì đã giúp tôi chọn sản phẩm","intent":"thanks"}
+{"text":"Trong các sản phẩm đang bán, món nào rẻ nhất?","intent":"cheapest_product"}
+{"text":"Tìm mặt hàng có giá thấp nhất theo danh mục","intent":"cheapest_product"}
+{"text":"Mẫu tủ lạnh rẻ nhất hiện tại là mẫu nào?","intent":"cheapest_product"}
+{"text":"Cho hỏi laptop rẻ nhất có giá bao nhiêu","intent":"cheapest_product"}
+{"text":"Sản phẩm nào có giá tiết kiệm nhất?","intent":"cheapest_product"}
+{"text":"Tôi muốn mua máy giặt giá rẻ nhất","intent":"cheapest_product"}
+{"text":"Mẫu điện thoại nào rẻ nhất trong kho?","intent":"cheapest_product"}
+{"text":"Tìm giúp sản phẩm thấp giá nhất còn hàng","intent":"cheapest_product"}
+{"text":"Cho tôi xem sản phẩm thuộc phân khúc cao cấp nhất","intent":"expensive_product"}
+{"text":"Mẫu điện thoại đắt nhất bên mình là mẫu nào?","intent":"expensive_product"}
+{"text":"Tủ lạnh nào có giá cao nhất?","intent":"expensive_product"}
+{"text":"Tìm giúp tôi laptop cao cấp nhất cửa hàng","intent":"expensive_product"}
+{"text":"Đồng hồ thông minh nào thuộc dòng đắt tiền nhất?","intent":"expensive_product"}
+{"text":"Tôi muốn xem các sản phẩm cao cấp đang bán","intent":"expensive_product"}
+{"text":"Mẫu máy tính bàn giá cao nhất là gì?","intent":"expensive_product"}
+{"text":"Loại máy ảnh đắt nhất hiện có trong cửa hàng","intent":"expensive_product"}
+{"text":"Cho xem quạt cao cấp nhất shop đang bán","intent":"expensive_product"}
+{"text":"Sản phẩm nào có mức giá cao nhất trong danh mục điện thoại?","intent":"expensive_product"}
+{"text":"Tôi cần điện thoại trong khoảng 10 triệu","intent":"search_by_budget"}
+{"text":"Ngân sách tối đa 8 triệu thì có thể chọn sản phẩm nào?","intent":"search_by_budget"}
+{"text":"Tìm laptop giá dưới 18 triệu giúp tôi","intent":"search_by_budget"}
+{"text":"Mình muốn mua tủ lạnh khoảng 12 triệu","intent":"search_by_budget"}
+{"text":"Gợi ý máy tính bàn dưới 30 triệu","intent":"search_by_budget"}
+{"text":"Có mẫu đồng hồ nào trong tầm giá 4 triệu không?","intent":"search_by_budget"}
+{"text":"Danh mục hàng hóa của cửa hàng gồm những gì?","intent":"product_category"}
+{"text":"Tôi muốn biết shop bán những thiết bị nào","intent":"product_category"}
+{"text":"Có danh mục máy tính bàn không?","intent":"product_category"}
+{"text":"Cửa hàng có những mẫu bếp từ nào?","intent":"product_category"}
+{"text":"Bên bạn có quạt điện để bán không?","intent":"product_category"}
+{"text":"Cho mình xem các danh mục đang có","intent":"product_category"}
+{"text":"Shop có bán điều hòa không vậy?","intent":"product_category"}
+{"text":"Tìm iPhone 17 Air trong cửa hàng","intent":"product_search"}
+{"text":"Cho mình xem điện thoại Samsung Galaxy S26 Ultra","intent":"product_search"}
+{"text":"Tôi muốn tìm laptop Dell","intent":"product_search"}
+{"text":"Có máy ảnh Sony nào đang bán?","intent":"product_search"}
+{"text":"Tìm mẫu bếp từ trong danh mục sản phẩm","intent":"product_search"}
+{"text":"Cho tôi xem máy giặt Samsung WD10K6410OS","intent":"product_search"}
+{"text":"Tìm tai nghe AirPods giúp mình","intent":"product_search"}
+{"text":"Trong kho còn iPhone 17 Air không?","intent":"stock_status"}
+{"text":"Kiểm tra giúp số lượng laptop Asus còn lại","intent":"stock_status"}
+{"text":"Bếp từ hiện còn hàng để đặt không?","intent":"stock_status"}
+{"text":"Máy tính bàn còn sản phẩm nào không?","intent":"stock_status"}
+{"text":"Tủ lạnh Toshiba có còn sẵn không?","intent":"stock_status"}
+{"text":"Cho hỏi mẫu quạt này còn bán chứ?","intent":"stock_status"}
+{"text":"Tôi cần biết tình trạng hàng của điện thoại Samsung","intent":"stock_status"}
+{"text":"Mã đơn ORD-aabbccdd của tôi đang giao đến đâu?","intent":"order_status"}
+{"text":"Bạn xem giúp trạng thái đơn 99887766","intent":"order_status"}
+{"text":"Đơn hàng ORD-1234abcd đã được gửi đi chưa?","intent":"order_status"}
+{"text":"Tôi muốn tra cứu mã vận đơn 8765abcd","intent":"order_status"}
+{"text":"Kiểm tra đơn ORD-abcdef12 giúp mình với","intent":"order_status"}
+{"text":"Đơn 1122aabb hiện đang chờ xử lý hay đã giao?","intent":"order_status"}
+{"text":"Tra tình trạng đơn hàng mã ORD-3344ccdd","intent":"order_status"}
+{"text":"Cho tôi kiểm tra danh sách giao dịch mua hàng","intent":"my_orders"}
+{"text":"Tài khoản này đã có đơn hàng nào chưa?","intent":"my_orders"}
+{"text":"Tôi muốn xem các đơn đã mua trong tài khoản","intent":"my_orders"}
+{"text":"Mở lịch sử đơn hàng giúp tôi","intent":"my_orders"}
+{"text":"Cho xem những đơn hàng tôi từng đặt","intent":"my_orders"}
+{"text":"Tôi muốn theo dõi các đơn đã mua gần đây","intent":"my_orders"}
+{"text":"Danh sách đơn đặt hàng của tôi đâu?","intent":"my_orders"}
+{"text":"Kiểm tra các đơn gần đây trong tài khoản của tôi","intent":"my_orders"}
+{"text":"Tôi đã mua sản phẩm nào ở đây trước đó?","intent":"my_orders"}
+{"text":"Xem lại các đơn mua gần nhất của mình","intent":"my_orders"}
+{"text":"Bảo hành đồng hồ thông minh được bao nhiêu tháng?","intent":"warranty"}
+{"text":"Sản phẩm còn bảo hành thì tôi liên hệ ai?","intent":"warranty"}
+{"text":"Máy ảnh mua tại shop có bảo hành không?","intent":"warranty"}
+{"text":"Tôi cần làm gì để gửi sản phẩm đi bảo hành?","intent":"warranty"}
+{"text":"Chính sách bảo hành tủ lạnh như thế nào?","intent":"warranty"}
+{"text":"Nếu máy bị hỏng trong thời gian bảo hành thì sao?","intent":"warranty"}
+{"text":"Bên mình bảo hành sản phẩm trong bao lâu?","intent":"warranty"}
+{"text":"Bảo hành có bao gồm lỗi kỹ thuật không?","intent":"warranty"}
+{"text":"Tôi cần giữ hóa đơn để bảo hành chứ?","intent":"warranty"}
+{"text":"Điều kiện áp dụng bảo hành tại cửa hàng là gì?","intent":"warranty"}
+{"text":"Tôi đặt nhầm sản phẩm thì có đổi được không?","intent":"return_policy"}
+{"text":"Chính sách đổi hàng trong 7 ngày ra sao?","intent":"return_policy"}
+{"text":"Sản phẩm không đúng nhu cầu thì có thể trả lại không?","intent":"return_policy"}
+{"text":"Hoàn tiền mất bao lâu sau khi trả hàng?","intent":"return_policy"}
+{"text":"Tôi muốn đổi sang mẫu khác thì cần làm gì?","intent":"return_policy"}
+{"text":"Hàng lỗi kỹ thuật có được hoàn tiền toàn bộ không?","intent":"return_policy"}
+{"text":"Đổi trả có yêu cầu sản phẩm chưa sử dụng không?","intent":"return_policy"}
+{"text":"Tôi có thể trả lại món hàng đã mua như thế nào?","intent":"return_policy"}
+{"text":"Còn nguyên hộp nhưng muốn đổi mẫu thì được không?","intent":"return_policy"}
+{"text":"Thủ tục đổi trả hàng gồm những bước nào?","intent":"return_policy"}
+{"text":"Giao hàng đến nhà có mất phí không?","intent":"shipping"}
+{"text":"Đơn hàng ở nội thành giao trong bao lâu?","intent":"shipping"}
+{"text":"Cửa hàng có giao hàng ra tỉnh không?","intent":"shipping"}
+{"text":"Phí vận chuyển cho đơn hàng của tôi là bao nhiêu?","intent":"shipping"}
+{"text":"Shop có giao sản phẩm đến ngoại thành không?","intent":"shipping"}
+{"text":"Mua hàng online thì mấy ngày nhận được?","intent":"shipping"}
+{"text":"Đơn từ hai triệu có được miễn phí ship không?","intent":"shipping"}
+{"text":"Bên mình hỗ trợ giao nhanh trong ngày chứ?","intent":"shipping"}
+{"text":"Tôi muốn biết chính sách giao nhận hàng","intent":"shipping"}
+{"text":"Phí giao hàng nội thành hiện nay là bao nhiêu?","intent":"shipping"}
+{"text":"Có thể quẹt thẻ để thanh toán không?","intent":"payment_methods"}
+{"text":"Cửa hàng có nhận thanh toán bằng tiền mặt không?","intent":"payment_methods"}
+{"text":"Tôi muốn trả tiền qua ngân hàng","intent":"payment_methods"}
+{"text":"Có thanh toán bằng ví điện tử được không?","intent":"payment_methods"}
+{"text":"Shop chấp nhận thẻ tín dụng chứ?","intent":"payment_methods"}
+{"text":"Tôi có thể chuyển khoản trước khi nhận hàng không?","intent":"payment_methods"}
+{"text":"Những cách trả tiền nào được cửa hàng hỗ trợ?","intent":"payment_methods"}
+{"text":"Thanh toán bằng MoMo có được không vậy?","intent":"payment_methods"}
+{"text":"Có thể chọn COD khi đặt mua không?","intent":"payment_methods"}
+{"text":"Cửa hàng có hỗ trợ thanh toán qua ZaloPay không?","intent":"payment_methods"}
+{"text":"Tôi cần thẻ gì để mua hàng trả góp?","intent":"installment"}
+{"text":"Trả góp 0% có cần trả trước không?","intent":"installment"}
+{"text":"Mua trả góp trong bao nhiêu tháng?","intent":"installment"}
+{"text":"Shop có chương trình góp hàng tháng không?","intent":"installment"}
+{"text":"Tôi muốn biết cách đăng ký mua laptop trả góp","intent":"installment"}
+{"text":"Mua điện thoại trả góp cần giấy tờ gì?","intent":"installment"}
+{"text":"Trả góp 0% có áp dụng cho mọi sản phẩm không?","intent":"installment"}
+{"text":"Đơn hàng tối thiểu bao nhiêu mới được trả góp?","intent":"installment"}
+{"text":"Có trả góp qua thẻ tín dụng ngân hàng không?","intent":"installment"}
+{"text":"Có thể thanh toán laptop thành nhiều kỳ không?","intent":"installment"}
+{"text":"Các sản phẩm nào đang được ưu đãi giá?","intent":"promotion_products"}
+{"text":"Cho tôi xem hàng giảm giá dưới 5 triệu","intent":"promotion_products"}
+{"text":"Có chương trình sale nào đang diễn ra không?","intent":"promotion_products"}
+{"text":"Danh sách sản phẩm khuyến mãi ở đâu?","intent":"promotion_products"}
+{"text":"Mặt hàng nào đang có giá ưu đãi?","intent":"promotion_products"}
+{"text":"Tôi muốn tìm sản phẩm đang giảm giá","intent":"promotion_products"}
+{"text":"Cửa hàng có ưu đãi mua nhiều sản phẩm không?","intent":"promotion_products"}
+{"text":"Có món hàng giá tốt nào còn hàng không?","intent":"promotion_products"}
+{"text":"Cho biết số điện thoại liên hệ của cửa hàng","intent":"contact"}
+{"text":"Tôi muốn gọi cho bộ phận chăm sóc khách hàng","intent":"contact"}
+{"text":"Shop ở địa chỉ nào vậy?","intent":"contact"}
+{"text":"Cho hỏi email cửa hàng để gửi yêu cầu","intent":"contact"}
+{"text":"Tôi liên hệ shop qua số nào?","intent":"contact"}
+{"text":"Cửa hàng có hỗ trợ khách hàng ngày lễ không?","intent":"contact"}
+{"text":"Địa chỉ email hỗ trợ là gì?","intent":"contact"}
+{"text":"Hotline tư vấn mua hàng của bạn là số nào?","intent":"contact"}
+{"text":"Tôi cần thông tin địa chỉ và giờ hỗ trợ của shop","intent":"contact"}
+{"text":"Cho xin cách liên hệ cửa hàng nhanh nhất","intent":"contact"}
+{"text":"So sánh iPhone 16 Pro Max với Samsung Galaxy S26 Ultra","intent":"compare_products"}
+{"text":"Điện thoại Oppo hay Xiaomi có thông số tốt hơn?","intent":"compare_products"}
+{"text":"Bạn so sánh giúp hai mẫu laptop này","intent":"compare_products"}
+{"text":"So sánh giá của iPhone 15 Pro Max và iPhone 17 Air","intent":"compare_products"}
+{"text":"Máy giặt Samsung khác máy giặt Electrolux thế nào?","intent":"compare_products"}
+{"text":"Đối chiếu cấu hình laptop Dell với Asus","intent":"compare_products"}
+{"text":"Mẫu nào tốt hơn giữa hai chiếc điện thoại này?","intent":"compare_products"}
+{"text":"So sánh đồng hồ Samsung và Garmin về giá","intent":"compare_products"}
+{"text":"Tôi có thể thanh toán bằng chuyển khoản ngân hàng không?","intent":"payment_methods"}
+{"text":"Kỳ hạn trả góp dài nhất là bao nhiêu tháng?","intent":"installment"}
+{"text":"Sản phẩm khuyến mãi nào có giá dưới 3 triệu?","intent":"promotion_products"}
+{"text":"Hiện cửa hàng có ưu đãi giảm giá sản phẩm nào?","intent":"promotion_products"}
+{"text":"Cho tôi biết mặt hàng đang được khuyến mại","intent":"promotion_products"}
+{"text":"Có hàng điện tử nào đang giảm giá không?","intent":"promotion_products"}
+{"text":"Cửa hàng nằm ở đâu để tôi đến trực tiếp?","intent":"contact"}
+{"text":"Tôi muốn xin hotline và địa chỉ của bên mình","intent":"contact"}

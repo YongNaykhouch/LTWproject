@@ -210,7 +210,11 @@
 
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartDisplay();
-      alert('Đã thêm sản phẩm vào giỏ hàng!');
+      if (window.Swal) {
+        Swal.fire({ icon: 'success', title: 'Thành công', text: 'Đã thêm sản phẩm vào giỏ hàng!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+      } else {
+        alert('Đã thêm sản phẩm vào giỏ hàng!');
+      }
     }
 
     function updateCartDisplay() {
@@ -253,7 +257,11 @@
     function checkoutCart() {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       if (cart.length === 0) {
-        alert('Giỏ hàng trống!');
+        if (window.Swal) {
+          Swal.fire({ icon: 'warning', title: 'Giỏ hàng', text: 'Giỏ hàng trống!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+        } else {
+          alert('Giỏ hàng trống!');
+        }
         return;
       }
 
@@ -275,16 +283,28 @@
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            alert('Đặt hàng thành công! Mã đơn hàng: ' + data.order_id);
+            if (window.Swal) {
+              Swal.fire({ icon: 'success', title: 'Đặt hàng thành công', text: 'Mã đơn hàng: ' + data.order_id, toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+            } else {
+              alert('Đặt hàng thành công! Mã đơn hàng: ' + data.order_id);
+            }
             localStorage.removeItem('cart');
             updateCartDisplay();
             $('#cartModal').modal('hide');
           } else {
-            alert('Lỗi khi đặt hàng: ' + data.error);
+            if (window.Swal) {
+              Swal.fire({ icon: 'error', title: 'Lỗi', text: data.error || 'Lỗi khi đặt hàng', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+            } else {
+              alert('Lỗi khi đặt hàng: ' + data.error);
+            }
           }
         })
         .catch(error => {
-          alert('Lỗi: ' + error);
+          if (window.Swal) {
+            Swal.fire({ icon: 'error', title: 'Lỗi', text: String(error), toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+          } else {
+            alert('Lỗi: ' + error);
+          }
         });
     }
 

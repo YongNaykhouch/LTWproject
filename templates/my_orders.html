@@ -1,0 +1,387 @@
+{% extends "base.html" %}
+{% block title %}Theo dõi đơn hàng - Cửa Hàng Điện Tử{% endblock %}
+
+{% block extra_css %}
+<style>
+    .track-wrap { width: calc(100% - 40px); max-width: 1280px; margin: 0 auto; padding: 30px 0 60px; }
+    .track-header {
+        background: linear-gradient(135deg, #0d6efd, #6f42c1);
+        color: #fff; border-radius: 16px; padding: 26px 30px;
+        box-shadow: 0 10px 30px rgba(13, 110, 253, .25);
+    }
+    .track-header h3 { margin: 0; font-weight: 700; }
+    .track-header p { margin: 6px 0 0; opacity: .85; font-size: .92rem; }
+
+    .filter-bar {
+        background: #fff; border-radius: 14px; padding: 16px 18px;
+        box-shadow: 0 4px 18px rgba(0,0,0,.06); margin: 22px 0;
+    }
+    .filter-chip {
+        display: inline-block; padding: 7px 14px; margin: 4px 6px 4px 0;
+        border-radius: 999px; background: #f1f3f5; color: #495057;
+        font-size: .88rem; text-decoration: none; border: 1px solid transparent;
+        transition: all .2s ease;
+    }
+    .filter-chip:hover { background: #e3e8ee; color: #212529; }
+    .filter-chip.active { background: #0d6efd; color: #fff; border-color: #0d6efd; }
+    .filter-chip .cnt { font-weight: 700; margin-left: 4px; }
+
+    .order-card {
+        background: #fff; border-radius: 14px; box-shadow: 0 4px 18px rgba(0,0,0,.06);
+        margin-bottom: 16px; overflow: hidden; border-left: 5px solid #dee2e6;
+    }
+    .order-card.st-pending    { border-left-color: #ffc107; }
+    .order-card.st-processing { border-left-color: #0dcaf0; }
+    .order-card.st-shipped    { border-left-color: #0d6efd; }
+    .order-card.st-completed  { border-left-color: #198754; }
+    .order-card.st-cancelled  { border-left-color: #dc3545; }
+
+    .order-card .head {
+        padding: 20px 28px; cursor: pointer;
+        display: grid;
+        grid-template-columns: minmax(150px, 1fr) minmax(250px, 1.45fr)
+                               minmax(130px, .9fr) minmax(160px, 1.05fr) max-content;
+        gap: 18px;
+        align-items: center;
+    }
+    .order-card .head > div { min-width: 0 !important; }
+    .order-card .head > .ms-auto { margin-left: 0 !important; justify-self: end; }
+    .order-card .head:hover { background: #fafbfc; }
+    .order-code { font-weight: 700; color: #0d6efd; letter-spacing: .3px; }
+    .order-meta { font-size: .9rem; color: #6c757d; }
+    .order-total { font-weight: 700; color: #dc3545; font-size: 1.05rem; }
+
+    .badge-track {
+        padding: 7px 14px; border-radius: 999px; font-weight: 600;
+        font-size: .85rem; color: #fff; white-space: nowrap;
+    }
+
+    /* Thanh tiến trình */
+    .steps { display: flex; align-items: flex-start; justify-content: space-between;
+             padding: 18px 10px 4px; position: relative; }
+    .steps .line {
+        position: absolute; top: 32px; left: 6%; right: 6%; height: 4px;
+        background: #e9ecef; border-radius: 2px; z-index: 0;
+    }
+    .steps .line-fill {
+        position: absolute; top: 32px; left: 6%; height: 4px;
+        background: #198754; border-radius: 2px; z-index: 1;
+        transition: width .5s ease;
+    }
+    .step { position: relative; z-index: 2; flex: 1; text-align: center; }
+    .step .dot {
+        width: 38px; height: 38px; line-height: 38px; margin: 0 auto 8px;
+        border-radius: 50%; background: #f1f5f9; color: #94a3b8;
+        font-size: .85rem; transition: all .3s ease;
+    }
+    .step.done .dot   { background: #e8f5ee; color: #198754; }
+    .step.now  .dot   { background: #eaf2ff; color: #0d6efd; box-shadow: 0 0 0 3px rgba(13,110,253,.12); }
+    .step .label { font-size: .9rem; color: #6c757d; }
+    .step.done .label, .step.now .label { color: #212529; font-weight: 600; }
+    .step .time { font-size: .8rem; color: #adb5bd; }
+    .step.done .time { color: #198754; }
+
+    /* Ngày giao dự kiến */
+    .eta-line { font-size: .95rem; color: #0d6efd; font-weight: 600; margin-top: 2px; }
+    .eta-line.late { color: #dc3545; }
+    .eta-line.muted { color: #6c757d; font-weight: 500; }
+    .history-box {
+        background: #f8f9fa; border-radius: 10px; padding: 12px 16px; margin-top: 16px;
+        font-size: .95rem;
+    }
+    .history-box .h-title { font-weight: 700; color: #495057; margin-bottom: 8px; }
+    .history-box ul { list-style: none; margin: 0; padding: 0; }
+    .history-box li { padding: 4px 0 4px 18px; position: relative; color: #495057; }
+    .history-box li::before {
+        content: ''; position: absolute; left: 2px; top: 11px;
+        width: 8px; height: 8px; border-radius: 50%; background: #adb5bd;
+    }
+    .history-box li:first-child::before { background: #198754; }
+
+    .cancelled-note {
+        background: #fff5f5; border: 1px dashed #f5c2c7; color: #b02a37;
+        border-radius: 10px; padding: 12px 16px; margin: 14px 10px 0;
+        font-size: .9rem;
+    }
+    .order-body { padding: 0 28px 20px; }
+    .detail-row { font-size: 1rem; color: #495057; }
+    .detail-row i { color: #64748b; width: 18px; font-size: .9rem; }
+
+    .empty-box {
+        background: #fff; border-radius: 14px; padding: 60px 20px; text-align: center;
+        box-shadow: 0 4px 18px rgba(0,0,0,.06);
+    }
+    .empty-box i { font-size: 3.5rem; color: #dee2e6; }
+
+    @media (max-width: 900px) {
+        .order-card .head { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .order-card .head > .ms-auto { justify-self: start; }
+    }
+
+    @media (max-width: 576px) {
+        .track-wrap { width: calc(100% - 20px); padding: 20px 0 40px; }
+        .order-card .head {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            padding: 18px;
+            gap: 16px;
+        }
+        .order-card .head > .ms-auto { justify-self: start; }
+        .order-body { padding: 0 18px 18px; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="track-wrap">
+
+    <div class="track-header d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+            <h3><i class="fas fa-truck-fast me-2"></i>Theo dõi đơn hàng</h3>
+            <p>Cập nhật trạng thái đơn hàng theo thời gian thực · Tổng {{ counts.all }} đơn đã đặt</p>
+        </div>
+        <a href="{{ url_for('view_cart') }}" class="btn btn-light fw-bold rounded-pill px-4">
+            <i class="fas fa-shopping-bag me-2"></i>Giỏ hàng
+        </a>
+    </div>
+
+    <!-- Bộ lọc -->
+    <div class="filter-bar">
+        <form method="GET" class="row g-2 align-items-center">
+            <div class="col-md-6">
+                <input type="text" name="q" value="{{ keyword }}" class="form-control rounded-pill"
+                       placeholder="Nhập mã đơn để tra cứu, ví dụ: A1B2C3D4E5F6">
+            </div>
+            <div class="col-md-4">
+                <select name="status" class="form-select rounded-pill">
+                    <option value="">Tất cả trạng thái</option>
+                    {% for key, info in status_info.items() %}
+                    <option value="{{ key }}" {{ 'selected' if status == key else '' }}>{{ info.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2 d-grid">
+                <button class="btn btn-primary rounded-pill fw-bold">
+                    <i class="fas fa-magnifying-glass me-1"></i>Tra cứu
+                </button>
+            </div>
+            {% if keyword or status %}
+            <div class="col-12">
+                <a href="{{ url_for('my_orders') }}" class="small text-decoration-none">
+                    <i class="fas fa-xmark me-1"></i>Xóa bộ lọc
+                </a>
+            </div>
+            {% endif %}
+        </form>
+
+        <div class="mt-2">
+            <a href="{{ url_for('my_orders') }}"
+               class="filter-chip {{ 'active' if not status else '' }}">
+                Tất cả<span class="cnt">{{ counts.all }}</span>
+            </a>
+            {% for key in ['pending', 'processing', 'shipped', 'completed', 'cancelled'] %}
+            <a href="{{ url_for('my_orders', status=key, q=keyword) }}"
+               class="filter-chip {{ 'active' if status == key else '' }}">
+                {{ status_info[key].label }}<span class="cnt">{{ counts.get(key, 0) }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if orders %}
+        {% for order in orders %}
+        {% set info = status_info.get(order.status, {'label': order.status, 'icon': 'fa-question', 'color': '#6c757d', 'step': 0}) %}
+        {% set step_no = info.step %}
+        <div class="order-card st-{{ order.status }}">
+
+            <div class="head" data-bs-toggle="collapse" data-bs-target="#track-{{ loop.index }}">
+                <div style="min-width: 170px;">
+                    <div class="order-meta">Mã đơn</div>
+                    <div class="order-code">#{{ order.order_id[:12] }}</div>
+                </div>
+                <div style="min-width: 150px;">
+                    <div class="order-meta">Ngày đặt</div>
+                    <div class="fw-semibold">{{ order.placed_at }}</div>
+                    {% if order.expected_at and order.status not in ('completed', 'cancelled') %}
+                    <div class="eta-line {{ 'late' if order.display.late_days else '' }}">
+                        <i class="fas fa-truck me-1"></i>{{ order.display.text }}
+                    </div>
+                    {% elif order.status == 'completed' %}
+                    <div class="eta-line muted"><i class="fas fa-check me-1"></i>Đã giao {{ order.history.get('completed', '')[:10] | replace('-', '/') }}</div>
+                    {% endif %}
+                </div>
+                <div style="min-width: 100px;">
+                    <div class="order-meta">Sản phẩm</div>
+                    <div class="fw-semibold">{{ order.total_qty }} món ({{ order.item_count }} loại)</div>
+                </div>
+                <div style="min-width: 110px;">
+                    <div class="order-meta">Tổng tiền</div>
+                    <div class="order-total">{{ order.total_price | format_currency }}</div>
+                </div>
+                <div class="ms-auto d-flex align-items-center gap-2">
+                    <span class="badge-track" id="badge-{{ order.order_id }}"
+                          style="background: {{ info.color }};">
+                        <i class="fas {{ info.icon }} me-1"></i><span class="txt">{{ info.label }}</span>
+                    </span>
+                    <i class="fas fa-chevron-down text-muted"></i>
+                </div>
+            </div>
+
+            <div class="collapse" id="track-{{ loop.index }}">
+                <div class="order-body">
+
+                    {% if order.status == 'cancelled' %}
+                    <div class="cancelled-note">
+                        <i class="fas fa-circle-exclamation me-2"></i>
+                        Đơn hàng này đã bị hủy. Nếu cần hỗ trợ, vui lòng gọi hotline <strong>0917873816</strong>.
+                    </div>
+                    {% else %}
+                    <!-- Thanh tiến trình -->
+                    <div class="steps">
+                        <div class="line"></div>
+                        <div class="line-fill" style="width: {{ ((step_no - 1) / 3 * 88) | round(1) }}%;"></div>
+
+                        {% for key, label in tracking_steps %}
+                        {% set s = loop.index %}
+                        {% set reached = order.history.get(key) %}
+                        <div class="step {{ 'done' if s < step_no else ('now' if s == step_no else '') }}">
+                            <div class="dot">
+                                <i class="fas {{ 'fa-check' if s < step_no else status_info[key].icon }}"></i>
+                            </div>
+                            <div class="label">{{ label }}</div>
+                            {# Ngày thực tế bước đã xong · ngày dự kiến cho bước đang chờ #}
+                            {% if s < step_no and reached %}
+                                <div class="time">{{ reached[8:10] }}/{{ reached[5:7] }}</div>
+                            {% elif s == step_no %}
+                                <div class="time">Hiện tại</div>
+                                {% if key == 'shipped' and order.expected_at %}
+                                <div class="time">({{ order.expected_at }})</div>
+                                {% endif %}
+                            {% else %}
+                                <div class="time">—</div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="row mt-4 g-3">
+                        <div class="col-md-7">
+                            <div class="detail-row mb-2">
+                                <i class="fas fa-location-dot"></i>
+                                <strong>Địa chỉ giao hàng:</strong> {{ order.address }}
+                            </div>
+                            <div class="detail-row">
+                                <i class="fas fa-phone"></i>
+                                <strong>Số điện thoại:</strong> {{ order.phone }}
+                            </div>
+                            {% if order.expected_at and order.status not in ('completed', 'cancelled') %}
+                            <div class="detail-row mt-2">
+                                <i class="fas fa-calendar-check"></i>
+                                <strong>Dự kiến giao:</strong> {{ order.expected_at }}
+                                {% if order.display.late_days %}
+                                <span class="text-danger">· trễ {{ order.display.late_days }} ngày</span>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+
+                            {% if order.history %}
+                            <div class="history-box">
+                                <div class="h-title"><i class="fas fa-clock-rotate-left me-1"></i>Lịch sử cập nhật</div>
+                                <ul>
+                                    {% for key in ['completed', 'shipped', 'processing', 'pending'] %}
+                                    {% if order.history.get(key) %}
+                                    <li>
+                                        {{ status_info[key].label }}
+                                        <span class="text-muted">— {{ order.history[key][8:10] }}/{{ order.history[key][5:7] }}/{{ order.history[key][0:4] }} {{ order.history[key][11:16] }}</span>
+                                    </li>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% if order.history.get('cancelled') %}
+                                    <li class="text-danger">
+                                        Đã hủy
+                                        <span class="text-muted">— {{ order.history['cancelled'][8:10] }}/{{ order.history['cancelled'][5:7] }}/{{ order.history['cancelled'][0:4] }} {{ order.history['cancelled'][11:16] }}</span>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-5 text-md-end">
+                            <a href="{{ url_for('my_order_detail', order_id=order.order_id) }}"
+                               onclick="event.stopPropagation()"
+                               class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                                <i class="fas fa-eye me-1"></i>Xem chi tiết
+                            </a>
+                            <a href="{{ url_for('my_order_detail', order_id=order.order_id, print=1) }}"
+                               target="_blank" rel="noopener"
+                               onclick="event.stopPropagation()"
+                               class="btn btn-outline-secondary btn-sm rounded-pill px-3 mt-1">
+                                <i class="fas fa-print me-1"></i>In hóa đơn
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-box">
+            <i class="fas fa-box-open d-block mb-3"></i>
+            {% if keyword or status %}
+                <h5 class="fw-bold">Không tìm thấy đơn hàng phù hợp</h5>
+                <p class="text-muted mb-3">Thử xóa bộ lọc hoặc kiểm tra lại mã đơn.</p>
+                <a href="{{ url_for('my_orders') }}" class="btn btn-primary rounded-pill px-4">Xem tất cả đơn</a>
+            {% else %}
+                <h5 class="fw-bold">Bạn chưa có đơn hàng nào</h5>
+                <p class="text-muted mb-3">Hãy chọn cho mình vài món đồ ưng ý nhé!</p>
+                <a href="{{ url_for('index') }}" class="btn btn-primary rounded-pill px-4">Mua sắm ngay</a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+
+<script>
+(function () {
+    // Các đơn đang xử lý -> tự động hỏi lại trạng thái mỗi 30 giây
+    const active = [
+        {% for order in orders %}
+        {% if order.status not in ('completed', 'cancelled') %}
+        "{{ order.order_id }}",
+        {% endif %}
+        {% endfor %}
+    ];
+
+    async function refresh() {
+        for (const id of active) {
+            try {
+                const res = await fetch(`/my/order/${encodeURIComponent(id)}/status`, {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                });
+                if (!res.ok) continue;
+                const data = await res.json();
+                if (!data.ok) continue;
+
+                const badge = document.getElementById('badge-' + id);
+                if (badge) {
+                    badge.style.background = data.color;
+                    const txt = badge.querySelector('.txt');
+                    if (txt) txt.textContent = data.label;
+                }
+                // Trạng thái đổi -> tải lại trang để vẽ lại thanh tiến trình
+                if (badge && badge.dataset.last && badge.dataset.last !== data.status) {
+                    location.reload();
+                }
+                if (badge) badge.dataset.last = data.status;
+            } catch (e) { /* im lặng, thử lại lần sau */ }
+        }
+    }
+
+    if (active.length) {
+        document.querySelectorAll('.badge-track').forEach(b => {
+            b.dataset.last = b.querySelector('.txt') ? b.querySelector('.txt').textContent : '';
+        });
+        setInterval(refresh, 30000);
+    }
+})();
+</script>
+{% endblock %}

@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap');
 
+html {
+    font-size: clamp(16px, calc(15.5px + 0.25vw), 17px);
+}
 
 *{
     margin: 0;
@@ -12,30 +15,72 @@
 /* top navbar */
 .top-navbar{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 15px;
 }
 .top-navbar p{
-    margin-top: 13px;
-    margin-left: 15px;
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
 }
 .top-navbar .icons{
-    margin-top: 13px;
-    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
 }
 .top-navbar a{
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     text-decoration: none;
-    color: black;
-    margin-left: 10px;
+    color: #212529;
+    margin: 0;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 1rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.top-navbar a i{
+    font-size: 0.9rem;
 }
 .top-navbar a img{
     margin-bottom: 3px;
 }
 .top-navbar a:hover{
-    color: black;
+    color: #0d6efd;
+    background-color: #eef3ff;
+}
+
+/* Mobile: thu gọn chữ, giữ icon để không bị tràn */
+@media screen and (max-width: 768px){
+    .top-navbar{
+        padding: 8px 10px;
+        gap: 8px;
+    }
+    .top-navbar p{
+        font-size: 0.72rem;
+        white-space: normal;
+        line-height: 1.3;
+    }
+    .top-navbar .icons{
+        gap: 0;
+    }
+    .top-navbar a{
+        font-size: 0.75rem;
+        padding: 4px 7px;
+    }
 }
 @media screen and (max-width:400px){
     .top-navbar a{
         font-size: 13px;
+        padding: 3px 5px;
     }
     .top-navbar a img{
         width: 15px;
@@ -72,36 +117,171 @@
 /* top navbar */
 
 /* navbar */
+.site-header-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    isolation: isolate;
+}
 #navbar{
-    background-color: rgb(21, 12, 185);
+    min-height: 82px;
+    padding: 0.7rem 1.25rem;
+    background: rgb(21, 12, 185);
+    box-shadow: 0 2px 8px rgba(21, 12, 185, 0.2);
 }
 #logo{
-    margin-left: 15px;
-    color: white;
-    font-size: 25px;
-    font-weight: bold;
-    margin-bottom: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0 1.5rem 0 0;
+    padding: 0;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    white-space: nowrap;
 }
-#logo span{
-    color: #ffc800;
+#logo .logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: rgb(21, 12, 185);
+    background: #ffdf00;
+    font-size: 1.2rem;
 }
-#logo #span1{
-    font-size: 30px;
+#logo .logo-name {
+    color: #fff;
 }
-.navbar-nav{
-    margin-left: 20px;
+#logo .logo-name strong {
+    color: #ffdf00;
 }
-.nav-item{
-    margin-left: 10px;
+#navbar .navbar-collapse {
+    min-width: 0;
 }
-.nav-item .nav-link{
-    color: white;
-    margin-left: 2px;
-    text-shadow: 0px 0px 1px black;
-    transition: 0.5s ease;
+#navbar .navbar-nav {
+    align-items: center;
+    gap: 0.35rem;
 }
-.nav-item .nav-link:hover{
-    color: #ffc800;
+#navbar .nav-item {
+    margin-left: 0;
+}
+#navbar .nav-item .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0.7rem 0.65rem;
+    border-radius: 1.5rem;
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    text-shadow: none;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+#navbar .nav-item .nav-link:hover,
+#navbar .nav-item .nav-link:focus {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.16);
+}
+#navbar .navbar-account-link i {
+    font-size: 1.1rem;
+}
+#navbar .navbar-search {
+    position: relative;
+    display: flex;
+    flex: 1 1 420px;
+    max-width: 540px;
+    min-width: 240px;
+    margin: 0 clamp(16px, 2vw, 36px);
+}
+#navbar .navbar-actions {
+    margin-left: auto;
+}
+#navbar .navbar-search .form-control {
+    height: 48px;
+    padding: 0 3rem 0 1.15rem;
+    border: 0;
+    border-radius: 2rem;
+    background: #fff;
+    color: #243247;
+    box-shadow: none;
+}
+#navbar .navbar-search .form-control::placeholder {
+    color: #8593a6;
+}
+#navbar .navbar-search button {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    color: rgb(21, 12, 185);
+    background: transparent;
+    font-size: 1rem;
+}
+#navbar .navbar-search button:hover {
+    background: #eef5ff;
+}
+#navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.55);
+    color: #fff;
+    font-size: 1.3rem;
+}
+@media (min-width: 1200px) and (max-width: 1399px) {
+    #logo {
+        margin-right: 0.7rem;
+        font-size: 1.3rem;
+    }
+    #logo .logo-mark {
+        width: 38px;
+        height: 38px;
+    }
+    #navbar .nav-item .nav-link {
+        padding-right: 0.4rem;
+        padding-left: 0.4rem;
+        font-size: 0.9rem;
+    }
+    #navbar .navbar-search {
+        max-width: 360px;
+        min-width: 210px;
+        margin-right: 1rem;
+        margin-left: 1rem;
+    }
+}
+@media (max-width: 1199.98px) {
+    #navbar .navbar-collapse {
+        padding-top: 0.75rem;
+    }
+    #navbar .navbar-nav {
+        align-items: stretch;
+    }
+    #navbar .navbar-actions {
+        margin-left: 0;
+    }
+    #navbar .navbar-search {
+        max-width: none;
+        margin: 0 0 0.5rem;
+    }
+    #navbar .nav-item .nav-link {
+        border-radius: 0.5rem;
+    }
+    .bottom_navbar ul {
+        justify-content: flex-start;
+        gap: 1rem;
+        overflow-x: auto;
+        padding: 0 0.75rem;
+        scrollbar-width: thin;
+    }
+    .bottom_navbar ul li {
+        flex: 0 0 auto;
+    }
 }
 .buy-now-button {
     background-color: #0c06cd !important;
@@ -110,6 +290,24 @@
 .buy-now-button:hover {
     background-color: #09049f !important;
     border-color: #09049f !important;
+}
+.product-card-actions {
+    display: flex;
+    align-items: stretch;
+    gap: 0.5rem;
+    margin-inline: -0.3rem;
+}
+.product-card-actions > .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.5rem 0.35rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
 }
 .dropdown-menu li a{
     color: white;
@@ -547,7 +745,7 @@
 #footer{
     padding: 0 0 30px 0px;
     color: white;
-    font-size: 14px;
+    font-size: 15px;
     background-color: #708090;
     margin-top: 100px;
 }
@@ -570,13 +768,13 @@
     font-weight: 700;
 }
 #footer .footer-top .footer-contact p{
-    font-size: 14px;
+    font-size: 15px;
     line-height: 24px;
     margin-bottom: 0;
     color: white;
 }
 #footer .footer-top h4{
-    font-size: 16px;
+    font-size: 17px;
     font-weight: bold;
     position: relative;
     padding-bottom: 12px;
@@ -928,6 +1126,7 @@ html{
     display: flex;
     width: 100%;
     height: 50px;
+    margin-bottom: 0;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -945,28 +1144,72 @@ html{
 .bottom_navbar ul li a {
     display: inline-block;
     text-decoration: none;
-    color: black;
+    color: #1a237e;
+    font-size: 1.1rem;
     padding: 5px 10px;
     border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease,
+                transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.3s ease;
 }
 
-/* Hover: nen xanh + chu doi tu DEN sang VANG */
-.bottom_navbar ul li a:hover {
-    background-color: #112cb1;
-    color: #ffc800 !important;
+/* Vệt sáng chạy ngang khi hover (animation) */
+.bottom_navbar ul li a::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    transition: none;
+    pointer-events: none;
 }
-/* Sau khi click: nha mau ngay, khong giu trang thai focus */
-.bottom_navbar ul li:focus,
-.bottom_navbar ul li:focus-within,
-.bottom_navbar ul li:active,
-.bottom_navbar ul li a:focus,
-.bottom_navbar ul li a:active,
+
+/* Hover: nền xanh đậm + nhấc nhẹ và phóng to + vệt sáng chạy */
+.bottom_navbar ul li a:hover {
+    background-color: #eef2ff;
+    color: #112cb1;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(17, 44, 177, 0.12);
+}
+
 .bottom_navbar ul li a:visited {
-    background-color: transparent !important;
-    color: black !important;
+    color: #1a237e;
+}
+
+.bottom_navbar ul li a:focus,
+.bottom_navbar ul li a:active {
     outline: none !important;
     box-shadow: none !important;
+}
+
+.bottom_navbar ul li a:active {
+    transform: scale(0.94);
+    transition: transform 0.1s ease;
+}
+
+@keyframes nav-shine {
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 100%;
+    }
+}
+
+/* Tôn trọn người dùng tắt hiệu ứng chuyển động */
+@media (prefers-reduced-motion: reduce) {
+    .bottom_navbar ul li a,
+    .bottom_navbar ul li a:hover,
+    .bottom_navbar ul li a:active {
+        transition: none;
+        transform: none;
+        animation: none;
+    }
 }
 /* mâynh */
 :root {

@@ -10,6 +10,7 @@
 {% elif page == 'orders' %}Quản Lý Đơn Hàng
 {% elif page == 'order_list' %}Đơn Hàng
 {% elif page == 'customers' %}Quản Lý Khách Hàng
+{% elif page == 'admin_users' %}Tài Khoản Quản Trị
 {% elif page == 'reports' %}Báo Cáo & Thống Kê
 {% else %}Dashboard{% endif %}
 {% endblock %}
@@ -19,6 +20,7 @@
 {% elif page == 'orders' %}Quản Lý Đơn Hàng
 {% elif page == 'order_list' %}Đơn Hàng
 {% elif page == 'customers' %}Quản Lý Khách Hàng
+{% elif page == 'admin_users' %}Tài Khoản Quản Trị
 {% elif page == 'reports' %}Báo Cáo & Thống Kê
 {% else %}Dashboard{% endif %}
 {% endblock %}
@@ -32,6 +34,8 @@ Theo dõi và xử lý đơn hàng
 Tra cứu và xem lịch sử đơn hàng
 {% elif page == 'customers' %}
 Thông tin và thống kê khách hàng
+{% elif page == 'admin_users' %}
+Danh sách, thêm, sửa và xóa tài khoản quản trị
 {% elif page == 'reports' %}
 Phân tích doanh thu, sản phẩm bán chạy và khách hàng
 {% else %}
@@ -39,9 +43,604 @@ Tổng quan hệ thống
 {% endif %}
 {% endblock %}
 
+{% block extra_css %}
+{% if page == 'dashboard' or not page %}
+<style>
+    .content-area > .row:first-child .stats-card {
+        min-height: 188px;
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 10px 28px rgba(30, 41, 59, 0.1);
+    }
+
+    .content-area > .row:first-child .stats-card .icon {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 14px;
+        border-radius: 18px;
+        font-size: 1.8rem;
+    }
+
+    .content-area > .row:first-child .stats-card h3 {
+        font-size: 2.5rem;
+        letter-spacing: -0.035em;
+    }
+
+    .content-area > .row:first-child .stats-card p {
+        margin-top: 10px;
+        color: #475569;
+        font-size: 1.25rem !important;
+        font-weight: 600;
+    }
+
+    .content-area .card {
+        border: 1px solid #e1e8f0;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(30, 41, 59, 0.07) !important;
+    }
+
+    .content-area .card .card-body {
+        padding: 1.5rem;
+    }
+
+    .content-area .card .card-title {
+        font-size: 1.35rem;
+        font-weight: 700;
+    }
+
+    .content-area .card table.table thead th {
+        padding-top: 16px;
+        padding-bottom: 16px;
+        font-size: 1rem !important;
+        letter-spacing: 0.04em;
+    }
+
+    .content-area .card table.table tbody td {
+        padding-top: 17px;
+        padding-bottom: 17px;
+        font-size: 1.12rem !important;
+        line-height: 1.55;
+    }
+
+    .content-area .card table.table tbody td .small,
+    .content-area .card .small {
+        font-size: 1rem !important;
+    }
+
+    .content-area .card .badge {
+        padding: 0.55rem 0.85rem;
+        font-size: 1rem !important;
+    }
+
+    .content-area .list-group-item {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        font-size: 1.12rem;
+    }
+
+    .content-area .list-group-item .small {
+        margin-top: 5px;
+        font-size: 1rem !important;
+    }
+
+    .content-area .fs-3 {
+        font-size: 2.25rem !important;
+    }
+
+    .content-area .fs-5 {
+        font-size: 1.4rem !important;
+    }
+
+    .content-area .text-uppercase {
+        font-size: 1rem !important;
+    }
+
+    .dashboard-customer-name {
+        font-weight: 500 !important;
+        color: #334155;
+    }
+
+    .dashboard-see-all {
+        min-height: 42px;
+        padding: 0.55rem 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem !important;
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        .content-area > .row:first-child .stats-card {
+            min-height: 0;
+        }
+
+        .content-area > .row:first-child .stats-card p {
+            font-size: 1.12rem !important;
+        }
+
+        .content-area .card table.table tbody td {
+            font-size: 1rem !important;
+        }
+
+        .content-area .card .card-body {
+            padding: 1.15rem;
+        }
+    }
+</style>
+{% endif %}
+{% if page == 'orders' %}
+<style>
+    .content-area > .row:first-child .stats-card {
+        min-height: 196px;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(30, 41, 59, 0.07);
+    }
+
+    .content-area > .row:first-child .stats-card .icon {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 14px;
+        border-radius: 8px;
+        font-size: 1.8rem;
+    }
+
+    .content-area > .row:first-child .stats-card h3 {
+        font-size: 2.5rem;
+        letter-spacing: -0.035em;
+    }
+
+    .content-area > .row:first-child .stats-card p {
+        margin-top: 10px;
+        color: #475569;
+        font-size: 1.25rem !important;
+        font-weight: 600;
+    }
+
+    .content-area > .mb-4 > h5 {
+        color: #263445 !important;
+        font-size: 1.5rem;
+        margin-bottom: 1.1rem !important;
+    }
+
+    .content-area > .mb-4 .btn-group .btn {
+        min-height: 48px;
+        padding: 0.65rem 1rem;
+        border: 1px solid #cbd2da;
+        border-radius: 5px;
+        background: #f7f8fa;
+        color: #344256;
+        font-size: 1.12rem;
+        font-weight: 600;
+        box-shadow: none;
+    }
+
+    .content-area > .mb-4 .btn-group .btn:hover {
+        background: #e9edf2;
+        border-color: #9aa6b2;
+        color: #1f2937;
+    }
+
+    .content-area > .mb-4 .btn-group .btn.btn-primary,
+    .content-area > .mb-4 .btn-group .btn.btn-warning,
+    .content-area > .mb-4 .btn-group .btn.btn-info,
+    .content-area > .mb-4 .btn-group .btn.btn-success,
+    .content-area > .mb-4 .btn-group .btn.btn-danger {
+        border-color: #344256;
+        background: #344256;
+        color: #fff;
+    }
+
+    .content-area > .mb-4 .btn-group .btn .badge {
+        min-width: 30px;
+        padding: 0.35rem 0.55rem;
+        border-radius: 4px;
+        background: #fff !important;
+        color: #344256 !important;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    .content-area > .mb-4 .btn-group .badge {
+        vertical-align: middle;
+    }
+
+    .content-area > form.card {
+        border: 1px solid #d7dde5;
+        border-radius: 7px;
+        box-shadow: 0 2px 8px rgba(30, 41, 59, 0.05) !important;
+    }
+
+    .content-area > form.card .form-control,
+    .content-area > form.card .input-group-text,
+    .content-area > form.card .btn {
+        min-height: 52px;
+        font-size: 1.1rem;
+    }
+
+    .content-area > form.card .form-control {
+        padding: 0.7rem 0.9rem;
+    }
+
+    .content-area > form.card .btn {
+        border-radius: 5px;
+        font-weight: 600;
+    }
+
+    .content-area > .card:last-child {
+        border: 1px solid #d7dde5;
+        border-radius: 7px;
+        box-shadow: 0 2px 8px rgba(30, 41, 59, 0.05) !important;
+        overflow: hidden;
+    }
+
+    .content-area > .card:last-child table thead th {
+        padding: 17px 14px;
+        background: #e9edf2;
+        color: #293747;
+        font-size: 1rem;
+        letter-spacing: 0.02em;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .content-area > .card:last-child table tbody td {
+        padding: 18px 14px;
+        color: #293747;
+        font-size: 1.15rem;
+        line-height: 1.5;
+        vertical-align: middle;
+    }
+
+    .content-area > .card:last-child table tbody td small {
+        font-size: 1rem;
+    }
+
+    .content-area > .card:last-child table tbody td .badge {
+        padding: 0.55rem 0.8rem;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .content-area > .card:last-child table tbody td strong {
+        font-weight: 700;
+    }
+
+    .content-area .order-actions .btn {
+        width: 42px;
+        height: 42px;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .content-area > .row:first-child .stats-card {
+            min-height: 0;
+        }
+
+        .content-area > .row:first-child .stats-card p {
+            font-size: 1.12rem !important;
+        }
+
+        .content-area > .card:last-child table tbody td {
+            font-size: 1.05rem;
+        }
+
+        .content-area > .mb-4 .btn-group .btn {
+            min-height: 44px;
+            padding: 0.55rem 0.75rem;
+            font-size: 1rem;
+        }
+    }
+</style>
+{% endif %}
+{% if page == 'order_list' %}
+<style>
+    .admin-order-lookup {
+        border: 1px solid #d7dde5;
+        border-radius: 7px;
+        box-shadow: 0 2px 8px rgba(30, 41, 59, 0.05) !important;
+    }
+
+    .content-area .admin-order-lookup {
+        overflow: visible;
+    }
+
+    .admin-order-lookup .card-body {
+        padding: 1.5rem;
+    }
+
+    .admin-order-lookup h5 {
+        color: #263445 !important;
+        font-size: 1.5rem !important;
+    }
+
+    .admin-order-lookup .form-label {
+        color: #344256;
+        font-size: 1.15rem !important;
+    }
+
+    .admin-order-lookup .form-control,
+    .admin-order-lookup .form-select,
+    .admin-order-lookup .input-group-text,
+    .admin-order-lookup .btn {
+        min-height: 52px;
+        font-size: 1.15rem !important;
+    }
+
+    .admin-order-lookup .form-control,
+    .admin-order-lookup .form-select {
+        padding: 0.6rem 0.8rem;
+    }
+
+    .admin-order-lookup .btn {
+        font-weight: 600;
+    }
+
+    .admin-date-picker {
+        position: relative;
+    }
+
+    .admin-date-display {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        text-align: left;
+        background: #fff;
+        color: #293747;
+    }
+
+    .admin-date-display .date-display-value {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .admin-date-calendar {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        z-index: 1080;
+        width: min(360px, calc(100vw - 32px));
+        padding: 20px;
+        border: 1px solid #cbd2da;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 8px 24px rgba(30, 41, 59, 0.18);
+    }
+
+    .admin-date-calendar[hidden] {
+        display: none;
+    }
+
+    .admin-date-calendar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+    }
+
+    .admin-date-calendar-title {
+        color: #293747;
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+
+    .admin-date-calendar-nav {
+        width: 44px;
+        height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #d7dde5;
+        border-radius: 5px;
+        background: #fff;
+        color: #344256;
+        font-size: 1.1rem;
+    }
+
+    .admin-date-calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 5px;
+        text-align: center;
+    }
+
+    .admin-date-weekday {
+        padding: 8px 0;
+        color: #64748b;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    .admin-date-day {
+        min-width: 40px;
+        min-height: 42px;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        background: #fff;
+        color: #293747;
+        font-size: 1.1rem;
+    }
+
+    .admin-date-day:hover {
+        border-color: #9aa6b2;
+        background: #eef2f6;
+    }
+
+    .admin-date-day.is-selected {
+        border-color: #344256;
+        background: #344256;
+        color: #fff;
+        font-weight: 700;
+    }
+
+    .admin-date-day.is-outside-month {
+        color: #94a3b8;
+    }
+
+    .admin-date-clear {
+        margin-top: 12px;
+        padding: 6px 0 0;
+        border: 0;
+        background: transparent;
+        color: #475569;
+        font-size: 1rem;
+        text-decoration: underline;
+    }
+
+    .admin-order-summary .badge {
+        padding: 0.55rem 0.8rem;
+        font-size: 1.1rem !important;
+        font-weight: 600;
+    }
+
+    .admin-order-summary .btn {
+        min-height: 48px;
+        padding: 0.55rem 0.8rem;
+        font-size: 1.1rem !important;
+    }
+
+    .admin-order-table {
+        border: 1px solid #d7dde5;
+        border-radius: 7px;
+        box-shadow: 0 2px 8px rgba(30, 41, 59, 0.05) !important;
+        overflow: hidden;
+    }
+
+    .admin-order-table table thead th {
+        padding: 17px 14px;
+        background: #e9edf2;
+        color: #293747;
+        font-size: 1.15rem !important;
+        letter-spacing: 0.02em;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .admin-order-table table tbody td {
+        padding: 18px 14px;
+        color: #293747;
+        font-size: 1.25rem !important;
+        line-height: 1.5;
+        vertical-align: middle;
+    }
+
+    .admin-order-table table tbody td small,
+    .admin-order-table table tbody td .small {
+        font-size: 1.1rem !important;
+    }
+
+    .admin-order-table table tbody td .badge {
+        padding: 0.55rem 0.8rem;
+        font-size: 1.1rem !important;
+    }
+
+    .admin-order-table table tbody td .btn {
+        min-width: 46px;
+        min-height: 46px;
+        font-size: 1.1rem !important;
+    }
+
+    .admin-order-pagination .page-link {
+        min-width: 48px;
+        min-height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.6rem 0.9rem;
+        font-size: 1.2rem !important;
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        .admin-order-lookup .card-body {
+            padding: 1.15rem;
+        }
+
+        .admin-order-table table tbody td {
+            font-size: 1.15rem !important;
+        }
+    }
+</style>
+{% endif %}
+{% if page == 'customers' %}
+<style>
+    .admin-customer-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .admin-customer-actions form {
+        margin: 0;
+    }
+
+    .admin-customer-actions .btn {
+        width: 48px;
+        min-height: 46px;
+        padding: 0.45rem;
+    }
+</style>
+{% endif %}
+{% if page == 'reports' %}
+<style>
+    .content-area .admin-report-summary-badges .badge {
+        padding: 0.6rem 0.85rem;
+        font-size: 1.1rem !important;
+    }
+
+    .content-area .admin-stock-table thead th {
+        font-size: 1.08rem !important;
+    }
+
+    .content-area .admin-stock-table tbody td {
+        padding-top: 14px;
+        padding-bottom: 14px;
+        font-size: 1.15rem !important;
+    }
+
+    .admin-report-chart-card .card-body {
+        padding: 16px;
+    }
+
+    .admin-revenue-chart {
+        position: relative;
+        width: 100%;
+        max-width: 560px;
+        height: 300px;
+        margin: 0 auto;
+    }
+
+    .admin-order-status-chart {
+        position: relative;
+        width: 100%;
+        max-width: 360px;
+        height: 320px;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+        .admin-revenue-chart {
+            height: 260px;
+        }
+
+        .admin-order-status-chart {
+            height: 280px;
+        }
+    }
+</style>
+{% endif %}
+{% endblock %}
+
 {% block content %}
 
 <!-- ================== STATS CARDS ================== -->
+{% if page not in ['customers', 'order_list', 'admin_users'] %}
 <div class="row mb-4 fade-in">
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="stats-card users">
@@ -69,12 +668,67 @@ Tổng quan hệ thống
 
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="stats-card revenue">
-            <div class="icon"><i class="fas fa-money-bill-wave"></i></div>
+            <div class="icon"><i class="fas fa-chart-line"></i></div>
             <h3>{{ format_currency(total_revenue|default(0)) }}</h3>
             <p>Doanh Thu (Hoàn thành)</p>
         </div>
     </div>
 </div>
+{% endif %}
+
+<!-- ================== DOANH THU BÁN ĐƯỢC ================== -->
+{% if page in ['dashboard', 'reports'] and sold_revenue is defined %}
+<div class="row mb-4 fade-in">
+    <div class="col-12">
+        <div class="card shadow-sm border-0" style="border-left: 5px solid #198754 !important;">
+            <div class="card-body py-4">
+                <div class="row align-items-center g-3">
+                    <div class="col-lg-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <div style="width:56px;height:56px;border-radius:14px;display:flex;align-items:center;
+                                        justify-content:center;background:rgba(25,135,84,.12);color:#198754;font-size:1.6rem;">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small text-uppercase fw-semibold">Doanh thu bán được</div>
+                                <div class="fs-3 fw-bold text-success">
+                                    {{ format_currency(sold_revenue) }}
+                                </div>
+                                <div class="small text-muted">
+                                    {{ sold_orders }} đơn không bị hủy
+                                    {% if cancelled_orders %}· {{ cancelled_orders }} đơn đã hủy{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="small text-muted fw-semibold mb-1">Tháng này</div>
+                        <div class="fs-5 fw-bold">{{ format_currency(this_month_revenue) }}</div>
+                        {% if growth_percent is not none %}
+                        <div class="small fw-semibold {{ 'text-success' if growth_percent >= 0 else 'text-danger' }}">
+                            <i class="fas fa-{{ 'arrow-trend-up' if growth_percent >= 0 else 'arrow-trend-down' }} me-1"></i>
+                            {{ '+' if growth_percent >= 0 else '' }}{{ growth_percent }}% so với tháng trước
+                        </div>
+                        {% else %}
+                        <div class="small text-muted">Chưa có dữ liệu tháng trước</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="small text-muted fw-semibold mb-1">Thực thu (đơn hoàn thành)</div>
+                        <div class="fs-5 fw-bold text-primary">{{ format_currency(realized_revenue) }}</div>
+                        <div class="small text-muted">
+                            Đang chờ thu:
+                            <strong>{{ format_currency(sold_revenue - realized_revenue) }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <!-- ================== CONDITIONAL CONTENT ================== -->
 {% if page == 'products' %}
@@ -118,7 +772,7 @@ Tổng quan hệ thống
                             {% endif %}
                         </td>
                         <td><strong>{{ p.name }}</strong></td>
-                        <td>{{ p.category or 'Chưa phân loại' }}</td>
+                        <td>{{ p.category | category_name }}</td>
                         <td>{{ p.brand or '-' }}</td>
                         <td class="text-end text-primary fw-bold">{{ format_currency(p.price) }}</td>
                         <td class="text-center">{{ p.stock if p.stock is not none else 0 }}</td>
@@ -131,8 +785,10 @@ Tổng quan hệ thống
 
                             <!-- Delete Button (with confirmation) -->
                             <form action="{{ url_for('admin_delete_product', product_id=p.id) }}" method="POST"
-                                style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm \"
-                                {{ p.name }}\" không? Hành động này không thể hoàn tác!');">
+                                data-confirm="Sản phẩm <b>{{ p.name }}</b> sẽ bị xóa vĩnh viễn. Các dòng trong hóa đơn cũ vẫn được giữ lại."
+                                data-confirm-title="Xóa sản phẩm"
+                                data-confirm-type="danger"
+                                data-confirm-btn="Xóa sản phẩm">
                                 <button type="submit" class="btn btn-sm btn-danger" title="Xóa sản phẩm">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
@@ -158,41 +814,72 @@ Tổng quan hệ thống
 <!-- ================== FILTER TRẠNG THÁI ĐƠN HÀNG ================== -->
 <div class="mb-4">
     <h5 class="fw-bold text-primary mb-3">
-        <i class="fas fa-filter me-2"></i>Lọc theo trạng thái
+        <i class="fas fa-sliders me-2"></i>Lọc theo trạng thái
     </h5>
     <div class="btn-group flex-wrap gap-2" role="group">
-        <a href="{{ url_for('admin_orders') }}"
+        <a href="{{ url_for('admin_orders', q=keyword or None) }}"
             class="btn {{ 'btn-primary' if not status else 'btn-outline-primary' }} btn-sm">
-            <i class="fas fa-list me-1"></i>Tất cả
+            <i class="fas fa-list-ul me-1"></i>Tất cả
             <span class="badge bg-light text-dark ms-1">{{ counts.all }}</span>
         </a>
-        <a href="{{ url_for('admin_orders', status='pending') }}"
+        <a href="{{ url_for('admin_orders', status='pending', q=keyword or None) }}"
             class="btn {{ 'btn-warning' if status == 'pending' else 'btn-outline-warning' }} btn-sm">
             <i class="fas fa-clock me-1"></i>Chờ xác nhận
             <span class="badge bg-light text-dark ms-1">{{ counts.pending }}</span>
         </a>
-        <a href="{{ url_for('admin_orders', status='processing') }}"
+        <a href="{{ url_for('admin_orders', status='processing', q=keyword or None) }}"
             class="btn {{ 'btn-info' if status == 'processing' else 'btn-outline-info' }} btn-sm">
-            <i class="fas fa-cog me-1"></i>Đang xử lý
+            <i class="fas fa-box me-1"></i>Đang xử lý
             <span class="badge bg-light text-dark ms-1">{{ counts.processing }}</span>
         </a>
-        <a href="{{ url_for('admin_orders', status='shipped') }}"
-            class="btn {{ 'btn-primary' if status == 'shipped' else 'btn-outline-primary' }} btn-sm">   
+        <a href="{{ url_for('admin_orders', status='shipped', q=keyword or None) }}"
+            class="btn {{ 'btn-primary' if status == 'shipped' else 'btn-outline-primary' }} btn-sm">
             <i class="fas fa-truck me-1"></i>Đang giao
             <span class="badge bg-light text-dark ms-1">{{ counts.shipped }}</span>
         </a>
-        <a href="{{ url_for('admin_orders', status='completed') }}" 
+        <a href="{{ url_for('admin_orders', status='completed', q=keyword or None) }}"
             class="btn {{ 'btn-success' if status == 'completed' else 'btn-outline-success' }} btn-sm">
-            <i class="fas fa-check-circle me-1"></i>Đã giao
+            <i class="fas fa-check me-1"></i>Đã giao
             <span class="badge bg-light text-dark ms-1">{{ counts.completed }}</span>
         </a>
-        <a href="{{ url_for('admin_orders', status='cancelled') }}"
+        <a href="{{ url_for('admin_orders', status='cancelled', q=keyword or None) }}"
             class="btn {{ 'btn-danger' if status == 'cancelled' else 'btn-outline-danger' }} btn-sm">
-            <i class="fas fa-times-circle me-1"></i>Đã hủy
+            <i class="fas fa-xmark me-1"></i>Đã hủy
             <span class="badge bg-light text-dark ms-1">{{ counts.cancelled }}</span>
         </a>
     </div>
 </div>
+
+<!-- ================== TÌM KIẾM ĐƠN HÀNG ================== -->
+<form method="GET" action="{{ url_for('admin_orders') }}" class="card shadow-sm mb-3">
+    <div class="card-body py-3">
+        <div class="row g-2 align-items-center">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+                    <input type="text" name="q" value="{{ keyword }}" class="form-control"
+                        placeholder="Tìm theo mã đơn, tên khách hàng, số điện thoại hoặc email..."
+                        autocomplete="off">
+                    {% if status %}<input type="hidden" name="status" value="{{ status }}">{% endif %}
+                </div>
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary flex-fill">
+                    <i class="fas fa-search me-1"></i>Tìm kiếm
+                </button>
+                <a href="{{ url_for('admin_orders', status=status or None) }}"
+                    class="btn btn-outline-secondary" title="Xoá từ khoá">
+                    <i class="fas fa-rotate-left"></i>
+                </a>
+            </div>
+        </div>
+        {% if keyword %}
+        <div class="mt-2 small text-muted">
+            Kết quả cho <strong>"{{ keyword }}"</strong>: {{ orders|length }} đơn hàng
+        </div>
+        {% endif %}
+    </div>
+</form>
 
 <!-- ================== ORDERS LIST ================== -->
 <div class="card shadow-sm">
@@ -226,44 +913,108 @@ Tổng quan hệ thống
                         </td>
                         <td>
                             {% if o.status == 'pending' %}
-                            <span class="badge bg-warning text-dark">Chờ xác nhận</span>
+                            <span class="badge bg-warning text-dark"><i class="fas fa-clock me-1"></i>Chờ xác nhận</span>
                             {% elif o.status == 'processing' %}
-                            <span class="badge bg-info">Đang xử lý</span>
+                            <span class="badge bg-info"><i class="fas fa-box me-1"></i>Đang xử lý</span>
                             {% elif o.status == 'shipped' %}
-                            <span class="badge bg-primary">Đang giao</span>
+                            <span class="badge bg-primary"><i class="fas fa-truck me-1"></i>Đang giao</span>
                             {% elif o.status == 'completed' %}
-                            <span class="badge bg-success">Đã giao</span>
+                            <span class="badge bg-success"><i class="fas fa-check me-1"></i>Đã giao</span>
                             {% elif o.status == 'cancelled' %}
-                            <span class="badge bg-danger">Đã hủy</span>
+                            <span class="badge bg-danger"><i class="fas fa-xmark me-1"></i>Đã hủy</span>
                             {% else %}
                             <span class="badge bg-secondary">{{ o.status }}</span>
                             {% endif %}
                         </td>
-                        <td class="text-center">
-                            {% if o.status == 'pending' %}
-                            <form method="POST" action="{{ url_for('admin_edit_order', order_id=o.order_id) }}"
-                                class="d-inline" onsubmit="return confirm('Xác nhận đơn hàng này?');">
-                                <input type="hidden" name="status" value="processing">
-                                <button type="submit" class="btn btn-sm btn-outline-success me-1"
-                                    title="Xác nhận đơn hàng" aria-label="Xác nhận đơn hàng">
+                        <td>
+                            <div class="order-actions">
+                                {# ---------- NÚT CHUYỂN TRẠNG THÁI THEO TỪNG BƯỚC ---------- #}
+                                {% if o.status == 'pending' %}
+                                {# Chờ xác nhận -> Đang xử lý #}
+                                <form method="POST" action="{{ url_for('admin_edit_order', order_id=o.order_id) }}"
+                                    data-confirm="Bạn có chắc muốn xác nhận đơn hàng này không?"
+                                    data-confirm-title="Xác nhận đơn hàng"
+                                    data-confirm-type="success"
+                                    data-confirm-btn="Xác nhận">
+                                    <input type="hidden" name="status" value="processing">
+                                    <button type="submit" class="btn btn-sm btn-outline-success"
+                                        title="Xác nhận → Đang xử lý" aria-label="Xác nhận đơn hàng">
+                                        <i class="fas fa-box"></i>
+                                    </button>
+                                </form>
+
+                                {% elif o.status == 'processing' %}
+                                {# Đang xử lý -> Đang giao #}
+                                <form method="POST" action="{{ url_for('admin_edit_order', order_id=o.order_id) }}"
+                                    data-confirm="Chuyển đơn sang trạng thái Đang giao?"
+                                    data-confirm-title="Giao hàng"
+                                    data-confirm-type="info"
+                                    data-confirm-btn="Chuyển sang Đang giao">
+                                    <input type="hidden" name="status" value="shipped">
+                                    <button type="submit" class="btn btn-sm btn-outline-primary"
+                                        title="Giao hàng → Đang giao" aria-label="Chuyển sang đang giao">
+                                        <i class="fas fa-truck"></i>
+                                    </button>
+                                </form>
+
+                                {% elif o.status == 'shipped' %}
+                                {# Đang giao -> Đã giao #}
+                                <form method="POST" action="{{ url_for('admin_edit_order', order_id=o.order_id) }}"
+                                    data-confirm="Khách đã nhận được hàng? Đơn sẽ được đánh dấu Đã giao."
+                                    data-confirm-title="Xác nhận đã giao"
+                                    data-confirm-type="success"
+                                    data-confirm-btn="Đã giao">
+                                    <input type="hidden" name="status" value="completed">
+                                    <button type="submit" class="btn btn-sm btn-outline-success"
+                                        title="Giao thành công → Đã giao" aria-label="Chuyển sang đã giao">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </form>
+
+                                {% elif o.status == 'completed' %}
+                                <span class="badge bg-success-subtle text-success p-2" title="Đơn đã hoàn tất">
                                     <i class="fas fa-check"></i>
-                                </button>
-                            </form>
-                            {% endif %}
-                            <a href="{{ url_for('admin_order_detail', order_id=o.order_id) }}"
-                                class="btn btn-sm btn-outline-primary" title="Xem chi tiết">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="{{ url_for('admin_edit_order', order_id=o.order_id) }}"
-                                class="btn btn-sm btn-outline-warning" title="Cập nhật trạng thái">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form method="POST" action="{{ url_for('admin_delete_order', order_id=o.order_id) }}"
-                                style="display:inline;" onsubmit="return confirm('Xóa đơn hàng này vĩnh viễn?');">
-                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                                </span>
+
+                                {% elif o.status == 'cancelled' %}
+                                <span class="badge bg-danger-subtle text-danger p-2" title="Đơn đã hủy">
+                                    <i class="fas fa-xmark"></i>
+                                </span>
+                                {% endif %}
+
+                                {# ---------- NÚT HỦY ĐƠN ---------- #}
+                                {% if o.status in ['pending', 'processing'] %}
+                                <form method="POST" action="{{ url_for('admin_edit_order', order_id=o.order_id) }}"
+                                    data-confirm="Đơn #{{ o.order_id[:10] }} sẽ bị hủy và hàng được hoàn về kho. Hành động này không thể hoàn tác."
+                                    data-confirm-title="Hủy đơn hàng"
+                                    data-confirm-type="danger"
+                                    data-confirm-btn="Hủy đơn">
+                                    <input type="hidden" name="status" value="cancelled">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger"
+                                        title="Hủy đơn" aria-label="Hủy đơn">
+                                        <i class="fas fa-xmark"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+
+                                <a href="{{ url_for('admin_order_detail', order_id=o.order_id) }}"
+                                    class="btn btn-sm btn-outline-secondary" title="Xem chi tiết">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ url_for('admin_edit_order', order_id=o.order_id) }}"
+                                    class="btn btn-sm btn-outline-warning" title="Cập nhật trạng thái">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                                <form method="POST" action="{{ url_for('admin_delete_order', order_id=o.order_id) }}"
+                                    data-confirm="Đơn hàng #{{ o.order_id[:10] }} sẽ bị xóa vĩnh viễn khỏi hệ thống."
+                                    data-confirm-title="Xóa đơn hàng"
+                                    data-confirm-type="danger"
+                                    data-confirm-btn="Xóa vĩnh viễn">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
@@ -283,7 +1034,7 @@ Tổng quan hệ thống
 
 {% elif page == 'order_list' %}
 <!-- ================== ĐƠN HÀNG - TRA CỨU HÓA ĐƠN ================== -->
-<div class="card shadow-sm mb-4">
+<div class="card shadow-sm mb-4 admin-order-lookup">
     <div class="card-body">
         <h5 class="fw-bold text-primary mb-3">
             <i class="fas fa-magnifying-glass-chart me-2"></i>Tra cứu hóa đơn
@@ -310,11 +1061,51 @@ Tổng quan hệ thống
             </div>
             <div class="col-md-2">
                 <label class="form-label mb-1 small fw-semibold">Từ ngày</label>
-                <input type="date" name="date_from" value="{{ date_from }}" class="form-control">
+                <div class="admin-date-picker" data-date-picker>
+                    <input type="hidden" name="date_from" value="{{ date_from or '' }}" data-date-value>
+                    <button type="button" class="form-control admin-date-display" data-date-display
+                        aria-haspopup="dialog" aria-expanded="false">
+                        <span class="date-display-value" data-date-label>Chọn ngày</span>
+                        <i class="fas fa-calendar-days" aria-hidden="true"></i>
+                    </button>
+                    <div class="admin-date-calendar" data-date-calendar role="dialog" aria-label="Chọn ngày bắt đầu" hidden>
+                        <div class="admin-date-calendar-header">
+                            <button type="button" class="admin-date-calendar-nav" data-date-previous aria-label="Tháng trước">
+                                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                            </button>
+                            <strong class="admin-date-calendar-title" data-date-month></strong>
+                            <button type="button" class="admin-date-calendar-nav" data-date-next aria-label="Tháng sau">
+                                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="admin-date-calendar-grid" data-date-grid></div>
+                        <button type="button" class="admin-date-clear" data-date-clear>Xóa ngày</button>
+                    </div>
+                </div>
             </div>
             <div class="col-md-2">
                 <label class="form-label mb-1 small fw-semibold">Đến ngày</label>
-                <input type="date" name="date_to" value="{{ date_to }}" class="form-control">
+                <div class="admin-date-picker" data-date-picker>
+                    <input type="hidden" name="date_to" value="{{ date_to or '' }}" data-date-value>
+                    <button type="button" class="form-control admin-date-display" data-date-display
+                        aria-haspopup="dialog" aria-expanded="false">
+                        <span class="date-display-value" data-date-label>Chọn ngày</span>
+                        <i class="fas fa-calendar-days" aria-hidden="true"></i>
+                    </button>
+                    <div class="admin-date-calendar" data-date-calendar role="dialog" aria-label="Chọn ngày kết thúc" hidden>
+                        <div class="admin-date-calendar-header">
+                            <button type="button" class="admin-date-calendar-nav" data-date-previous aria-label="Tháng trước">
+                                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                            </button>
+                            <strong class="admin-date-calendar-title" data-date-month></strong>
+                            <button type="button" class="admin-date-calendar-nav" data-date-next aria-label="Tháng sau">
+                                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="admin-date-calendar-grid" data-date-grid></div>
+                        <button type="button" class="admin-date-clear" data-date-clear>Xóa ngày</button>
+                    </div>
+                </div>
             </div>
             <div class="col-md-2 d-flex gap-2">
                 <button type="submit" class="btn btn-primary flex-fill">
@@ -329,13 +1120,13 @@ Tổng quan hệ thống
 </div>
 
 <!-- Thống kê nhanh -->
-<div class="d-flex flex-wrap gap-2 mb-3 align-items-center">
+<div class="d-flex flex-wrap gap-2 mb-3 align-items-center admin-order-summary">
     <span class="badge bg-secondary">Tổng: {{ summary.total }}</span>
-    <span class="badge bg-warning text-dark">Chờ xác nhận: {{ summary.pending }}</span>
-    <span class="badge bg-info text-dark">Đang xử lý: {{ summary.processing }}</span>
-    <span class="badge bg-primary">Đang giao: {{ summary.shipped }}</span>
-    <span class="badge bg-success">Đã giao: {{ summary.completed }}</span>
-    <span class="badge bg-danger">Đã hủy: {{ summary.cancelled }}</span>
+    <span class="badge bg-warning text-dark"><i class="fas fa-clock me-1"></i>Chờ xác nhận: {{ summary.pending }}</span>
+    <span class="badge bg-info text-dark"><i class="fas fa-box me-1"></i>Đang xử lý: {{ summary.processing }}</span>
+    <span class="badge bg-primary"><i class="fas fa-truck me-1"></i>Đang giao: {{ summary.shipped }}</span>
+    <span class="badge bg-success"><i class="fas fa-check me-1"></i>Đã giao: {{ summary.completed }}</span>
+    <span class="badge bg-danger"><i class="fas fa-xmark me-1"></i>Đã hủy: {{ summary.cancelled }}</span>
     <span class="badge bg-dark">Kết quả lọc: {{ total_results }}</span>
     <span class="badge bg-success">
         <i class="fas fa-coins me-1"></i>Tổng tiền: {{ format_currency(filtered_amount) }}
@@ -346,7 +1137,7 @@ Tổng quan hệ thống
 </div>
 
 <!-- Bảng đơn hàng -->
-<div class="card shadow-sm">
+<div class="card shadow-sm admin-order-table">
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
@@ -383,15 +1174,15 @@ Tổng quan hệ thống
                         </td>
                         <td>
                             {% if o.status == 'pending' %}
-                            <span class="badge bg-warning text-dark">Chờ xác nhận</span>
+                            <span class="badge bg-warning text-dark"><i class="fas fa-clock me-1"></i>Chờ xác nhận</span>
                             {% elif o.status == 'processing' %}
-                            <span class="badge bg-info">Đang xử lý</span>
+                            <span class="badge bg-info"><i class="fas fa-box me-1"></i>Đang xử lý</span>
                             {% elif o.status == 'shipped' %}
-                            <span class="badge bg-primary">Đang giao</span>
+                            <span class="badge bg-primary"><i class="fas fa-truck me-1"></i>Đang giao</span>
                             {% elif o.status == 'completed' %}
-                            <span class="badge bg-success">Đã giao</span>
+                            <span class="badge bg-success"><i class="fas fa-check me-1"></i>Đã giao</span>
                             {% elif o.status == 'cancelled' %}
-                            <span class="badge bg-danger">Đã hủy</span>
+                            <span class="badge bg-danger"><i class="fas fa-xmark me-1"></i>Đã hủy</span>
                             {% else %}
                             <span class="badge bg-secondary">{{ o.status }}</span>
                             {% endif %}
@@ -420,7 +1211,7 @@ Tổng quan hệ thống
 
 <!-- Phân trang -->
 {% if total_pages > 1 %}
-<nav class="mt-4">
+<nav class="mt-4 admin-order-pagination" aria-label="Phân trang hóa đơn">
     <ul class="pagination justify-content-center">
         <li class="page-item {{ 'disabled' if page_num <= 1 else '' }}">
             <a class="page-link"
@@ -444,6 +1235,177 @@ Tổng quan hệ thống
 </nav>
 {% endif %}
 
+{% elif page == 'admin_users' %}
+
+<!-- ================== TÀI KHOẢN QUẢN TRỊ ================== -->
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+    <div>
+        <h4 class="mb-1 fw-bold text-dark">
+            <i class="fas fa-user-shield me-2 text-danger"></i>Danh Sách Tài Khoản Quản Trị
+        </h4>
+        <span class="text-muted small">Tổng cộng <strong>{{ total_admins }}</strong> tài khoản quản trị</span>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+        <form method="GET" action="{{ url_for('admin_users') }}" class="d-flex gap-2">
+            <input type="text" name="q" value="{{ keyword or '' }}" class="form-control"
+                   placeholder="Tìm theo tên, email, SĐT..." style="min-width:230px;">
+            <button class="btn btn-outline-primary" title="Tìm kiếm">
+                <i class="fas fa-magnifying-glass"></i>
+            </button>
+            {% if keyword %}
+            <a href="{{ url_for('admin_users') }}" class="btn btn-outline-secondary" title="Xóa bộ lọc">
+                <i class="fas fa-xmark"></i>
+            </a>
+            {% endif %}
+        </form>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addAdminModal">
+            <i class="fas fa-user-plus me-1"></i>Thêm quản trị viên
+        </button>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center" style="width:60px;">#</th>
+                        <th>Avatar</th>
+                        <th>Tên Đăng Nhập</th>
+                        <th>Email</th>
+                        <th>Số Điện Thoại</th>
+                        <th>Ngày Tạo</th>
+                        <th class="text-center">Vai Trò</th>
+                        <th class="text-center" style="width:150px;">Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if admins %}
+                    {% for u in admins %}
+                    <tr>
+                        <td class="text-center text-muted">{{ loop.index }}</td>
+                        <td>
+                            {% if u.avatar %}
+                            <img src="{{ url_for('static', filename='uploads/' ~ u.avatar) }}"
+                                 class="rounded-circle shadow-sm" style="width:42px;height:42px;object-fit:cover;"
+                                 alt="{{ u.username }}">
+                            {% else %}
+                            <div class="rounded-circle bg-danger-subtle d-flex align-items-center justify-content-center"
+                                 style="width:42px;height:42px;">
+                                <i class="fas fa-user-shield text-danger"></i>
+                            </div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <strong>{{ u.username }}</strong>
+                            {% if u.is_me %}
+                            <span class="badge bg-info text-dark ms-1">Bạn</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ u.email }}</td>
+                        <td>{{ u.phone or '—' }}</td>
+                        <td class="text-muted small">{{ u.created_at[:16] if u.created_at else '—' }}</td>
+                        <td class="text-center">
+                            <span class="badge bg-danger">Quản trị</span>
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ url_for('admin_edit_user', user_id=u.id) }}"
+                               class="btn btn-sm btn-primary" title="Sửa">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            {% if not u.is_me and total_admins > 1 %}
+                            <form method="POST" action="{{ url_for('admin_delete_user', user_id=u.id) }}"
+                                  data-confirm="Tài khoản quản trị <b>{{ u.username }}</b> sẽ bị xóa vĩnh viễn và mất toàn bộ quyền truy cập."
+                                  data-confirm-title="Xóa tài khoản quản trị"
+                                  data-confirm-type="danger"
+                                  data-confirm-btn="Xóa tài khoản">
+                                <button type="submit" class="btn btn-sm btn-danger" title="Xóa">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                            {% else %}
+                            <button class="btn btn-sm btn-outline-secondary" disabled
+                                    title="Không thể xóa tài khoản đang đăng nhập hoặc admin cuối cùng">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center py-5 text-muted">
+                            <i class="fas fa-user-slash fa-3x mb-3 d-block"></i>
+                            {% if keyword %}Không tìm thấy tài khoản quản trị nào phù hợp.{% else %}Chưa có tài khoản quản trị.{% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ================== MODAL THÊM QUẢN TRỊ VIÊN ================== -->
+<div class="modal fade" id="addAdminModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="POST" action="{{ url_for('admin_add_user') }}">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title"><i class="fas fa-user-shield me-2"></i>Thêm quản trị viên mới</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label required">Tên đăng nhập</label>
+                            <input type="text" name="username" class="form-control" required maxlength="50"
+                                   placeholder="vd: admin02">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label required">Email</label>
+                            <input type="email" name="email" class="form-control" required
+                                   placeholder="email@gmail.com">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label required">Mật khẩu</label>
+                            <input type="password" name="password" class="form-control" required minlength="6"
+                                   placeholder="Ít nhất 6 ký tự">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Xác nhận mật khẩu</label>
+                            <input type="password" name="confirm_password" class="form-control" minlength="6"
+                                   placeholder="Nhập lại mật khẩu">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Số điện thoại</label>
+                            <input type="text" name="phone" class="form-control" maxlength="15"
+                                   placeholder="09xxxxxxxx">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Địa chỉ</label>
+                            <input type="text" name="address" class="form-control" placeholder="Số nhà, đường, quận...">
+                        </div>
+                        <div class="col-12">
+                            <div class="alert alert-warning mb-0 py-2 small">
+                                <i class="fas fa-triangle-exclamation me-1"></i>
+                                Tài khoản này có <strong>toàn quyền quản trị</strong> hệ thống.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-check me-1"></i>Tạo tài khoản
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 {% elif page == 'customers' %}
 
 <div class="container-fluid px-4 py-3">
@@ -451,8 +1413,65 @@ Tổng quan hệ thống
         <h3 class="mb-0 text-primary">
             <i class="fas fa-users me-2"></i> Quản Lý Khách Hàng
         </h3>
-        <span class="text-muted">Tổng: <strong>{{ customers|length }}</strong> khách hàng</span>
+        <div class="d-flex align-items-center gap-3">
+            <span class="text-muted">Tổng: <strong>{{ customers|length }}</strong> khách hàng</span>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                <i class="fas fa-user-plus me-1"></i>Thêm khách hàng
+            </button>
+        </div>
     </div>
+
+<!-- ================== MODAL THÊM KHÁCH HÀNG ================== -->
+<div class="modal fade" id="addCustomerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="POST" action="{{ url_for('admin_add_customer') }}" enctype="multipart/form-data">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="fas fa-user-plus me-2"></i>Thêm khách hàng mới</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label required">Tên đăng nhập</label>
+                            <input type="text" name="username" class="form-control" required maxlength="50"
+                                placeholder="vd: khachhang01">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label required">Email</label>
+                            <input type="email" name="email" class="form-control" required
+                                placeholder="email@gmail.com">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Số điện thoại</label>
+                            <input type="text" name="phone" class="form-control" maxlength="15"
+                                placeholder="09xxxxxxxx">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Mật khẩu</label>
+                            <input type="text" name="password" class="form-control"
+                                placeholder="Để trống = 123456">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Địa chỉ</label>
+                            <input type="text" name="address" class="form-control" placeholder="Số nhà, đường, quận...">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Ảnh đại diện</label>
+                            <input type="file" name="avatar" class="form-control" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i>Lưu khách hàng
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
     <!-- Search -->
     <div class="card shadow-sm mb-4">
@@ -485,7 +1504,7 @@ Tổng quan hệ thống
                             <th class="text-end sortable" data-sort="total_spent">
                                 Tổng Chi <i class="fas fa-sort ms-1 text-muted"></i>
                             </th>
-                            <th class="text-center" style="width:140px;">Thao Tác</th>
+                            <th class="text-center" style="width:110px;">Thao Tác</th>
                         </tr>
                     </thead>
                     <tbody id="customersTableBody">
@@ -524,45 +1543,26 @@ Tổng quan hệ thống
                                 <span class="badge bg-info fs-6 px-3 py-2">{{ c.order_count }}</span>
                             </td>
                             <td class="text-end fw-bold text-danger">{{ format_currency(c.total_spent) }}</td>
-                            <td class="text-center">
+                            <td>
+                                <div class="admin-customer-actions">
                                 <a href="{{ url_for('admin_view_customer', customer_id=c.id) }}"
-                                    class="btn btn-sm btn-outline-primary me-1" title="Xem chi tiết">
+                                    class="btn btn-sm btn-outline-primary" title="Xem chi tiết">
                                     <i class="fas fa-eye"></i>
                                 </a>
                                 <a href="{{ url_for('admin_edit_customer', customer_id=c.id) }}"
-                                    class="btn btn-sm btn-outline-warning me-1" title="Sửa">
+                                    class="btn btn-sm btn-outline-warning" title="Sửa">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <button type="button" class="btn btn-sm btn-outline-danger" title="Xóa"
-                                    data-bs-toggle="modal" data-bs-target="#deleteModal{{ c.id }}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-
-                                <!-- Modal xác nhận xóa -->
-                                <div class="modal fade" id="deleteModal{{ c.id }}" tabindex="-1">
-                                    <div class="modal-dialog modal-sm">
-                                        <div class="modal-content">
-                                            <div class="modal-header bg-danger text-white">
-                                                <h5 class="modal-title">Xác nhận xóa</h5>
-                                                <button type="button" class="btn-close btn-close-white"
-                                                    data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <div class="modal-body text-center">
-                                                <p>Xóa khách <strong>{{ c.name }}</strong>?<br>
-                                                    <small class="text-danger">Tất cả đơn hàng sẽ bị xóa!</small>
-                                                </p>
-                                            </div>
-                                            <div class="modal-footer justify-content-center">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Hủy</button>
-                                                <form method="POST"
-                                                    action="{{ url_for('admin_delete_customer', customer_id=c.id) }}"
-                                                    style="display:inline">
-                                                    <button type="submit" class="btn btn-danger">Xóa</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <form method="POST"
+                                    action="{{ url_for('admin_delete_customer', customer_id=c.id) }}"
+                                    data-confirm="Khách hàng <b>{{ c.name }}</b> cùng <b>toàn bộ đơn hàng</b> liên quan sẽ bị xóa vĩnh viễn."
+                                    data-confirm-title="Xóa khách hàng"
+                                    data-confirm-type="danger"
+                                    data-confirm-btn="Xóa khách hàng">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
                                 </div>
                             </td>
                         </tr>
@@ -667,36 +1667,132 @@ Tổng quan hệ thống
 
 {% elif page == 'reports' %}
 
-<div class="row mb-4">
+<!-- ================== BỘ LỌC THỜI GIAN ================== -->
+<div class="card shadow-sm mb-4">
+    <div class="card-body" style="padding: 16px 20px;">
+        <form method="GET" action="{{ url_for('admin_reports') }}" class="row g-2 align-items-end">
+            <div class="col-md-2">
+                <label class="form-label mb-1 small fw-semibold">Kiểu thống kê</label>
+                <select name="period" class="form-select" id="periodSelect" onchange="togglePeriodInputs(this.value)">
+                    <option value="all" {{ 'selected' if period == 'all' else '' }}>Toàn bộ đã bán</option>
+                    <option value="day" {{ 'selected' if period == 'day' else '' }}>Theo ngày</option>
+                    <option value="month" {{ 'selected' if period == 'month' else '' }}>Theo tháng</option>
+                    <option value="year" {{ 'selected' if period == 'year' else '' }}>Theo năm</option>
+                    <option value="range" {{ 'selected' if period == 'range' else '' }}>Khoảng ngày</option>
+                </select>
+            </div>
+
+            <div class="col-md-2 period-input" data-period="day">
+                <label class="form-label mb-1 small fw-semibold">Ngày</label>
+                <input type="date" name="day" value="{{ sel_day }}" class="form-control">
+            </div>
+
+            <div class="col-md-2 period-input" data-period="month">
+                <label class="form-label mb-1 small fw-semibold">Tháng</label>
+                <select name="month" class="form-select">
+                    {% for m in range(1, 13) %}
+                    <option value="{{ m }}" {{ 'selected' if m == sel_month else '' }}>Tháng {{ m }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-2 period-input" data-period="month year">
+                <label class="form-label mb-1 small fw-semibold">Năm</label>
+                <select name="year" class="form-select">
+                    {% for y in range(2023, now_year + 1) %}
+                    <option value="{{ y }}" {{ 'selected' if y == sel_year else '' }}>{{ y }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-2 period-input" data-period="range">
+                <label class="form-label mb-1 small fw-semibold">Từ ngày</label>
+                <input type="date" name="date_from" value="{{ date_from }}" class="form-control">
+            </div>
+            <div class="col-md-2 period-input" data-period="range">
+                <label class="form-label mb-1 small fw-semibold">Đến ngày</label>
+                <input type="date" name="date_to" value="{{ date_to }}" class="form-control">
+            </div>
+
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="fas fa-filter me-1"></i>Thống kê
+                </button>
+            </div>
+        </form>
+
+        <div class="admin-report-summary-badges mt-3 d-flex flex-wrap gap-2">
+            <span class="badge bg-dark"><i class="fas fa-calendar-day me-1"></i>{{ range_label }}</span>
+            <span class="badge bg-success">Doanh thu: {{ format_currency(total_revenue) }}</span>
+            <span class="badge bg-primary">
+                {{ 'Đơn đã bán' if period == 'all' else 'Đơn hoàn thành' }}: {{ range_order_count }}
+            </span>
+            <span class="badge bg-info">Sản phẩm bán: {{ products_sold }}</span>
+            <span class="badge bg-danger">Sắp hết hàng (≤5): {{ low_stock_count }}</span>
+        </div>
+
+        <!-- Giải thích chênh lệch số liệu (phần ghi chú khi thuyết trình) -->
+        <div class="alert alert-light border mt-3 mb-0 py-2 px-3 small">
+            <i class="fas fa-circle-info text-primary me-2"></i>
+            {% if period == 'all' %}
+            <b>Toàn bộ đã bán</b>: tính mọi đơn <b>trừ đơn đã hủy</b> (gồm cả đơn chờ xác nhận,
+            đang xử lý, đang giao và đã giao). Số này <b>bằng</b> thẻ "Doanh thu bán được" ở trên.
+            {% else %}
+            <b>{{ 'Theo ngày' if period == 'day' else ('Theo tháng' if period == 'month' else ('Theo năm' if period == 'year' else 'Khoảng ngày')) }}</b>:
+            chỉ tính đơn <b>đã giao</b> (hoàn thành) — tức là <b>tiền thực thu</b>. Vì vậy con số này
+            nhỏ hơn (hoặc bằng) "Doanh thu bán được", và có thể bằng <b>0 ₫</b> nếu trong kỳ
+            chưa có đơn nào được chuyển sang trạng thái <b>Đã giao</b>.
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePeriodInputs(value) {
+        document.querySelectorAll('.period-input').forEach(el => {
+            const allowed = el.getAttribute('data-period').split(' ');
+            el.style.display = allowed.includes(value) ? '' : 'none';
+        });
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        togglePeriodInputs(document.getElementById('periodSelect').value);
+    });
+</script>
+
+<div class="row mb-4 align-items-stretch">
     <div class="col-lg-6 mb-4">
-        <div class="card shadow-sm h-100">
+        <div class="card shadow-sm h-100 admin-report-chart-card">
             <div class="card-body">
                 <h5 class="card-title">
                     <i class="fas fa-chart-line me-2 text-primary"></i>
-                    Doanh Thu 7 Ngày Gần Nhất
+                    {{ revenue_chart_title }}
                 </h5>
-                <canvas id="revenueChart" height="300"></canvas>
+                <div class="admin-revenue-chart">
+                    <canvas id="revenueChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="col-lg-6 mb-4">
-        <div class="card shadow-sm h-100">
+        <div class="card shadow-sm h-100 admin-report-chart-card">
             <div class="card-body">
                 <h5 class="card-title">
                     <i class="fas fa-chart-pie me-2 text-info"></i>
                     Trạng Thái Đơn Hàng
                 </h5>
-                <canvas id="orderStatusChart" height="300"></canvas>
+                <div class="admin-order-status-chart">
+                    <canvas id="orderStatusChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Top Products & Customers Tables -->
-<div class="row">
+<div class="row align-items-stretch">
     <div class="col-lg-6 mb-4">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm h-100">
             <div class="card-body">
                 <h5 class="card-title mb-4">
                     <i class="fas fa-trophy me-2 text-warning"></i>
@@ -729,7 +1825,7 @@ Tổng quan hệ thống
     </div>
 
     <div class="col-lg-6 mb-4">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm h-100">
             <div class="card-body">
                 <h5 class="card-title mb-4">
                     <i class="fas fa-crown me-2 text-success"></i>
@@ -762,40 +1858,158 @@ Tổng quan hệ thống
     </div>
 </div>
 
-{% else %}
+<!-- ================== TỒN KHO ================== -->
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title mb-4">
+                    <i class="fas fa-warehouse me-2 text-danger"></i>
+                    Top 5 Sản Phẩm Tồn Kho Nhiều Nhất
+                </h5>
+                <div class="table-responsive">
+                    <table class="table align-middle admin-stock-table">
+                        <thead>
+                            <tr>
+                                <th style="width:40px;">#</th>
+                                <th>Sản Phẩm</th>
+                                <th>Danh Mục</th>
+                                <th>Thương Hiệu</th>
+                                <th class="text-end">Giá Bán</th>
+                                <th class="text-center" style="width:90px;">Tồn Kho</th>
+                                <th class="text-end">Giá Trị Tồn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in top_stock %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>
+                                    <strong class="top-table-name" title="{{ p.name }}">{{ p.name }}</strong>
+                                </td>
+                                <td>
+                                    <span class="tag-soft">
+                                        {{ (category_labels or {}).get(p.category, p.category) or '—' }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="tag-soft brand">{{ p.brand or '—' }}</span>
+                                </td>
+                                <td class="text-end">{{ format_currency(p.price) }}</td>
+                                <td class="text-center">
+                                    {% set st = p.stock or 0 %}
+                                    <span class="top-table-badge bg-{{ 'danger' if st <= 5 else ('warning text-dark' if st <= 20 else 'success') }}">
+                                        {{ st }}
+                                    </span>
+                                </td>
+                                <td class="text-end fw-semibold" style="color:#2c3e50;">
+                                    {{ format_currency((p.price or 0) * (p.stock or 0)) }}
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="7" class="text-center py-4 text-muted">
+                                    <i class="fas fa-box-open fa-2x d-block mb-2"></i>
+                                    Chưa có sản phẩm nào trong kho.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+{% elif page == 'dashboard' or not page %}
 <!-- ================== DEFAULT DASHBOARD ================== -->
-<div class="card shadow-sm">
-    <div class="card-body">
-        <h5 class="card-title mb-4">
-            <i class="fas fa-shield-alt me-2 text-danger"></i>
-            Danh Sách Tài Khoản Quản Trị
-        </h5>
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Tên Đăng Nhập</th>
-                        <th>Email</th>
-                        <th>Vai Trò</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for u in users %}
-                    <tr>
-                        <td>{{ u.id }}</td>
-                        <td><strong>{{ u.username }}</strong></td>
-                        <td>{{ u.email }}</td>
-                        <td>
-                            <span class="badge bg-{{ 'danger' if u.role == 'admin' else 'primary' }}">
-                                {{ u.role|capitalize }}
-                            </span>
-                        </td>
-                    </tr>
+
+<!-- Đơn hàng & người dùng gần đây -->
+<div class="row">
+    <div class="col-lg-7 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-file-invoice-dollar me-2 text-primary"></i>Đơn Hàng Gần Đây
+                    </h5>
+                    <a href="{{ url_for('admin_orders') }}" class="btn btn-outline-primary dashboard-see-all">
+                        Xem tất cả <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-sm align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Khách hàng</th>
+                                <th class="text-end">Tổng tiền</th>
+                                <th class="text-center">Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for o in recent_orders|default([]) %}
+                            <tr>
+                                <td>
+                                    <strong class="dashboard-customer-name">{{ o.username }}</strong>
+                                    <div class="small text-muted">{{ o.created_at or '' }}</div>
+                                </td>
+                                <td class="text-end fw-bold text-danger">{{ format_currency(o.total_price or 0) }}</td>
+                                <td class="text-center">
+                                    {% if o.status == 'pending' %}
+                                    <span class="badge bg-warning text-dark"><i class="fas fa-clock me-1"></i>Chờ xác nhận</span>
+                                    {% elif o.status == 'processing' %}
+                                    <span class="badge bg-info text-dark"><i class="fas fa-box me-1"></i>Đang xử lý</span>
+                                    {% elif o.status == 'shipped' %}
+                                    <span class="badge bg-primary"><i class="fas fa-truck me-1"></i>Đang giao</span>
+                                    {% elif o.status == 'completed' %}
+                                    <span class="badge bg-success"><i class="fas fa-check me-1"></i>Đã giao</span>
+                                    {% else %}
+                                    <span class="badge bg-danger"><i class="fas fa-xmark me-1"></i>Đã hủy</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="3" class="text-center py-4 text-muted">
+                                    <i class="fas fa-inbox fa-2x d-block mb-2"></i>Chưa có đơn hàng nào.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-user-plus me-2 text-success"></i>Người Dùng Mới
+                    </h5>
+                    <a href="{{ url_for('admin_customers') }}" class="btn btn-outline-success dashboard-see-all">
+                        Xem tất cả <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for u in recent_users|default([]) %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <div>
+                            <strong class="dashboard-customer-name">{{ u.username }}</strong>
+                            <div class="small text-muted">{{ u.email }}</div>
+                        </div>
+                        <span class="badge bg-{{ 'danger' if u.role == 'admin' else 'secondary' }}">
+                            {{ 'Quản trị' if u.role == 'admin' else 'Khách' }}
+                        </span>
+                    </li>
+                    {% else %}
+                    <li class="list-group-item text-center text-muted px-0">Chưa có người dùng.</li>
                     {% endfor %}
-                </tbody>
-            </table>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -826,6 +2040,7 @@ Tổng quan hệ thống
         },
         options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: { legend: { display: false } },
         scales: {
             y: { beginAtZero: true }
@@ -846,10 +2061,171 @@ Tổng quan hệ thống
         },
         options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
-            legend: { position: 'bottom' }
+            legend: {
+                position: 'bottom',
+                labels: {
+                    font: { size: 16 },
+                    padding: 16,
+                    boxWidth: 24
+                }
+            }
         }
     }
+    });
+</script>
+{% endif %}
+{% if page == 'order_list' %}
+<script>
+    document.querySelectorAll('[data-date-picker]').forEach(function (picker) {
+        if (picker.dataset.dateInitialized === 'true') return;
+        const valueInput = picker.querySelector('[data-date-value]');
+        const displayButton = picker.querySelector('[data-date-display]');
+        const displayLabel = picker.querySelector('[data-date-label]');
+        const calendar = picker.querySelector('[data-date-calendar]');
+        const monthLabel = picker.querySelector('[data-date-month]');
+        const daysGrid = picker.querySelector('[data-date-grid]');
+        let visibleMonth;
+
+        function parseValue(value) {
+            const parts = value.split('-').map(Number);
+            return parts.length === 3 && parts.every(Number.isFinite)
+                ? new Date(parts[0], parts[1] - 1, parts[2])
+                : null;
+        }
+
+        function formatValue(date) {
+            return [
+                date.getFullYear(),
+                String(date.getMonth() + 1).padStart(2, '0'),
+                String(date.getDate()).padStart(2, '0')
+            ].join('-');
+        }
+
+        function updateDisplay() {
+            const selected = parseValue(valueInput.value);
+            displayLabel.textContent = selected
+                ? selected.toLocaleDateString('vi-VN')
+                : 'Chọn ngày';
+        }
+
+        function renderCalendar() {
+            const year = visibleMonth.getFullYear();
+            const month = visibleMonth.getMonth();
+            const selectedValue = valueInput.value;
+            monthLabel.textContent = visibleMonth.toLocaleDateString('vi-VN', {
+                month: 'long',
+                year: 'numeric'
+            });
+            daysGrid.replaceChildren();
+
+            ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'].forEach(function (weekday) {
+                const heading = document.createElement('span');
+                heading.className = 'admin-date-weekday';
+                heading.textContent = weekday;
+                daysGrid.appendChild(heading);
+            });
+
+            const firstWeekday = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const daysInPreviousMonth = new Date(year, month, 0).getDate();
+
+            for (let index = 0; index < 42; index += 1) {
+                let day;
+                let date;
+                let isOutsideMonth = false;
+
+                if (index < firstWeekday) {
+                    day = daysInPreviousMonth - firstWeekday + index + 1;
+                    date = new Date(year, month - 1, day);
+                    isOutsideMonth = true;
+                } else if (index >= firstWeekday + daysInMonth) {
+                    day = index - firstWeekday - daysInMonth + 1;
+                    date = new Date(year, month + 1, day);
+                    isOutsideMonth = true;
+                } else {
+                    day = index - firstWeekday + 1;
+                    date = new Date(year, month, day);
+                }
+
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'admin-date-day';
+                button.textContent = String(day);
+                button.setAttribute('aria-label', date.toLocaleDateString('vi-VN'));
+
+                if (isOutsideMonth) button.classList.add('is-outside-month');
+                if (formatValue(date) === selectedValue) button.classList.add('is-selected');
+
+                button.addEventListener('click', function () {
+                    valueInput.value = formatValue(date);
+                    updateDisplay();
+                    calendar.hidden = true;
+                    displayButton.setAttribute('aria-expanded', 'false');
+                    displayButton.focus();
+                });
+                daysGrid.appendChild(button);
+            }
+        }
+
+        displayButton.addEventListener('click', function () {
+            const shouldOpen = calendar.hidden;
+            document.querySelectorAll('[data-date-calendar]').forEach(function (otherCalendar) {
+                otherCalendar.hidden = true;
+                otherCalendar.closest('[data-date-picker]')
+                    .querySelector('[data-date-display]')
+                    .setAttribute('aria-expanded', 'false');
+            });
+            if (!shouldOpen) return;
+
+            visibleMonth = parseValue(valueInput.value) || new Date();
+            visibleMonth = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), 1);
+            renderCalendar();
+            calendar.hidden = false;
+            displayButton.setAttribute('aria-expanded', 'true');
+        });
+
+        picker.querySelector('[data-date-previous]').addEventListener('click', function () {
+            visibleMonth.setMonth(visibleMonth.getMonth() - 1);
+            renderCalendar();
+        });
+
+        picker.querySelector('[data-date-next]').addEventListener('click', function () {
+            visibleMonth.setMonth(visibleMonth.getMonth() + 1);
+            renderCalendar();
+        });
+
+        picker.querySelector('[data-date-clear]').addEventListener('click', function () {
+            valueInput.value = '';
+            updateDisplay();
+            calendar.hidden = true;
+            displayButton.setAttribute('aria-expanded', 'false');
+            displayButton.focus();
+        });
+
+        updateDisplay();
+    });
+
+    document.addEventListener('click', function (event) {
+        if (event.target.closest('[data-date-picker]')) return;
+        document.querySelectorAll('[data-date-calendar]').forEach(function (calendar) {
+            calendar.hidden = true;
+            calendar.closest('[data-date-picker]')
+                .querySelector('[data-date-display]')
+                .setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key !== 'Escape') return;
+        document.querySelectorAll('[data-date-calendar]:not([hidden])').forEach(function (calendar) {
+            calendar.hidden = true;
+            const displayButton = calendar.closest('[data-date-picker]')
+                .querySelector('[data-date-display]');
+            displayButton.setAttribute('aria-expanded', 'false');
+            displayButton.focus();
+        });
     });
 </script>
 {% endif %}

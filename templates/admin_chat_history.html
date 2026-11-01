@@ -1,0 +1,157 @@
+{% extends "Admin.html" %} {% block title %}Lịch Sử Chatbot{% endblock %} {%
+block page_title %}Lịch Sử Chatbot{% endblock %} {% block page_subtitle %}Khách
+đã hỏi gì với trợ lý ảo{% endblock %} {% block content %}
+
+<!-- ================== THỐNG KÊ ================== -->
+<div class="row mb-4">
+  <div class="col-md-4 mb-3">
+    <div class="stats-card users">
+      <div class="icon"><i class="fas fa-comments"></i></div>
+      <h3>{{ stats.sessions }}</h3>
+      <p>Phiên hội thoại</p>
+    </div>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="stats-card products">
+      <div class="icon"><i class="fas fa-circle-question"></i></div>
+      <h3>{{ stats.questions }}</h3>
+      <p>Câu hỏi của khách</p>
+    </div>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="stats-card orders">
+      <div class="icon"><i class="fas fa-database"></i></div>
+      <h3>{{ stats.total }}</h3>
+      <p>Tổng tin nhắn lưu trong DB</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================== TÌM KIẾM ================== -->
+<form
+  method="GET"
+  action="{{ url_for('admin_chat_history') }}"
+  class="card shadow-sm mb-4"
+>
+  <div class="card-body py-3">
+    <div class="row g-2">
+      <div class="col-md-8">
+        <div class="input-group">
+          <span class="input-group-text bg-white"
+            ><i class="fas fa-search text-muted"></i
+          ></span>
+          <input
+            type="text"
+            name="q"
+            value="{{ keyword }}"
+            class="form-control"
+            placeholder="Tìm theo nội dung, tên khách hoặc mã phiên..."
+            autocomplete="off"
+          />
+        </div>
+      </div>
+      <div class="col-md-4 d-flex gap-2">
+        <button class="btn btn-primary flex-fill" type="submit">
+          <i class="fas fa-search me-1"></i>Tìm
+        </button>
+        <a
+          href="{{ url_for('admin_chat_history') }}"
+          class="btn btn-outline-secondary"
+        >
+          <i class="fas fa-rotate-left"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- ================== TOP CÂU HỎI ================== -->
+{% if top_questions %}
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h6 class="fw-bold mb-3">
+      <i class="fas fa-fire text-danger me-2"></i>Khách hỏi nhiều nhất
+    </h6>
+    <div class="table-responsive">
+      <table class="table table-sm mb-0">
+        <thead>
+          <tr>
+            <th style="width: 50px">#</th>
+            <th>Câu hỏi</th>
+            <th class="text-center" style="width: 90px">Số lần</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for q in top_questions %}
+          <tr>
+            <td class="text-muted">{{ loop.index }}</td>
+            <td>
+              {{ q.content[:120] }}{% if q.content|length > 120 %}...{% endif %}
+            </td>
+            <td class="text-center">
+              <span class="badge bg-primary">{{ q.times }}</span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- ================== DANH SÁCH PHIÊN ================== -->
+{% if sessions %} {% for s in sessions %}
+<div class="card shadow-sm mb-3">
+  <div
+    class="card-header bg-dark text-white d-flex justify-content-between align-items-center"
+    role="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#sess-{{ loop.index }}"
+  >
+    <div>
+      <i class="fas fa-user me-2"></i>
+      <strong>{{ s.username }}</strong>
+      <small class="ms-2 opacity-75">{{ s.key }}</small>
+    </div>
+    <span class="badge bg-light text-dark"
+      >{{ s.messages|length }} tin nhắn</span
+    >
+  </div>
+
+  <div
+    id="sess-{{ loop.index }}"
+    class="collapse {{ 'show' if loop.first else '' }}"
+  >
+    <div
+      class="card-body"
+      style="max-height: 420px; overflow-y: auto; background: #f6f8fb"
+    >
+      {% for m in s.messages %}
+      <div
+        class="mb-2 d-flex {{ 'justify-content-end' if m.role == 'user' else 'justify-content-start' }}"
+      >
+        <div
+          class="p-2 px-3 rounded-3 small"
+          style="max-width:75%;
+                           {% if m.role == 'user' %}background:#0d6efd;color:#fff;
+                           {% else %}background:#fff;border:1px solid #e6ebf2;{% endif %}"
+        >
+          <div>{{ m.content }}</div>
+          <div class="mt-1 chat-message-time">
+            {{ m.created_at[11:16] if m.created_at else '' }}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endfor %} {% else %}
+<div class="card shadow-sm">
+  <div class="card-body text-center py-5 text-muted">
+    <i class="fas fa-comments fa-3x mb-3"></i>
+    <p>Chưa có tin nhắn nào. Khách chat với trợ lý ảo rồi quay lại đây xem.</p>
+  </div>
+</div>
+{% endif %} {% endblock %}

@@ -189,7 +189,20 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
+    function showToast(icon, title, text) {
+      Swal.fire({
+        icon: icon,
+        title: title,
+        text: text,
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1800
+      });
+    }
+
     // Pass customer_id from session to JavaScript
     const customerId = {{ session.customer_id | tojson if session.customer_id is defined and session.customer_id is not none else 0 | tojson }};
     // Cart functionality
@@ -210,7 +223,7 @@
 
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartDisplay();
-      alert('Đã thêm sản phẩm vào giỏ hàng!');
+      showToast('success', 'Thành công', 'Đã thêm sản phẩm vào giỏ hàng!');
     }
 
     function updateCartDisplay() {
@@ -253,7 +266,7 @@
     function checkoutCart() {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       if (cart.length === 0) {
-        alert('Giỏ hàng trống!');
+        showToast('warning', 'Giỏ hàng', 'Giỏ hàng trống!');
         return;
       }
 
@@ -275,16 +288,16 @@
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            alert('Đặt hàng thành công! Mã đơn hàng: ' + data.order_id);
+            showToast('success', 'Đặt hàng thành công', 'Mã đơn hàng: ' + data.order_id);
             localStorage.removeItem('cart');
             updateCartDisplay();
             $('#cartModal').modal('hide');
           } else {
-            alert('Lỗi khi đặt hàng: ' + data.error);
+            showToast('error', 'Lỗi', data.error || 'Lỗi khi đặt hàng');
           }
         })
         .catch(error => {
-          alert('Lỗi: ' + error);
+          showToast('error', 'Lỗi', error && error.message ? error.message : String(error));
         });
     }
 

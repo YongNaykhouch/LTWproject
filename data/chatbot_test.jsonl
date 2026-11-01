@@ -1,0 +1,72 @@
+{"text": "Tìm giúp mẫu tủ lạnh Samsung Inverter", "intent": "product_search"}
+{"text": "So sánh máy giặt Samsung với Electrolux", "intent": "compare_products"}
+{"text": "Cảm ơn cửa hàng đã hỗ trợ", "intent": "thanks"}
+{"text": "Các đơn hàng gần nhất của tôi đang thế nào?", "intent": "my_orders"}
+{"text": "Có thể chọn COD khi đặt mua không?", "intent": "payment_methods"}
+{"text": "So sánh giúp mình iPhone 15 và iPhone 16", "intent": "compare_products"}
+{"text": "Điện thoại khoảng 8 đến 12 triệu có mẫu nào?", "intent": "search_by_budget"}
+{"text": "Chào shop, mình muốn được tư vấn mua hàng", "intent": "greeting"}
+{"text": "Sản phẩm được bảo hành bao lâu?", "intent": "warranty"}
+{"text": "Tìm laptop giá dưới 18 triệu giúp tôi", "intent": "search_by_budget"}
+{"text": "Hàng đã mua có được trả lại không?", "intent": "return_policy"}
+{"text": "Cửa hàng có bán máy giặt và máy sấy không?", "intent": "product_category"}
+{"text": "Liệt kê các nhóm sản phẩm trong cửa hàng", "intent": "product_category"}
+{"text": "Mở danh sách đơn mua hàng của tôi", "intent": "my_orders"}
+{"text": "Mã đơn ORD-1234ABCD đã được xử lý chưa?", "intent": "order_status"}
+{"text": "Chào cửa hàng, mình muốn xem sản phẩm", "intent": "greeting"}
+{"text": "Shop ơi, tư vấn cho mình với", "intent": "greeting"}
+{"text": "Gợi ý quạt giá dưới 2 triệu", "intent": "search_by_budget"}
+{"text": "Đổi trả có cần giữ lại hộp và phụ kiện không?", "intent": "return_policy"}
+{"text": "Sản phẩm nào rẻ nhất trong cửa hàng vậy?", "intent": "cheapest_product"}
+{"text": "Cho xem những mẫu điện thoại cao cấp nhất", "intent": "expensive_product"}
+{"text": "Mẫu tủ lạnh này đã hết hàng chưa?", "intent": "stock_status"}
+{"text": "Tôi có thể thanh toán bằng chuyển khoản ngân hàng không?", "intent": "payment_methods"}
+{"text": "So sánh iPhone và Samsung giúp tôi", "intent": "compare_products"}
+{"text": "Điều kiện để được bảo hành là gì?", "intent": "warranty"}
+{"text": "So sánh giá và cấu hình của hai mẫu laptop Asus và Lenovo", "intent": "compare_products"}
+{"text": "Mẫu điện thoại đắt nhất bên mình là mẫu nào?", "intent": "expensive_product"}
+{"text": "Điều kiện mua trả góp 0 phần trăm là gì?", "intent": "installment"}
+{"text": "Cảm ơn bạn, chúc cửa hàng buôn bán tốt", "intent": "thanks"}
+{"text": "Cho xem mẫu iPhone 15 Pro Max", "intent": "product_search"}
+{"text": "Tôi muốn xem những sản phẩm rẻ nhất", "intent": "cheapest_product"}
+{"text": "Chương trình khuyến mãi hiện tại gồm những sản phẩm nào?", "intent": "promotion_products"}
+{"text": "Tủ lạnh Toshiba có còn sẵn không?", "intent": "stock_status"}
+{"text": "Có thể thanh toán bằng thẻ ngân hàng không?", "intent": "payment_methods"}
+{"text": "Cho xin địa chỉ cửa hàng", "intent": "contact"}
+{"text": "Bên bạn có quạt điện để bán không?", "intent": "product_category"}
+{"text": "Có hỗ trợ trả góp bằng thẻ tín dụng không?", "intent": "installment"}
+{"text": "Cho tôi xem danh sách hàng đang sale", "intent": "promotion_products"}
+{"text": "Shop có miễn phí vận chuyển không?", "intent": "shipping"}
+{"text": "Mua trả góp trong bao nhiêu tháng?", "intent": "installment"}
+{"text": "Shop ơi, mình đang cần trợ giúp", "intent": "greeting"}
+{"text": "Cho tôi biết trạng thái đơn hàng", "intent": "order_status"}
+{"text": "Cảm ơn nhiều, tư vấn rất rõ ràng", "intent": "thanks"}
+{"text": "Có ưu đãi nào cho sản phẩm giá rẻ không?", "intent": "promotion_products"}
+{"text": "Tôi muốn xem các đơn đã mua trong tài khoản", "intent": "my_orders"}
+{"text": "Cửa hàng có những loại sản phẩm nào?", "intent": "product_category"}
+{"text": "Tôi muốn trả tiền qua ngân hàng", "intent": "payment_methods"}
+{"text": "Mẫu Samsung Galaxy S26 Ultra còn trong kho không?", "intent": "stock_status"}
+{"text": "Cảm ơn bạn đã tư vấn", "intent": "thanks"}
+{"text": "Sản phẩm nào phù hợp với ngân sách 7 triệu?", "intent": "search_by_budget"}
+{"text": "Tìm iPhone 17 Air trong cửa hàng", "intent": "product_search"}
+{"text": "Mua bao nhiêu thì được miễn phí giao hàng?", "intent": "shipping"}
+{"text": "Tôi cần biết tình trạng hàng của điện thoại Samsung", "intent": "stock_status"}
+{"text": "Có thể thanh toán laptop thành nhiều kỳ không?", "intent": "installment"}
+{"text": "Tôi muốn xem tiến độ giao đơn ORD-AB12CD34", "intent": "order_status"}
+{"text": "Tôi liên hệ shop qua số nào?", "intent": "contact"}
+{"text": "Tủ lạnh nào có giá cao nhất?", "intent": "expensive_product"}
+{"text": "Tôi có thể trả lại món hàng đã mua như thế nào?", "intent": "return_policy"}
+{"text": "Nếu sản phẩm bị lỗi nhà sản xuất thì xử lý thế nào?", "intent": "warranty"}
+{"text": "Mẫu laptop cao cấp và đắt nhất là mẫu nào?", "intent": "expensive_product"}
+{"text": "Email hỗ trợ của shop là gì?", "intent": "contact"}
+{"text": "Sản phẩm nào đang có giá tốt vậy?", "intent": "promotion_products"}
+{"text": "Đơn hàng ở nội thành giao trong bao lâu?", "intent": "shipping"}
+{"text": "Mua hàng online thì mấy ngày nhận được?", "intent": "shipping"}
+{"text": "Tìm sản phẩm Samsung Galaxy S26 Ultra giúp tôi", "intent": "product_search"}
+{"text": "Trong các sản phẩm đang bán, món nào rẻ nhất?", "intent": "cheapest_product"}
+{"text": "Chính sách bảo hành tủ lạnh như thế nào?", "intent": "warranty"}
+{"text": "Tình trạng xử lý đơn mã 1122aabb thế nào?", "intent": "order_status"}
+{"text": "Sản phẩm nào đang có giá rẻ nhất?", "intent": "cheapest_product"}
+{"text": "Địa chỉ và email của shop là gì?", "intent": "contact"}
+{"text": "Xem các đơn hàng gần đây của tôi", "intent": "my_orders"}
+{"text": "Sản phẩm không đúng nhu cầu thì có thể trả lại không?", "intent": "return_policy"}

@@ -1,0 +1,580 @@
+{% extends "base.html" %} {% block title %}{{ product.name }} - Cửa Hàng Điện
+Tử{% endblock %} {% block extra_css %}
+<style>
+  .pd-wrap {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 32px 20px 64px;
+  }
+
+  /* ----- Đường dẫn ----- */
+  .pd-breadcrumb {
+    font-size: 0.92rem;
+    color: #6c757d;
+    margin-bottom: 24px;
+  }
+  .pd-breadcrumb a {
+    color: #0d6efd;
+    text-decoration: none;
+  }
+  .pd-breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  /* ----- Khối ảnh ----- */
+  .pd-gallery {
+    background: linear-gradient(145deg, #fff, #f8fafc);
+    border: 1px solid #e8edf5;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
+    position: sticky;
+    top: 90px;
+  }
+  .pd-main-img {
+    width: 100%;
+    height: 440px;
+    object-fit: contain;
+    background: #f5f7fa;
+    border-radius: 16px;
+  }
+
+  /* ----- Khối thông tin ----- */
+  .pd-info {
+    background: #fff;
+    border: 1px solid #e8edf5;
+    border-radius: 20px;
+    padding: 30px 32px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
+  }
+  .pd-title {
+    font-size: clamp(1.55rem, 2vw, 2rem);
+    font-weight: 700;
+    color: #172033;
+    line-height: 1.3;
+    letter-spacing: -0.025em;
+  }
+  .pd-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 0.86rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+  .pd-cat {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f1f5f9;
+    color: #495057;
+    font-size: 0.86rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 999px;
+    text-decoration: none;
+  }
+  .pd-cat:hover {
+    background: #e3e7ea;
+    color: #212529;
+  }
+
+  .pd-price-box {
+    background: linear-gradient(135deg, #fffaf3, #fff7ed);
+    border: 1px solid #fed7aa;
+    border-radius: 16px;
+    padding: 20px 22px;
+    margin: 24px 0;
+  }
+  .pd-price {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #dc3545;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .pd-stock {
+    font-size: 0.9rem;
+  }
+  .stock-ok {
+    color: #198754;
+    font-weight: 600;
+  }
+  .stock-low {
+    color: #f59e0b;
+    font-weight: 600;
+  }
+  .stock-out {
+    color: #dc3545;
+    font-weight: 700;
+  }
+
+  /* ----- Nút hành động ----- */
+  .pd-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .btn-pd {
+    flex: 1 1 190px;
+    min-height: 56px;
+    padding: 0 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    border: 2.5px solid transparent;
+    transition: all 0.3s ease;
+  }
+  .btn-pd-cart {
+    color: #b45309;
+    background: #fff;
+    border-color: #f59e0b;
+  }
+  .btn-pd-cart:hover {
+    background: #fffbeb;
+    color: #92400e;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.18);
+  }
+  .btn-pd-buy {
+    color: #fff;
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    border: none;
+    box-shadow: 0 8px 20px rgba(234, 88, 12, 0.24);
+  }
+  .btn-pd-buy:hover {
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(234, 88, 12, 0.3);
+  }
+  .btn-pd[aria-disabled="true"] {
+    background: #e9ecef;
+    color: #adb5bd;
+    border-color: #dee2e6;
+    pointer-events: none;
+    box-shadow: none;
+  }
+
+  /* ----- Cam kết ----- */
+  .pd-policy {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 22px;
+  }
+  .pd-policy div {
+    background: #f8fafc;
+    border: 1px solid #edf1f6;
+    border-radius: 12px;
+    padding: 13px 14px;
+    font-size: 0.88rem;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    line-height: 1.4;
+  }
+  .pd-policy i {
+    color: #15803d;
+    font-size: 1.05rem;
+    flex: 0 0 auto;
+  }
+
+  /* ----- Card nội dung ----- */
+  .pd-card {
+    background: #fff;
+    border: 1px solid #e8edf5;
+    border-radius: 20px;
+    padding: 28px 32px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+    margin-top: 28px;
+  }
+  .pd-card h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #f59e0b;
+    display: inline-block;
+  }
+  .pd-desc {
+    color: #495057;
+    line-height: 1.75;
+    white-space: pre-line;
+  }
+
+  /* ----- Thông số kỹ thuật ----- */
+  .pd-specs-card {
+    padding: 30px;
+    background: linear-gradient(145deg, #fff, #fcfdff);
+  }
+  .pd-specs-card h4 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    margin-bottom: 22px;
+    padding: 0 0 12px;
+    border-bottom: 2px solid #f59e0b;
+    font-size: 1.3rem;
+  }
+  .pd-specs-card h4 i {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border-radius: 11px;
+    color: #b45309;
+    background: #fff3d6;
+    font-size: 1rem;
+  }
+  .spec-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .spec-row {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: 14px;
+    min-height: 60px;
+    padding: 14px 16px;
+    border: 1px solid #e7edf5;
+    border-radius: 13px;
+    background: #f7f9fc;
+    transition: border-color 0.2s ease, background-color 0.2s ease,
+                transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .spec-row:hover {
+    border-color: #cbd8f3;
+    background: #f1f5ff;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(23, 37, 84, 0.06);
+  }
+  .spec-row .k {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #64748b;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  .spec-row .k i {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    place-items: center;
+    border-radius: 9px;
+    color: #d97706;
+    background: #fff1d6;
+    font-size: 0.88rem;
+  }
+  .spec-row .v {
+    min-width: 0;
+    color: #172033;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+
+  /* ----- Gợi ý ----- */
+  .rel-card {
+    background: #fff;
+    border: 1px solid #e8edf5;
+    border-radius: 16px;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .rel-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+    color: inherit;
+  }
+  .rel-img {
+    width: 100%;
+    height: 170px;
+    object-fit: contain;
+    background: #f5f7fa;
+  }
+
+  @media (max-width: 991px) {
+    .pd-gallery {
+      position: static;
+      margin-bottom: 20px;
+    }
+    .pd-main-img {
+      height: 360px;
+    }
+    .pd-info {
+      padding: 24px;
+    }
+    .pd-title {
+      font-size: 1.45rem;
+    }
+    .pd-price {
+      font-size: 1.75rem;
+    }
+    .pd-card {
+      padding: 24px;
+    }
+  }
+
+  @media (max-width: 575px) {
+    .pd-wrap {
+      padding: 22px 14px 44px;
+    }
+    .pd-gallery {
+      padding: 14px;
+      border-radius: 16px;
+    }
+    .pd-main-img {
+      height: 280px;
+    }
+    .pd-info {
+      padding: 20px;
+      border-radius: 16px;
+    }
+    .pd-price-box {
+      padding: 17px;
+      margin: 20px 0;
+    }
+    .pd-actions {
+      gap: 10px;
+    }
+    .btn-pd {
+      flex-basis: 100%;
+      min-height: 52px;
+    }
+    .pd-policy {
+      grid-template-columns: 1fr;
+    }
+    .pd-card {
+      padding: 20px;
+      border-radius: 16px;
+    }
+    .pd-specs-card {
+      padding: 22px 18px;
+    }
+    .pd-specs-card h4 {
+      font-size: 1.15rem;
+    }
+    .spec-grid {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .spec-row {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 10px;
+      padding: 12px;
+    }
+    .spec-row .k {
+      font-size: 0.9rem;
+      gap: 8px;
+    }
+    .spec-row .v {
+      font-size: 0.95rem;
+    }
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="pd-wrap">
+  <!-- Đường dẫn -->
+  <nav class="pd-breadcrumb">
+    <a href="{{ url_for('index') }}"
+      ><i class="fas fa-house me-1"></i>Trang chủ</a
+    >
+    <i class="fas fa-angle-right mx-2"></i>
+    <a href="{{ url_for('category_products', category=category_key) }}"
+      >{{ category_name }}</a
+    >
+    <i class="fas fa-angle-right mx-2"></i>
+    <span class="text-dark">{{ product.name }}</span>
+  </nav>
+
+  <div class="row g-4">
+    <!-- ===== Ảnh ===== -->
+    <div class="col-lg-5">
+      <div class="pd-gallery">
+        <img
+          src="{% if product.image and product.image.startswith('http') %}{{ product.image }}{% else %}{{ url_for('static', filename='uploads/' ~ (product.image or 'default.png')) }}{% endif %}"
+          alt="{{ product.name }}"
+          class="pd-main-img"
+        />
+      </div>
+    </div>
+
+    <!-- ===== Thông tin ===== -->
+    <div class="col-lg-7">
+      <div class="pd-info">
+        <h1 class="pd-title">{{ product.name }}</h1>
+
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          {% if product.brand %}
+          <span class="pd-brand"
+            ><i class="fas fa-tag"></i>{{ product.brand }}</span
+          >
+          {% endif %}
+          <a
+            href="{{ url_for('category_products', category=category_key) }}"
+            class="pd-cat"
+          >
+            <i class="fas fa-layer-group"></i>{{ category_name }}
+          </a>
+          {% if product.product_id %}
+          <span class="pd-cat"
+            ><i class="fas fa-barcode"></i>Mã: {{ product.product_id }}</span
+          >
+          {% endif %}
+        </div>
+
+        <!-- Giá + tồn kho -->
+        <div class="pd-price-box">
+          <div class="pd-price">{{ product.price | format_currency }}</div>
+          {% set stock = product.stock if product.stock is not none else 0 %}
+          <div class="pd-stock mt-2">
+            {% if stock > 10 %}
+            <i class="fas fa-circle-check stock-ok me-1"></i>
+            <span class="stock-ok">Còn hàng</span>
+            <span class="text-muted">({{ stock }} sản phẩm)</span>
+            {% elif stock > 0 %}
+            <i class="fas fa-triangle-exclamation stock-low me-1"></i>
+            <span class="stock-low">Sắp hết hàng</span>
+            <span class="text-muted">— chỉ còn {{ stock }} sản phẩm</span>
+            {% else %}
+            <i class="fas fa-circle-xmark stock-out me-1"></i>
+            <span class="stock-out">Tạm hết hàng</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Nút hành động: kiểm tra đăng nhập ngay trên template -->
+        <div class="pd-actions">
+          {% if not session.get('user_id') %}
+          <a href="{{ url_for('login') }}" class="btn-pd btn-pd-cart">
+            <i class="fas fa-right-to-bracket"></i>Đăng nhập để mua
+          </a>
+          {% elif session.get('role') == 'admin' %}
+          <a
+            href="{{ url_for('admin_edit_product', product_id=product.id) }}"
+            class="btn-pd btn-pd-cart"
+          >
+            <i class="fas fa-pen"></i>Sửa sản phẩm
+          </a>
+          <a href="{{ url_for('admin_products') }}" class="btn-pd btn-pd-buy">
+            <i class="fas fa-boxes"></i>Quản lý sản phẩm
+          </a>
+          {% else %}
+          {% if stock > 0 %}
+          <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="btn-pd btn-pd-cart">
+            <i class="fas fa-cart-plus"></i>Thêm vào giỏ hàng
+          </a>
+          {% endif %}
+          {% if stock > 0 %}
+          <a
+            href="{{ url_for('buy_now', product_id=product.id) }}"
+            class="btn-pd btn-pd-buy"
+          >
+            <i class="fas fa-bolt"></i>Đặt mua ngay
+          </a>
+          {% endif %}
+          {% endif %}
+        </div>
+
+        <!-- Cam kết -->
+        <div class="pd-policy">
+          <div><i class="fas fa-truck-fast"></i>Miễn phí giao hàng</div>
+          <div><i class="fas fa-rotate-left"></i>Đổi trả trong 7 ngày</div>
+          <div><i class="fas fa-shield-halved"></i>Bảo hành chính hãng</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Thông số kỹ thuật ===== -->
+  {% if specs %}
+  <div class="pd-card pd-specs-card">
+    <h4><i class="fas fa-list-check" aria-hidden="true"></i>Thông số kỹ thuật</h4>
+    <div class="spec-grid">
+      {% for spec in specs %}
+      <div class="spec-row">
+        <div class="k">
+          <i class="fas {{ spec.icon }}" aria-hidden="true"></i><span>{{ spec.label }}</span>
+        </div>
+        <div class="v">{{ spec.value }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- ===== Mô tả ===== -->
+  {% if product.description %}
+  <div class="pd-card">
+    <h4><i class="fas fa-align-left me-2"></i>Mô tả sản phẩm</h4>
+    <div class="pd-desc">{{ product.description }}</div>
+  </div>
+  {% endif %}
+
+  <!-- ===== Sản phẩm cùng loại ===== -->
+  {% if related %}
+  <div class="pd-card">
+    <h4><i class="fas fa-layer-group me-2"></i>Sản phẩm cùng loại</h4>
+    <div class="row g-3">
+      {% for r in related %}
+      <div class="col-6 col-md-3">
+        <a
+          href="{{ url_for('product_detail', product_id=r.id) }}"
+          class="rel-card"
+        >
+          <img
+            src="{% if r.image and r.image.startswith('http') %}{{ r.image }}{% else %}{{ url_for('static', filename='uploads/' ~ (r.image or 'default.png')) }}{% endif %}"
+            alt="{{ r.name }}"
+            class="rel-img"
+          />
+          <div class="p-3">
+            <div class="fw-bold small text-truncate" title="{{ r.name }}">
+              {{ r.name }}
+            </div>
+            <div class="text-muted" style="font-size: 0.78rem">
+              {{ r.brand }}
+            </div>
+            <div class="text-danger fw-bold mt-1">
+              {{ r.price | format_currency }}
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="text-center mt-4">
+    <a
+      href="{{ url_for('category_products', category=category_key) }}"
+      class="btn btn-outline-secondary rounded-pill px-4"
+    >
+      <i class="fas fa-arrow-left me-1"></i>Quay lại {{ category_name }}
+    </a>
+  </div>
+</div>
+{% endblock %}

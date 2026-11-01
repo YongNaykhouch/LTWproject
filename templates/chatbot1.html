@@ -1,0 +1,606 @@
+{#
+    Widget chatbot dùng chung (trang khách + admin).
+    Cách dùng: {% include 'chatbot1.html' %} đặt ngay trước </body>.
+
+    Vị trí: nút chat đặt cao hơn nút "Back to top" (base.html dùng bottom:30px,
+    cao 60px) để hai nút không đè lên nhau.
+#}
+<style>
+    :root {
+        --cb-primary: #150cb9;
+        --cb-primary-dark: #0c078f;
+        --cb-radius: 16px;
+    }
+
+    #cb-toggle {
+        position: fixed;
+        right: 22px;
+        bottom: 110px;              /* nút back-to-top chiếm 30px + 60px */
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        background: linear-gradient(145deg, #2618e8 0%, var(--cb-primary) 72%, #0c078f 100%);
+        color: #fff;
+        font-size: 27px;
+        box-shadow: 0 8px 22px rgba(21, 12, 185, .35), 0 0 0 3px rgba(255, 200, 0, .9);
+        z-index: 1080;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        isolation: isolate;
+        transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    #cb-toggle::before {
+        content: '';
+        position: absolute;
+        inset: -7px;
+        z-index: -1;
+        border: 1px solid rgba(21, 12, 185, .28);
+        border-radius: inherit;
+        animation: cb-toggle-pulse 2.8s ease-out infinite;
+        pointer-events: none;
+    }
+    #cb-toggle:hover {
+        transform: translateY(-2px) scale(1.06);
+        background: linear-gradient(145deg, #3328f4 0%, var(--cb-primary) 72%, #0c078f 100%);
+        box-shadow: 0 11px 26px rgba(21, 12, 185, .42), 0 0 0 3px #ffc800;
+    }
+    #cb-toggle:active { transform: scale(.96); }
+    #cb-toggle:focus-visible { outline: 3px solid #ffc800; outline-offset: 5px; }
+    #cb-toggle .cb-icon-open { filter: drop-shadow(0 1px 2px rgba(10, 8, 70, .3)); }
+    #cb-toggle[aria-expanded="true"]::before { animation: none; }
+    @keyframes cb-toggle-pulse {
+        0% { transform: scale(.92); opacity: .8; }
+        75%, 100% { transform: scale(1.24); opacity: 0; }
+    }
+    #cb-toggle .cb-dot {
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        width: 15px;
+        height: 15px;
+        background: #22c55e;
+        border: 3px solid #fff;
+        border-radius: 50%;
+        box-shadow: 0 1px 4px rgba(15, 23, 42, .2);
+    }
+    #cb-toggle[aria-expanded="true"] .cb-icon-open,
+    #cb-toggle[aria-expanded="false"] .cb-icon-close { display: none; }
+    #cb-toggle[aria-expanded="true"] .cb-icon-close,
+    #cb-toggle[aria-expanded="false"] .cb-icon-open { display: inline-block; }
+
+    #cb-window {
+        position: fixed;
+        right: 22px;
+        bottom: 180px;
+        width: 500px;
+        max-width: calc(100vw - 30px);
+        height: 700px;
+        max-height: calc(100vh - 210px);
+        background: #fff;
+        border-radius: var(--cb-radius);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, .22);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 1080;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+    #cb-window.cb-open { display: flex; animation: cb-pop .18s ease-out; }
+    @keyframes cb-pop { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
+
+    #cb-header {
+        background: linear-gradient(135deg, var(--cb-primary), #6f42c1);
+        color: #fff;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex: 0 0 auto;
+    }
+    #cb-header .cb-title { font-weight: 600; font-size: 18px; }
+    #cb-header small { opacity: .85; font-size: 14px; display: flex; align-items: center; gap: 5px; }
+    #cb-header small::before {
+        content: '';
+        width: 7px; height: 7px; border-radius: 50%;
+        background: #22c55e;
+        display: inline-block;
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, .7);
+        animation: cb-online 2s infinite;
+    }
+    @keyframes cb-online {
+        0%   { box-shadow: 0 0 0 0 rgba(34, 197, 94, .6); }
+        70%  { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+    #cb-close {
+        background: rgba(255, 255, 255, .15);
+        border: none;
+        color: #fff;
+        width: 30px; height: 30px;
+        border-radius: 50%;
+        font-size: 18px;
+        line-height: 1;
+        cursor: pointer;
+        flex: 0 0 auto;
+    }
+    #cb-close:hover { background: rgba(255, 255, 255, .3); }
+
+    .cb-actions { display: flex; align-items: center; gap: 6px; }
+    .cb-icon-btn {
+        background: rgba(255, 255, 255, .15);
+        border: none;
+        color: #fff;
+        width: 30px; height: 30px;
+        border-radius: 50%;
+        font-size: 13px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .cb-icon-btn:hover { background: rgba(255, 255, 255, .3); }
+    .cb-icon-btn.cb-danger:hover { background: #dc3545; }
+
+    #cb-body {
+        flex: 1 1 auto;
+        overflow-y: auto;
+        padding: 14px;
+        background: #f6f8fb;
+        font-size: 18px;
+        line-height: 1.6;
+        scrollbar-width: thin;
+    }
+
+    .cb-msg {
+        max-width: 88%;
+        padding: 9px 13px;
+        border-radius: 14px;
+        margin-bottom: 10px;
+        font-size: 17px;
+        line-height: 1.6;
+        word-wrap: break-word;
+        overflow-wrap: anywhere;
+        animation: cb-in .18s ease-out;
+    }
+    @keyframes cb-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    .cb-bot { background: #fff; color: #222; border: 1px solid #e6ebf2; border-bottom-left-radius: 4px; }
+    .cb-user {
+        background: var(--cb-primary);
+        color: #fff;
+        margin-left: auto;
+        border-bottom-right-radius: 4px;
+    }
+    .cb-product-link {
+        color: var(--cb-primary);
+        font-weight: 700;
+        text-decoration: none;
+    }
+    .cb-product-link:hover {
+        color: #0c078f;
+        text-decoration: underline;
+    }
+
+    /* Gợi ý nhanh */
+    .cb-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 12px; }
+    .cb-chips button {
+        font-size: 15px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        background: #fff;
+        color: var(--cb-primary);
+        border: 1px solid #cfe0ff;
+        cursor: pointer;
+        transition: .15s;
+    }
+    .cb-chips button:hover { background: var(--cb-primary); color: #fff; border-color: var(--cb-primary); }
+
+    /* Menu gợi ý theo nhóm */
+    .cb-group-title {
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .4px;
+        color: #8b96a8;
+        margin: 10px 0 6px;
+    }
+    .cb-group-title:first-child { margin-top: 0; }
+    .cb-chips.cb-group { margin: 0 0 6px; }
+    .cb-chips.cb-group button { font-size: 15px; padding: 6px 11px; }
+
+    .cb-links { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .cb-links a {
+        font-size: 15px;
+        padding: 5px 11px;
+        border-radius: 20px;
+        background: #eef4ff;
+        color: var(--cb-primary);
+        text-decoration: none;
+        border: 1px solid #cfe0ff;
+    }
+    .cb-links a:hover { background: var(--cb-primary); color: #fff; }
+
+    .cb-typing span {
+        display: inline-block; width: 7px; height: 7px; margin-right: 3px;
+        background: #9aa8bd; border-radius: 50%;
+        animation: cb-bounce 1.2s infinite;
+    }
+    .cb-typing span:nth-child(2) { animation-delay: .15s; }
+    .cb-typing span:nth-child(3) { animation-delay: .3s; }
+    @keyframes cb-bounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+
+    #cb-form {
+        display: flex;
+        align-items: center;
+        border-top: 1px solid #e6ebf2;
+        background: #fff;
+        padding: 8px;
+        gap: 6px;
+        flex: 0 0 auto;
+    }
+    #cb-input {
+        flex: 1;
+        border: 1px solid #dde3ec;
+        border-radius: 20px;
+        padding: 9px 14px;
+        font-size: 17px;
+        outline: none;
+        min-width: 0;
+    }
+    #cb-input:focus { border-color: var(--cb-primary); box-shadow: 0 0 0 3px rgba(13, 110, 253, .12); }
+    #cb-send {
+        border: none;
+        background: var(--cb-primary);
+        color: #fff;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        flex: 0 0 auto;
+    }
+    #cb-send:hover:not(:disabled) { background: var(--cb-primary-dark); }
+    #cb-send:disabled { opacity: .5; cursor: not-allowed; }
+
+    @media (max-width: 576px) {
+        #cb-toggle { right: 16px; bottom: 104px; width: 58px; height: 58px; font-size: 24px; }
+        #cb-window {
+            right: 10px; left: 10px;
+            bottom: 170px;
+            width: auto;
+            height: calc(100vh - 210px);
+            max-height: none;
+        }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        #cb-toggle::before { animation: none; }
+        #cb-toggle { transition: none; }
+    }
+</style>
+
+<button id="cb-toggle" type="button" title="Chat với trợ lý cửa hàng" aria-label="Mở trợ lý ảo" aria-controls="cb-window" aria-expanded="false">
+    <i class="fas fa-comment-dots cb-icon-open" aria-hidden="true"></i>
+    <i class="fas fa-times cb-icon-close" aria-hidden="true"></i>
+    <span class="cb-dot" aria-hidden="true"></span>
+</button>
+
+<div id="cb-window" role="dialog" aria-modal="false" aria-labelledby="cb-title" aria-hidden="true">
+    <div id="cb-header">
+        <div>
+            <div class="cb-title" id="cb-title">
+                <i class="fas fa-robot me-1" aria-hidden="true"></i> Trợ lý Cửa hàng Điện tử
+            </div>
+            <small>Trực tuyến 24/7</small>
+        </div>
+        <div class="cb-actions">
+            <button id="cb-clear" type="button" class="cb-icon-btn cb-danger"
+                title="Xoá toàn bộ hội thoại" aria-label="Xoá toàn bộ hội thoại">
+                <i class="fas fa-trash-can" aria-hidden="true"></i>
+            </button>
+            <button id="cb-close" type="button" aria-label="Đóng cửa sổ chat">&times;</button>
+        </div>
+    </div>
+
+    <div id="cb-body" aria-live="polite" aria-atomic="false"></div>
+
+    <form id="cb-form" autocomplete="off">
+        <input id="cb-input" type="text" name="message" placeholder="Nhập câu hỏi..."
+               maxlength="500" aria-label="Câu hỏi của bạn">
+        <button id="cb-send" type="submit" aria-label="Gửi">
+            <i class="fas fa-paper-plane" aria-hidden="true"></i>
+        </button>
+    </form>
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    const ENDPOINT     = {{ url_for('chatbot_api') | tojson }};
+    const CLEAR_ENDPOINT = {{ url_for('chatbot_clear') | tojson }};
+    const STORE_KEY = 'cb_chat_history_v1';
+    const MAX_MSG   = 60;       // số tin tối đa lưu localStorage
+    const COOLDOWN  = 600;      // ms, chống bấm gửi liên tục
+
+    const toggle = document.getElementById('cb-toggle');
+    const win    = document.getElementById('cb-window');
+    const body   = document.getElementById('cb-body');
+    const form   = document.getElementById('cb-form');
+    const input  = document.getElementById('cb-input');
+    const send   = document.getElementById('cb-send');
+
+    if (!toggle || !win) return;
+
+    let opened   = false;
+    let lastSent = 0;
+    let busy     = false;
+
+    const GREETING_HTML =
+        'Xin chào, tôi là trợ lý trực tuyến của <b>Cửa hàng Điện tử</b>.<br>' +
+        'Tôi có thể tư vấn sản phẩm, kiểm tra đơn hàng và giải đáp chính sách.';
+
+    // Gợi ý chia theo nhóm cho gọn mắt
+    const QUICK_GROUPS = [
+        {
+            title: 'Tư vấn sản phẩm',
+            items: ['Điện thoại rẻ nhất', 'Sản phẩm bán chạy', 'Sản phẩm dưới 5 triệu']
+        },
+        {
+            title: 'Đơn hàng',
+            items: ['Đơn hàng của tôi', 'Cách hủy đơn', 'Kiểm tra đơn']
+        },
+        {
+            title: 'Chính sách & thanh toán',
+            items: ['Chính sách bảo hành', 'Đổi trả & hoàn tiền', 'Trả góp 0%', 'Phí giao hàng']
+        },
+        {
+            title: 'Tài khoản',
+            items: ['Hướng dẫn đăng ký', 'Quên mật khẩu']
+        }
+    ];
+
+    // ---------- Lưu / khôi phục hội thoại ----------
+    function loadHistory() {
+        try {
+            const raw = localStorage.getItem(STORE_KEY);
+            const history = raw ? JSON.parse(raw) : [];
+            return history.map(message => {
+                if (message.who === 'user') return message;
+                return {
+                    ...message,
+                    html: cleanBotHtml(message.html),
+                    links: cleanBotLinks(message.links)
+                };
+            });
+        } catch (e) {
+            return [];
+        }
+    }
+
+    function cleanBotLinks(links) {
+        return (Array.isArray(links) ? links : []).map(link => {
+            if (link.url === '/products') return { ...link, url: '/' };
+            return link;
+        });
+    }
+
+    function cleanBotHtml(content) {
+        const template = document.createElement('template');
+        template.innerHTML = String(content || '');
+        template.content.querySelectorAll('i[class*="fa-"]').forEach(icon => icon.remove());
+
+        const walker = document.createTreeWalker(template.content, NodeFilter.SHOW_TEXT);
+        let node;
+        while ((node = walker.nextNode())) {
+            node.nodeValue = node.nodeValue.replace(
+                /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\uFE0E\uFE0F\u200D]/gu, ''
+            );
+        }
+        return template.innerHTML;
+    }
+
+    function saveHistory(list) {
+        try {
+            localStorage.setItem(STORE_KEY, JSON.stringify(list.slice(-MAX_MSG)));
+        } catch (e) { /* localStorage đầy hoặc bị chặn */ }
+    }
+
+    let history = loadHistory();
+
+    // ---------- Render ----------
+    function addMsg(content, who, links, persist) {
+        const div = document.createElement('div');
+        div.className = 'cb-msg ' + (who === 'user' ? 'cb-user' : 'cb-bot');
+        const displayContent = who === 'user' ? content : cleanBotHtml(content);
+        if (who === 'user') {
+            div.textContent = content;      // không dùng innerHTML cho dữ liệu người dùng
+        } else {
+            div.innerHTML = displayContent; // HTML do server kiểm soát
+        }
+
+        links = who === 'user' ? links : cleanBotLinks(links);
+        if (links && links.length) {
+            const wrap = document.createElement('div');
+            wrap.className = 'cb-links';
+            links.forEach(l => {
+                const a = document.createElement('a');
+                a.href = l.url;
+                a.textContent = l.label;
+                wrap.appendChild(a);
+            });
+            div.appendChild(wrap);
+        }
+        body.appendChild(div);
+        body.scrollTop = body.scrollHeight;
+
+        if (persist !== false) {
+            history.push({ who: who, html: displayContent, links: links || [] });
+            saveHistory(history);
+        }
+    }
+
+    function addChips() {
+        const holder = document.createElement('div');
+        holder.className = 'cb-chips-holder';
+
+        QUICK_GROUPS.forEach(group => {
+            const title = document.createElement('div');
+            title.className = 'cb-group-title';
+            title.textContent = group.title;
+            holder.appendChild(title);
+
+            const wrap = document.createElement('div');
+            wrap.className = 'cb-chips cb-group';
+            group.items.forEach(text => {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.textContent = text;
+                b.addEventListener('click', () => {
+                    // Bỏ toàn bộ menu sau khi chọn 1 câu
+                    document.querySelectorAll('.cb-chips-holder, .cb-chips')
+                        .forEach(el => el.remove());
+                    sendMessage(text);
+                });
+                wrap.appendChild(b);
+            });
+            holder.appendChild(wrap);
+        });
+
+        body.appendChild(holder);
+        body.scrollTop = body.scrollHeight;
+    }
+
+    function showTyping() {
+        hideTyping();
+        const div = document.createElement('div');
+        div.id = 'cb-typing';
+        div.className = 'cb-msg cb-bot cb-typing';
+        div.innerHTML = '<span></span><span></span><span></span>';
+        body.appendChild(div);
+        body.scrollTop = body.scrollHeight;
+    }
+
+    function hideTyping() {
+        const t = document.getElementById('cb-typing');
+        if (t) t.remove();
+    }
+
+    // ---------- Gửi tin nhắn ----------
+    async function sendMessage(text) {
+        text = (text || '').trim();
+        if (!text || busy) return;
+
+        const now = Date.now();
+        if (now - lastSent < COOLDOWN) return;
+        lastSent = now;
+
+        body.querySelectorAll('.cb-chips-holder, .cb-chips').forEach(el => el.remove());
+
+        addMsg(text, 'user');
+        busy = true;
+        send.disabled = true;
+        showTyping();
+
+        try {
+            const res = await fetch(ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text })
+            });
+            if (!res.ok && res.status !== 429) throw new Error('HTTP ' + res.status);
+            const data = await res.json();
+
+            hideTyping();
+            addMsg(data.reply || 'Xin lỗi, mình chưa có câu trả lời.', 'bot', data.links);
+        } catch (err) {
+            hideTyping();
+            addMsg('Không kết nối được máy chủ. Vui lòng thử lại hoặc gọi hotline <b>0917873816</b>.',
+                   'bot', null, false);
+        } finally {
+            busy = false;
+            send.disabled = false;
+            if (win.classList.contains('cb-open')) input.focus();
+        }
+    }
+
+    // ---------- Đóng / mở ----------
+    function openWindow() {
+        win.classList.add('cb-open');
+        win.setAttribute('aria-hidden', 'false');
+        toggle.setAttribute('aria-expanded', 'true');
+
+        if (!opened) {
+            opened = true;
+            if (history.length) {
+                history.forEach(m => addMsg(m.html, m.who, m.links, false));
+                addMsg('Mình có thể giúp gì thêm cho bạn ạ?', 'bot', null, false);
+            } else {
+                addMsg(GREETING_HTML, 'bot', null, false);
+                addChips();
+            }
+        }
+        input.focus();
+    }
+
+    function closeWindow() {
+        win.classList.remove('cb-open');
+        win.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
+    }
+
+    toggle.addEventListener('click', () => {
+        if (win.classList.contains('cb-open')) closeWindow();
+        else openWindow();
+    });
+
+    document.getElementById('cb-close').addEventListener('click', closeWindow);
+
+    // ---------- Xoá hội thoại ----------
+    function resetConversation() {
+        history = [];
+        try { localStorage.removeItem(STORE_KEY); } catch (e) { /* bỏ qua */ }
+        body.innerHTML = '';
+        addMsg(GREETING_HTML, 'bot', null, false);
+        addChips();
+        opened = true;
+        input.focus();
+    }
+
+    // Bấm nút thùng rác = xoá luôn, không hiện hộp thoại xác nhận của trình duyệt
+    document.getElementById('cb-clear').addEventListener('click', async () => {
+        const btn = document.getElementById('cb-clear');
+        btn.disabled = true;                 // tránh bấm nhiều lần
+
+        resetConversation();                 // xoá màn hình + localStorage ngay lập tức
+
+        // Xoá trên hệ thống ở chế độ nền (không chặn giao diện)
+        try {
+            await fetch(CLEAR_ENDPOINT, { method: 'POST' });
+        } catch (e) {
+            /* mất mạng vẫn xoá phần trên máy */
+        } finally {
+            btn.disabled = false;
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && win.classList.contains('cb-open')) closeWindow();
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const text = input.value;
+        input.value = '';
+        sendMessage(text);
+    });
+
+    // Mở chat kèm câu hỏi: onclick="cbQuickReply('Chính sách bảo hành')"
+    window.cbQuickReply = (text) => {
+        const wasOpen = win.classList.contains('cb-open');
+        if (!wasOpen) openWindow();
+        setTimeout(() => sendMessage(text), wasOpen ? 0 : 120);
+    };
+})();
+</script>

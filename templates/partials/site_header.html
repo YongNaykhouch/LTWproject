@@ -1,0 +1,93 @@
+<header class="site-header-sticky">
+<nav class="navbar navbar-expand-xl" id="navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('index') }}" id="logo">
+            <span class="logo-mark"><i class="fas fa-bolt"></i></span>
+            <span class="logo-name">Cửa hàng <strong>Điện Tử</strong></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav main-nav-links mb-2 mb-xl-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('index') }}">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('lienhe') }}">Liên hệ</a>
+                </li>
+            </ul>
+
+            <form class="navbar-search" action="{{ url_for('search') }}" method="GET">
+                <input class="form-control" type="search" name="q" placeholder="Tìm sản phẩm..." aria-label="Tìm sản phẩm">
+                <button type="submit" aria-label="Tìm kiếm">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                </button>
+            </form>
+
+            <ul class="navbar-nav navbar-actions mb-2 mb-xl-0">
+                {% if session.get('username') %}
+                    {% if session.get('role') == 'admin' %}
+                <li class="nav-item">
+                    <a class="nav-link navbar-account-link" href="{{ url_for('admin_dashboard') }}">
+                        <i class="fas fa-user-shield"></i> Admin Panel
+                    </a>
+                </li>
+                    {% else %}
+                <li class="nav-item">
+                    <a class="nav-link navbar-account-link" href="{{ url_for('profile') }}">
+                        <i class="fas fa-user"></i> Hồ sơ
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navbar-account-link" href="{{ url_for('my_orders') }}">
+                        <i class="fas fa-truck-fast"></i> Đơn hàng của tôi
+                    </a>
+                </li>
+                    {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link navbar-account-link" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link navbar-account-link" href="{{ url_for('register') }}">
+                        <i class="fas fa-user-plus"></i> Đăng ký
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navbar-account-link" href="{{ url_for('login') }}">
+                        <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                    </a>
+                </li>
+                {% endif %}
+                {% if session.get('role') != 'admin' %}
+                <li class="nav-item">
+                    <a href="{{ url_for('view_cart') }}" class="nav-link navbar-account-link cart-icon">
+                        <i class="fas fa-shopping-cart"></i><span>Giỏ hàng</span>
+                        ({{ session.cart.values() | map(attribute='quantity') | sum if session.cart else 0 }})
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% if request.endpoint not in ['login', 'register'] %}
+<div class="bottom_navbar">
+    <ul>
+        <li><a href="{{ url_for('category_products', category='dienthoai') }}">Điện thoại</a></li>
+        <li><a href="{{ url_for('category_products', category='maytinhbanpc') }}">Máy Tính Bàn</a></li>
+        <li><a href="{{ url_for('category_products', category='tulanh') }}">Tủ lạnh</a></li>
+        <li><a href="{{ url_for('category_products', category='beptu') }}">Bếp Từ</a></li>
+        <li><a href="{{ url_for('category_products', category='dongho') }}">Đồng hồ</a></li>
+        <li><a href="{{ url_for('category_products', category='quat') }}">Quạt</a></li>
+        <li><a href="{{ url_for('category_products', category='laptop') }}">Laptop</a></li>
+        <li><a href="{{ url_for('category_products', category='maygiatsay') }}">Máy Giặt & Sấy</a></li>
+    </ul>
+</div>
+{% endif %}
+</header>

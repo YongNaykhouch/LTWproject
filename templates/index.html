@@ -1,5 +1,4 @@
-﻿{% extends "base.html" %}
-
+{% extends "base.html" %}
 {% block title %}Trang chủ - Cửa Hàng Điện Tử{% endblock %}
 
 {% block content %}
@@ -64,13 +63,19 @@
             {% for product in all_products %}
             <div class="col">
                 <div class="card shadow-lg border-0 rounded-3 h-100 d-flex flex-column">
-                    <img src="{% if product.image and product.image.startswith('http') %}{{ product.image }}{% else %}{{ url_for('static', filename='uploads/' ~ (product.image or 'default.png')) }}{% endif %}"
-                         alt="{{ product.name }}" class="card-img-top rounded-top"
-                         style="height: 220px; object-fit: contain; background-color: #ffff;">
+                    <a href="{{ url_for('product_detail', product_id=product.id) }}"
+                       title="Xem chi tiết {{ product.name }}">
+                        <img src="{% if product.image and product.image.startswith('http') %}{{ product.image }}{% else %}{{ url_for('static', filename='uploads/' ~ (product.image or 'default.png')) }}{% endif %}"
+                             alt="{{ product.name }}" class="card-img-top rounded-top"
+                             style="height: 220px; object-fit: contain; background-color: #ffff;">
+                    </a>
 
                     <div class="card-body text-center d-flex flex-column justify-content-between">
                         <div>
-                            <h5 class="fw-bold mb-2">{{ product.name }}</h5>
+                            <h5 class="fw-bold mb-2">
+                                <a href="{{ url_for('product_detail', product_id=product.id) }}"
+                                   class="text-decoration-none text-dark">{{ product.name }}</a>
+                            </h5>
                             <p class="text-muted small mb-2">{{ product.brand }}</p>
                             <div class="text-warning mb-2">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -78,13 +83,13 @@
                             <h4 class="text-danger fw-bold">{{ product.price | format_currency }}</h4>
                         </div>
 
-                        <div class="d-flex gap-2 mt-3">
+                        <div class="product-card-actions mt-3">
                             <a href="{{ url_for('add_to_cart', product_id=product.id) }}"
-                               class="btn btn-outline-warning flex-fill">
-                                <i class="fa-solid fa-cart-shopping"></i>
+                               class="btn btn-add-to-cart flex-fill">
+                                <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ
                             </a>
                             <a href="{{ url_for('buy_now', product_id=product.id) }}"
-                               class="btn btn-warning flex-fill text-white">
+                               class="btn btn-warning flex-fill text-white product-buy-now">
                                 <i class="fa-solid fa-bolt"></i> Mua ngay
                             </a>
                         </div>
@@ -106,7 +111,7 @@
 
     {% for category, product_list in categories.items() %}
     <section class="mb-5">
-        <h3 class="text-center text-primary mb-4 fw-bold">
+        <h3 class="text-center text-dark mb-4 fw-bold">
             {% if category == 'dienthoai' %}Điện Thoại
             {% elif category == 'dongho' %}Đồng Hồ Thông Minh
             {% elif category == 'laptop' %}Laptop
@@ -124,13 +129,19 @@
             {% for product in product_list %}
             <div class="col">
                 <div class="card shadow-lg border-0 rounded-3 h-100 d-flex flex-column">
-                    <img src="{% if product.image and product.image.startswith('http') %}{{ product.image }}{% else %}{{ url_for('static', filename='uploads/' ~ (product.image or 'default.png')) }}{% endif %}"
-                         alt="{{ product.name }}" class="card-img-top rounded-top"
-                         style="height: 220px; object-fit: contain; background-color: #ffff;">
+                    <a href="{{ url_for('product_detail', product_id=product.id) }}"
+                       title="Xem chi tiết {{ product.name }}">
+                        <img src="{% if product.image and product.image.startswith('http') %}{{ product.image }}{% else %}{{ url_for('static', filename='uploads/' ~ (product.image or 'default.png')) }}{% endif %}"
+                             alt="{{ product.name }}" class="card-img-top rounded-top"
+                             style="height: 220px; object-fit: contain; background-color: #ffff;">
+                    </a>
 
                     <div class="card-body text-center d-flex flex-column justify-content-between">
                         <div>
-                            <h5 class="fw-bold mb-2">{{ product.name }}</h5>
+                            <h5 class="fw-bold mb-2">
+                                <a href="{{ url_for('product_detail', product_id=product.id) }}"
+                                   class="text-decoration-none text-dark">{{ product.name }}</a>
+                            </h5>
                             <p class="text-muted small">{{ product.brand }}</p>
 
                             <!-- Dynamic Specifications -->
@@ -150,13 +161,13 @@
                             <h4 class="text-danger fw-bold">{{ product.price | format_currency }}</h4>
                         </div>
 
-                        <div class="d-flex gap-2 mt-3">
+                        <div class="product-card-actions mt-3">
                             <a href="{{ url_for('add_to_cart', product_id=product.id) }}"
-                               class="btn btn-outline-warning flex-fill">
-                                <i class="fa-solid fa-cart-shopping"></i> Thêm
+                               class="btn btn-add-to-cart flex-fill">
+                                <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ
                             </a>
                             <a href="{{ url_for('buy_now', product_id=product.id) }}"
-                               class="btn btn-warning flex-fill text-white">
+                               class="btn btn-warning flex-fill text-white product-buy-now">
                                 <i class="fa-solid fa-bolt"></i> Mua ngay
                             </a>
                         </div>
@@ -504,14 +515,14 @@
 }
 
 /* Tiêu đề danh mục */
-.text-center.text-primary.mb-4.fw-bold {
-    font-size: 2rem;
+.text-center.text-dark.mb-4.fw-bold {
+    font-size: 2.2rem;
     position: relative;
     padding: 10px 0;
     margin-bottom: 2.5rem !important;
 }
 
-.text-center.text-primary.mb-4.fw-bold::before {
+.text-center.text-dark.mb-4.fw-bold::before {
     content: '';
     position: absolute;
     top: 100%;
@@ -556,8 +567,8 @@
         font-size: 1.8rem;
     }
     
-    .text-center.text-primary.mb-4.fw-bold {
-        font-size: 1.5rem;
+    .text-center.text-dark.mb-4.fw-bold {
+        font-size: 1.7rem;
     }
     
     .card-body h5 {

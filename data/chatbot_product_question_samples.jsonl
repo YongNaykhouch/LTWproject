@@ -1,0 +1,50 @@
+{"text":"Điện thoại này có hỗ trợ kết nối mạng 5G không hay chỉ có 4G?","intent":"product_specification","category":"dienthoai","topic":"connectivity"}
+{"text":"Dung lượng pin của máy là bao nhiêu mAh và dùng được khoảng mấy tiếng với tác vụ cơ bản?","intent":"product_specification","category":"dienthoai","topic":"battery"}
+{"text":"Máy có hỗ trợ sạc nhanh không và có đi kèm củ sạc trong hộp không?","intent":"product_specification","category":"dienthoai","topic":"charging"}
+{"text":"Camera của dòng này chụp thiếu sáng có bị nhiễu hạt (noise) nhiều không?","intent":"product_specification","category":"dienthoai","topic":"camera"}
+{"text":"Bộ nhớ trong 128GB có đủ để lưu trữ hình ảnh và cài các ứng dụng nặng không?","intent":"product_specification","category":"dienthoai","topic":"storage"}
+{"text":"Máy có khả năng chống nước, chống bụi theo chuẩn IP nào không?","intent":"product_specification","category":"dienthoai","topic":"durability"}
+{"text":"Cửa hàng có hỗ trợ chuyển dữ liệu từ điện thoại cũ sang máy mới miễn phí không?","intent":"store_service","category":"dienthoai","topic":"data_transfer"}
+{"text":"Bộ PC này đã được lắp ráp sẵn và cài đặt sẵn hệ điều hành Windows chưa?","intent":"product_specification","category":"maytinhbanpc","topic":"assembly_and_os"}
+{"text":"Cấu hình này có thể nâng cấp thêm card màn hình (GPU) hoặc RAM trong tương lai không?","intent":"product_specification","category":"maytinhbanpc","topic":"upgradeability"}
+{"text":"Nguồn máy tính (PSU) công suất bao nhiêu watt, có đủ công suất khi chơi game nặng không?","intent":"product_specification","category":"maytinhbanpc","topic":"power_supply"}
+{"text":"Thùng máy (case) có sẵn bao nhiêu quạt tản nhiệt (fan) và có hỗ trợ tản nhiệt nước không?","intent":"product_specification","category":"maytinhbanpc","topic":"cooling"}
+{"text":"Máy có tích hợp sẵn kết nối Wi-Fi và Bluetooth hay phải cắm USB thu sóng?","intent":"product_specification","category":"maytinhbanpc","topic":"connectivity"}
+{"text":"Bộ PC này bảo hành theo linh kiện hay bảo hành nguyên bộ tại cửa hàng?","intent":"warranty","category":"maytinhbanpc","topic":"warranty_terms"}
+{"text":"Tủ lạnh này sử dụng công nghệ Inverter có thực sự tiết kiệm điện nhiều không?","intent":"product_specification","category":"tulanh","topic":"energy_efficiency"}
+{"text":"Dung tích tổng và dung tích sử dụng thực tế của tủ là bao nhiêu lít?","intent":"product_specification","category":"tulanh","topic":"capacity"}
+{"text":"Tủ có tính năng tự động làm đá hay lấy nước bên ngoài không?","intent":"product_specification","category":"tulanh","topic":"features"}
+{"text":"Công nghệ làm lạnh là làm lạnh trực tiếp hay làm lạnh đa chiều không đóng tuyết?","intent":"product_specification","category":"tulanh","topic":"cooling"}
+{"text":"Kích thước chiều cao, chiều rộng và chiều sâu của tủ là bao nhiêu để đo chỗ đặt trong bếp?","intent":"product_specification","category":"tulanh","topic":"dimensions"}
+{"text":"Tiếng ồn của máy nén (motor) tủ lạnh vận hành có bị kêu to về đêm không?","intent":"product_specification","category":"tulanh","topic":"noise"}
+{"text":"Bếp từ này là loại bếp đôi hay bếp đơn, tổng công suất tối đa khi bật cả 2 vùng nấu là bao nhiêu?","intent":"product_specification","category":"beptu","topic":"type_and_power"}
+{"text":"Mặt kính của bếp là loại kính gì, có khả năng chống trầy xước và chịu lực chịu nhiệt tốt không?","intent":"product_specification","category":"beptu","topic":"cooktop_material"}
+{"text":"Bếp có tính năng tự ngắt khi quá nhiệt hoặc khi không có nồi trên bếp không?","intent":"product_specification","category":"beptu","topic":"safety"}
+{"text":"Bếp có kén nồi chảo không, hay dùng được tất cả các loại xoong nồi thông thường?","intent":"product_specification","category":"beptu","topic":"cookware_compatibility"}
+{"text":"Bếp có tích hợp tính năng hẹn giờ nấu và khóa trẻ em an toàn không?","intent":"product_specification","category":"beptu","topic":"features"}
+{"text":"Lắp đặt bếp có được kỹ thuật viên hỗ trợ cắt đá và đấu dây điện miễn phí tại nhà không?","intent":"store_service","category":"beptu","topic":"installation"}
+{"text":"Đồng hồ này là đồng hồ thông minh hay đồng hồ cơ/quartz truyền thống?","intent":"product_specification","category":"dongho","topic":"watch_type"}
+{"text":"Nếu là smartwatch thì pin dùng được khoảng mấy ngày cho một lần sạc?","intent":"product_specification","category":"dongho","topic":"battery"}
+{"text":"Đồng hồ có hỗ trợ nghe gọi trực tiếp qua bluetooth hoặc lắp esim không?","intent":"product_specification","category":"dongho","topic":"connectivity"}
+{"text":"Khả năng chống nước của đồng hồ ở mức độ nào, có thể đeo khi bơi lội được không?","intent":"product_specification","category":"dongho","topic":"water_resistance"}
+{"text":"Đồng hồ có tích hợp các tính năng theo dõi sức khỏe như đo nhịp tim, nồng độ oxy máu SpO2 hay đo giấc ngủ không?","intent":"product_specification","category":"dongho","topic":"health_features"}
+{"text":"Dây đeo của đồng hồ có dễ dàng tháo rời để thay thế các loại dây khác không?","intent":"product_specification","category":"dongho","topic":"band"}
+{"text":"Quạt này dùng động cơ thường hay động cơ Inverter không chổi than (tiết kiệm điện và êm hơn)?","intent":"product_specification","category":"quat","topic":"motor"}
+{"text":"Quạt có bao nhiêu mức độ gió và có chế độ gió tự nhiên (gió trời) không?","intent":"product_specification","category":"quat","topic":"fan_modes"}
+{"text":"Quạt có đi kèm điều khiển từ xa (remote) không?","intent":"product_specification","category":"quat","topic":"remote"}
+{"text":"Chiều cao của quạt có thể điều chỉnh linh hoạt được không?","intent":"product_specification","category":"quat","topic":"adjustability"}
+{"text":"Khi quạt quay đảo chiều có phát ra tiếng động cơ kêu rè rè khó chịu không?","intent":"product_specification","category":"quat","topic":"noise"}
+{"text":"Lồng quạt và cánh quạt có dễ tháo rời để vệ sinh lau chùi bụi bẩn định kỳ không?","intent":"product_specification","category":"quat","topic":"cleaning"}
+{"text":"Laptop này có đủ mạnh để chạy các phần mềm đồ họa như Photoshop, Premiere hay lập trình không?","intent":"product_specification","category":"laptop","topic":"performance"}
+{"text":"Trọng lượng máy khoảng bao nhiêu kg, có tiện để mang đi học hoặc đi làm hằng ngày không?","intent":"product_specification","category":"laptop","topic":"weight"}
+{"text":"Màn hình máy là tấm nền gì, độ phân giải Full HD hay 2K, có chống lóa không?","intent":"product_specification","category":"laptop","topic":"display"}
+{"text":"Bàn phím có được trang bị đèn nền để làm việc trong phòng tối không?","intent":"product_specification","category":"laptop","topic":"keyboard"}
+{"text":"Máy có sẵn khe cắm để nâng cấp thêm RAM hoặc ổ cứng SSD không?","intent":"product_specification","category":"laptop","topic":"upgradeability"}
+{"text":"Cửa hàng có hỗ trợ cài đặt các phần mềm văn phòng cơ bản khi mua máy không?","intent":"store_service","category":"laptop","topic":"software_setup"}
+{"text":"Máy giặt này là loại cửa trên hay cửa trước, khối lượng giặt tối đa là bao nhiêu kg?","intent":"product_specification","category":"maygiatsay","topic":"type_and_capacity"}
+{"text":"Máy có tích hợp luôn chức năng sấy khô quần áo luôn sau khi giặt không?","intent":"product_specification","category":"maygiatsay","topic":"drying"}
+{"text":"Công nghệ giặt nước nóng của máy có giúp diệt khuẩn và khử trùng quần áo không?","intent":"product_specification","category":"maygiatsay","topic":"washing_features"}
+{"text":"Động cơ truyền động là dạng dây curoa hay truyền động trực tiếp (êm và bền hơn)?","intent":"product_specification","category":"maygiatsay","topic":"motor"}
+{"text":"Máy có tính năng tự động vệ sinh lồng giặt sau khi giặt xong không?","intent":"product_specification","category":"maygiatsay","topic":"maintenance"}
+{"text":"Kích thước của máy giặt có vừa vặn với không gian phơi/đặt máy ở ban công nhỏ không?","intent":"product_specification","category":"maygiatsay","topic":"dimensions"}
+{"text":"Chính sách bảo hành cho động cơ của máy giặt/sấy này là bao nhiêu năm?","intent":"warranty","category":"maygiatsay","topic":"warranty_terms"}

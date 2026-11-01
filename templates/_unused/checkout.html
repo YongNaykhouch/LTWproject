@@ -752,7 +752,11 @@
         function showInvoice() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             if (cart.length === 0) {
-                alert('Giỏ hàng của bạn đang trống.');
+                if (window.Swal) {
+                    Swal.fire({ icon: 'warning', title: 'Giỏ hàng', text: 'Giỏ hàng của bạn đang trống.', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                } else {
+                    alert('Giỏ hàng của bạn đang trống.');
+                }
                 return;
             }
 
@@ -847,12 +851,20 @@
         document.getElementById('confirmOrderBtn').addEventListener('click', function() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             if (!cart.length) {
-                alert('Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm trước khi thanh toán.');
+                if (window.Swal) {
+                    Swal.fire({ icon: 'warning', title: 'Giỏ hàng', text: 'Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm trước khi thanh toán.', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                } else {
+                    alert('Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm trước khi thanh toán.');
+                }
                 return;
             }
             
             if (!document.getElementById('agreeTerms').checked) {
-                alert('Vui lòng đồng ý với điều khoản và điều kiện để tiếp tục.');
+                if (window.Swal) {
+                    Swal.fire({ icon: 'warning', title: 'Điều khoản', text: 'Vui lòng đồng ý với điều khoản và điều kiện để tiếp tục.', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                } else {
+                    alert('Vui lòng đồng ý với điều khoản và điều kiện để tiếp tục.');
+                }
                 return;
             }
 
@@ -868,7 +880,11 @@
             });
 
             if (missingFields.length > 0) {
-                alert('Vui lòng điền đầy đủ thông tin bắt buộc:\n' + missingFields.join('\n'));
+                if (window.Swal) {
+                    Swal.fire({ icon: 'warning', title: 'Thiếu thông tin', text: 'Vui lòng điền đầy đủ thông tin bắt buộc:\n' + missingFields.join('\n'), toast: false });
+                } else {
+                    alert('Vui lòng điền đầy đủ thông tin bắt buộc:\n' + missingFields.join('\n'));
+                }
                 return;
             }
 

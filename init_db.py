@@ -3,12 +3,18 @@ import hashlib
 import uuid
 from datetime import datetime
 
+from werkzeug.security import generate_password_hash
+
 
 def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
+    # Salted hash (khớp với app.hash_password). Tài khoản cũ dùng SHA-256 vẫn đăng nhập được.
+    return generate_password_hash(password)
 
 
-conn = sqlite3.connect('database.db')
+# Phai trung voi ten file DB ma app.py dang dung (get_db_connection)
+DB_PATH = 'users.db'
+
+conn = sqlite3.connect(DB_PATH)
 c = conn.cursor()
 c.execute("PRAGMA foreign_keys = ON;")
 
@@ -102,7 +108,8 @@ CREATE TABLE IF NOT EXISTS products (
     burners TEXT,
     grates TEXT,
     safety TEXT,
-    ignition TEXT
+    ignition TEXT,
+    extra_specs TEXT NOT NULL DEFAULT '{}'
 )
 """)
 

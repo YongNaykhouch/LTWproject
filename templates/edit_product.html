@@ -31,8 +31,14 @@
                             <!-- Danh mục -->
                             <div class="col-md-6">
                                 <label class="form-label required">Danh mục</label>
-                                <input type="text" name="category" class="form-control" value="{{ product.category }}"
-                                    placeholder="Ví dụ: Điện thoại, Tai nghe, Đồng hồ" required>
+                                <select name="category" class="form-select" required>
+                                    {% for key, label in categories.items() %}
+                                    <option value="{{ key }}" {{ 'selected' if product.category == key else '' }}>
+                                        {{ label }} ({{ key }})
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                                <small class="text-muted">Danh mục quyết định các thông số kỹ thuật hiển thị ngoài cửa hàng.</small>
                             </div>
 
                             <!-- Thương hiệu -->
@@ -47,6 +53,15 @@
                                 <label class="form-label required">Giá (₫)</label>
                                 <input type="number" name="price" class="form-control" value="{{ product.price }}"
                                     min="0" step="1000" required>
+                            </div>
+
+                            <!-- Số lượng (tồn kho) -->
+                            <div class="col-md-6">
+                                <label class="form-label required">Số lượng (tồn kho)</label>
+                                <input type="number" name="stock" class="form-control"
+                                    value="{{ product.stock if product.stock is not none else 0 }}" min="0" step="1"
+                                    required>
+                                <small class="text-muted">Số lượng sản phẩm còn trong kho</small>
                             </div>
 
                             <!-- Hình ảnh hiện tại -->
@@ -77,6 +92,26 @@
 
                         </div>
 
+                        <hr class="my-4">
+                        <h5 class="text-primary">Thông tin bổ sung để tư vấn chính xác</h5>
+                        <p class="text-muted">Chỉ nhập thông tin theo tài liệu sản phẩm; có thể để trống nếu chưa xác nhận.</p>
+                        {% for group in extra_spec_groups %}
+                        <section class="row g-3 mb-3 extra-spec-group"
+                                 data-extra-spec-category="{{ group.category }}"
+                                 {% if group.category != product.category %}hidden{% endif %}>
+                            {% for key, label, placeholder in group.fields %}
+                            <div class="col-md-6">
+                                <label class="form-label" for="extra_spec_{{ group.category }}_{{ key }}">{{ label }}</label>
+                                <input type="text" id="extra_spec_{{ group.category }}_{{ key }}" name="extra_spec_{{ key }}"
+                                       class="form-control"
+                                       value="{{ extra_specs.get(key, '') if group.category == product.category else '' }}"
+                                       {% if group.category != product.category %}disabled{% endif %}
+                                       placeholder="{{ placeholder }}">
+                            </div>
+                            {% endfor %}
+                        </section>
+                        {% endfor %}
+
                         <!-- Buttons -->
                         <div class="mt-5 text-end">
                             <a href="{{ url_for('admin_products') }}" class="btn btn-secondary me-2">
@@ -88,6 +123,17 @@
                         </div>
                     </form>
 
+                    <script>
+                        document.querySelector('select[name="category"]').addEventListener('change', function () {
+                            document.querySelectorAll('.extra-spec-group').forEach(function (group) {
+                                var visible = group.dataset.extraSpecCategory === this.value;
+                                group.hidden = !visible;
+                                group.querySelectorAll('input').forEach(function (input) {
+                                    input.disabled = !visible;
+                                });
+                            }, this);
+                        });
+                    </script>
                 </div>
             </div>
         </div>

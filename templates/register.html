@@ -4,37 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Ký Tài Khoản</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ===== Bảng màu lấy từ website: navy #0c06cd + vàng #ffc800 ===== */
         :root {
+            --brand-navy: #0c06cd;
+            --brand-navy-dark: #0803a0;
+            --brand-yellow: #ffc800;
+            --brand-orange: #ff9900;
+            --header-gradient: linear-gradient(135deg, #0c06cd 0%, #4a3aff 100%);
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --light-bg: #f8f9fa;
-            --card-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+            --light-bg: #f6f8fb;
+            --card-shadow: 0 15px 35px rgba(12, 6, 205, 0.12), 0 5px 15px rgba(0, 0, 0, 0.06);
             --transition: all 0.3s ease;
         }
-        
+
         body {
-            background: var(--secondary-gradient);
+            background: var(--light-bg);
+            background-image:
+                radial-gradient(circle at 12% 8%, rgba(12, 6, 205, .10), transparent 42%),
+                radial-gradient(circle at 88% 92%, rgba(255, 200, 0, .16), transparent 45%);
+            background-attachment: fixed;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 20px 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: block;
+            padding: 0 0 20px;
+            font-family: 'Be Vietnam Pro', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         .register-container {
             max-width: 700px;
-            margin: 0 auto;
+            margin: 32px auto 0;
             animation: fadeIn 0.5s ease-out;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .card {
             border: none;
             border-radius: 20px;
@@ -42,63 +51,73 @@
             box-shadow: var(--card-shadow);
             transition: var(--transition);
         }
-        
+
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(50, 50, 93, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-        
+
         .card-header {
-            background: var(--secondary-gradient);
+            background: var(--header-gradient);
             color: white;
-            padding: 35px 20px;
+            padding: 32px 20px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            /* Bo góc trên theo đúng card (Bootstrap đang đặt 5px) */
+            border-radius: 20px 20px 0 0 !important;
+            border-bottom: none;
         }
-        
+
+        /* Vệt sáng chéo thay cho mảng méo cũ */
         .card-header::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.1);
-            transform: skewY(-5deg) translateY(-50%);
+            top: -60%;
+            left: -10%;
+            width: 60%;
+            height: 220%;
+            background: rgba(255, 255, 255, 0.07);
+            transform: rotate(18deg);
+            pointer-events: none;
         }
-        
+
+        /* Bỏ gạch vàng dưới tiêu đề – bị nền xanh cắt ngang, trông như lỗi */
+        .card-header::after {
+            display: none;
+        }
+
         .card-header h3 {
             position: relative;
             z-index: 1;
             font-weight: 700;
             letter-spacing: 0.5px;
         }
-        
+
         .card-body {
             padding: 40px 35px;
             background-color: white;
         }
-        
+
         .logo-container {
             text-align: center;
             margin-bottom: 30px;
         }
-        
+
         .logo {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 80px;
-            height: 80px;
+            width: 74px;
+            height: 74px;
             border-radius: 50%;
-            background: var(--secondary-gradient);
-            color: white;
-            font-size: 36px;
-            margin-bottom: 15px;
-            box-shadow: 0 10px 20px rgba(240, 147, 251, 0.3);
+            background: rgba(12, 6, 205, .08);
+            color: var(--brand-navy);
+            font-size: 32px;
+            margin-bottom: 14px;
+            border: 2px solid rgba(12, 6, 205, .15);
         }
-        
+
         .form-label {
             font-weight: 600;
             margin-bottom: 10px;
@@ -106,14 +125,14 @@
             display: flex;
             align-items: center;
         }
-        
+
         .form-label i {
             margin-right: 10px;
             width: 20px;
             text-align: center;
-            color: #f5576c;
+            color: var(--brand-orange);
         }
-        
+
         .form-control, .form-select, .form-textarea {
             border-radius: 12px;
             padding: 14px 18px;
@@ -122,75 +141,112 @@
             transition: var(--transition);
             background-color: #fdfdfd;
         }
-        
+
         .form-control:focus, .form-select:focus, .form-textarea:focus {
-            border-color: #f5576c;
-            box-shadow: 0 0 0 0.25rem rgba(245, 87, 108, 0.2);
+            border-color: var(--brand-navy);
+            box-shadow: 0 0 0 0.25rem rgba(12, 6, 205, 0.12);
             background-color: white;
         }
-        
+
         .form-textarea {
             resize: vertical;
             min-height: 100px;
         }
-        
+
+        /* Ô icon đầu dòng: chỉ bo góc TRÁI, nối liền với input */
         .input-group-text {
-            background-color: transparent;
+            background-color: #f8f9fb;
+            color: #8b93a1;
             border: 2px solid #e8e8e8;
             border-right: none;
             border-radius: 12px 0 0 12px;
+            padding: 0 14px;
+            font-size: .95rem;
         }
-        
+
+        /* Ô icon CUỐI dòng (nút hiện mật khẩu): bo góc PHẢI, có viền phải */
+        .input-group > .input-group-text:last-child {
+            border-right: 2px solid #e8e8e8;
+            border-left: none;
+            border-radius: 0 12px 12px 0;
+            cursor: pointer;
+            transition: color .2s ease, background-color .2s ease;
+        }
+
+        .input-group > .input-group-text:last-child:hover {
+            color: var(--brand-navy);
+            background-color: #eef3ff;
+        }
+
+        /* Nút chính: vàng cam giống "Mua ngay" / "Đặt hàng" */
         .btn-register {
-            background: var(--secondary-gradient);
+            background: var(--brand-yellow);
+            color: #1a1200;
             border: none;
             padding: 16px;
-            border-radius: 12px;
+            border-radius: 50px;
             font-weight: 700;
-            font-size: 18px;
+            font-size: 17px;
             letter-spacing: 0.5px;
             transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+            box-shadow: 0 8px 22px rgba(255, 200, 0, 0.35);
         }
-        
+
         .btn-register:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.5);
-            background: linear-gradient(135deg, #e083ee 0%, #e94a5c 100%);
+            color: #1a1200;
+            background: var(--brand-orange);
+            box-shadow: 0 14px 30px rgba(255, 153, 0, 0.42);
         }
-        
+
         .btn-register:active {
             transform: translateY(0);
         }
-        
+
+        /* Khung tròn xem trước ảnh đại diện */
         .avatar-preview {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #e8e8e8;
-            display: block;
+            border: 3px dashed #d7dce4;
+            display: flex;              /* <-- thiếu trưđc: placeholder bị lệch */
+            align-items: center;
+            justify-content: center;
             margin: 0 auto 15px;
-            background-color: #f8f9fa;
+            background-color: #f8f9fb;
             overflow: hidden;
+            transition: border-color .25s ease, background-color .25s ease;
         }
-        
+
+        .avatar-preview:hover {
+            border-color: var(--brand-navy);
+            background-color: #f2f5ff;
+        }
+
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* Icon người bên trong khung: to hơn, màu navy nhạt cho hợp tông */
         .avatar-placeholder {
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
             height: 100%;
-            background: #e9ecef;
-            color: #adb5bd;
-            font-size: 40px;
+            background: transparent;    /* <-- bỏ nền xám đậm cũ */
+            color: #c2c9d6;
+            font-size: 52px;
         }
-        
+
         .avatar-upload {
             text-align: center;
             margin-bottom: 25px;
         }
-        
+
         .avatar-upload label {
             cursor: pointer;
             display: inline-flex;
@@ -204,31 +260,37 @@
             font-weight: 500;
             color: #6c757d;
         }
-        
+
         .avatar-upload label:hover {
-            background-color: #e9ecef;
-            border-color: #f5576c;
-            color: #f5576c;
+            background-color: #eef3ff;
+            border-color: var(--brand-navy);
+            color: var(--brand-navy);
         }
-        
+
         .avatar-upload i {
             margin-right: 10px;
         }
-        
+
         .form-row {
             display: flex;
             flex-wrap: wrap;
             margin-right: -10px;
             margin-left: -10px;
         }
-        
+
         .form-col {
             padding-right: 10px;
             padding-left: 10px;
             flex: 1 0 0%;
             margin-bottom: 20px;
+            min-width: 0;   /* để input không tràn cột */
         }
-        
+
+        /* Ô có 1 cột (Tên đăng nhập) – giới hạn để không rộng bất thường */
+        .form-row:has(.form-col:only-child) .form-col {
+            flex: 0 0 100%;
+        }
+
         .alert {
             border-radius: 12px;
             border: none;
@@ -236,49 +298,56 @@
             margin-bottom: 25px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
-        
+
         .alert-danger {
             background-color: #ffeaea;
             color: #d9534f;
             border-left: 4px solid #d9534f;
         }
-        
+
         .alert-success {
             background-color: #eaffea;
             color: #5cb85c;
             border-left: 4px solid #5cb85c;
         }
-        
+
         .login-link {
             text-align: center;
             margin-top: 25px;
             color: #6c757d;
         }
-        
+
         .login-link a {
-            color: #f5576c;
+            color: var(--brand-navy);
             font-weight: 600;
             text-decoration: none;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
         }
-        
+
         .login-link a:hover {
-            color: #d43f3a;
+            color: var(--brand-orange);
             text-decoration: underline;
         }
-        
+
         .login-link i {
             margin-right: 8px;
         }
-        
+
+        /* Thanh đo độ mạnh chỉ hiện khi đã gõ mật khẩu (tránh vạch xám lạ dưới ô) */
         .password-strength {
             height: 5px;
             border-radius: 5px;
             margin-top: 8px;
             background-color: #e9ecef;
             overflow: hidden;
+            opacity: 0;
+            transition: opacity .25s ease;
+        }
+
+        .password-strength.is-active {
+            opacity: 1;
         }
         
         .strength-meter {
@@ -316,6 +385,7 @@
 </head>
 
 <body>
+    {% include 'partials/site_header.html' %}
 <div class="container">
     <div class="register-container">
         <div class="card">
@@ -468,20 +538,37 @@
         </div>
         
         <div class="text-center mt-4">
-            <p class="text-white small">
-                &copy; Hà Nội 2026 Hệ thống Quản lý. Bảo lưu mọi quyền.
+            <p class="text-muted small mb-2">
+                &copy; 2026 Cửa Hàng Điện Tử. Bảo lưu mọi quyền.
             </p>
+            <a href="{{ url_for('index') }}" class="small text-decoration-none"
+               style="color:#0c06cd;">
+                <i class="fas fa-arrow-left me-1"></i>Về trang chủ
+            </a>
         </div>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    function showToast(icon, title, text) {
+        Swal.fire({
+            icon: icon,
+            title: title,
+            text: text,
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1800
+        });
+    }
+
     // Hiển thị/ẩn mật khẩu chính
     document.getElementById('toggleRegPassword').addEventListener('click', function() {
         const passwordInput = document.getElementById('regPassword');
         const icon = this;
-        
+
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
             icon.classList.remove('fa-eye');
@@ -492,12 +579,12 @@
             icon.classList.add('fa-eye');
         }
     });
-    
+
     // Hiển thị/ẩn mật khẩu xác nhận
     document.getElementById('toggleRegConfirmPassword').addEventListener('click', function() {
         const passwordInput = document.getElementById('regConfirmPassword');
         const icon = this;
-        
+
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
             icon.classList.remove('fa-eye');
@@ -508,7 +595,7 @@
             icon.classList.add('fa-eye');
         }
     });
-    
+
     // Xử lý hiển thị preview ảnh đại diện
     document.getElementById('avatarInput').addEventListener('change', function(e) {
         const file = e.target.files[0];
@@ -521,35 +608,39 @@
             reader.readAsDataURL(file);
         }
     });
-    
+
     // Kiểm tra độ mạnh của mật khẩu
     document.getElementById('regPassword').addEventListener('input', function() {
         const password = this.value;
         const strengthMeter = document.getElementById('passwordStrength');
+
+        // Chỉ hiện thanh đo khi đã có nội dung
+        strengthMeter.parentElement.classList.toggle('is-active', password.length > 0);
+
         let strength = 0;
-        
+
         // Kiểm tra độ dài
         if (password.length >= 8) strength += 25;
-        
+
         // Kiểm tra chữ hoa và chữ thường
         if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength += 25;
-        
+
         // Kiểm tra số
         if (/\d/.test(password)) strength += 25;
-        
+
         // Kiểm tra ký tự đặc biệt
         if (/[^A-Za-z0-9]/.test(password)) strength += 25;
-        
+
         // Cập nhật thanh độ mạnh
         strengthMeter.style.width = `${strength}%`;
-        
-        // Đổi màu theo độ mạnh
+
+        // Đổi màu theo độ mạnh (yếu: đỏ → vừa: vàng → mạnh: xanh lá)
         if (strength < 50) {
             strengthMeter.style.backgroundColor = '#dc3545';
         } else if (strength < 75) {
-            strengthMeter.style.backgroundColor = '#0c06cd';
+            strengthMeter.style.backgroundColor = '#ffc800';
         } else {
-            strengthMeter.style.backgroundColor = '#28a745';
+            strengthMeter.style.backgroundColor = '#198754';
         }
     });
     
@@ -567,6 +658,13 @@
         }
     });
     
+    // Ẩn thanh đo khi ô mật khẩu bị xóa trắng
+    document.getElementById('regPassword').addEventListener('blur', function () {
+        if (!this.value) {
+            document.querySelector('.password-strength').classList.remove('is-active');
+        }
+    });
+
     // Hiệu ứng khi submit form
     document.getElementById('registerForm').addEventListener('submit', function(e) {
         const password = document.getElementById('regPassword').value;
@@ -575,7 +673,7 @@
         // Kiểm tra mật khẩu khớp
         if (password !== confirmPassword) {
             e.preventDefault();
-            alert('Mật khẩu xác nhận không khớp! Vui lòng kiểm tra lại.');
+            showToast('error', 'Lỗi', 'Mật khẩu xác nhận không khớp! Vui lòng kiểm tra lại.');
             return;
         }
         

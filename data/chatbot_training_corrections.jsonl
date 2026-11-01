@@ -1,0 +1,56 @@
+{"text":"Hãy liệt kê các nhóm danh mục hàng đang bán","intent":"product_category"}
+{"text":"Tôi muốn xem danh sách loại sản phẩm, chưa cần chọn mẫu cụ thể","intent":"product_category"}
+{"text":"Những ngành hàng nào có trong cửa hàng?","intent":"product_category"}
+{"text":"Cửa hàng có những danh mục thiết bị điện tử nào?","intent":"product_category"}
+{"text":"Trong số các sản phẩm, mẫu nào đắt nhất?","intent":"expensive_product"}
+{"text":"Tìm giúp món có giá cao nhất, không phải rẻ nhất","intent":"expensive_product"}
+{"text":"Cho xem sản phẩm đắt tiền nhất đang còn hàng","intent":"expensive_product"}
+{"text":"Mẫu nào đứng đầu về giá trong danh mục điện thoại?","intent":"expensive_product"}
+{"text":"Sản phẩm có giá thấp nhất hiện nay là mẫu nào?","intent":"cheapest_product"}
+{"text":"Tôi muốn chọn món rẻ nhất chứ không tìm hàng cao cấp","intent":"cheapest_product"}
+{"text":"Trong cửa hàng, mẫu nào rẻ hơn các mẫu còn lại?","intent":"cheapest_product"}
+{"text":"Tìm điện thoại giá thấp nhất đang có sẵn","intent":"cheapest_product"}
+{"text":"Mở trang chi tiết iPhone 15 Pro Max để tôi tham khảo","intent":"product_search"}
+{"text":"Tìm sản phẩm tên Samsung Galaxy S26 Ultra","intent":"product_search"}
+{"text":"Mở trang laptop Asus VivoBook cho tôi xem","intent":"product_search"}
+{"text":"Tôi muốn xem riêng mẫu quạt Senko DH1600","intent":"product_search"}
+{"text":"So sánh iPhone 15 Pro Max với Samsung Galaxy S26 Ultra","intent":"compare_products"}
+{"text":"Đặt hai mẫu điện thoại này cạnh nhau để so cấu hình","intent":"compare_products"}
+{"text":"Hãy đối chiếu laptop Asus với Dell","intent":"compare_products"}
+{"text":"Giữa hai sản phẩm này, mẫu nào có giá tốt hơn?","intent":"compare_products"}
+{"text":"Mẫu tủ lạnh này còn hàng trong kho không?","intent":"stock_status"}
+{"text":"Kiểm tra giúp điện thoại Samsung còn số lượng không","intent":"stock_status"}
+{"text":"Tôi hỏi hàng còn sẵn để mua không, không hỏi đơn đã đặt","intent":"stock_status"}
+{"text":"Hiện cửa hàng còn laptop Asus không?","intent":"stock_status"}
+{"text":"Cho xem các đơn hàng tôi đã đặt gần đây","intent":"my_orders"}
+{"text":"Tôi muốn kiểm tra lịch sử mua hàng trong tài khoản","intent":"my_orders"}
+{"text":"Liệt kê những đơn của tôi, không cần tra một mã cụ thể","intent":"my_orders"}
+{"text":"Tài khoản này có những đơn hàng nào?","intent":"my_orders"}
+{"text":"Tôi cần tình trạng hàng còn hay hết của mẫu Samsung","intent":"stock_status"}
+{"text":"Số lượng điện thoại Samsung còn trong kho là bao nhiêu?","intent":"stock_status"}
+{"text":"Tôi muốn biết còn bán mẫu điện thoại Samsung này không","intent":"stock_status"}
+{"text":"Kiểm tra hàng tồn của Samsung Galaxy giúp tôi","intent":"stock_status"}
+{"text":"Cho tôi xin số điện thoại của cửa hàng","intent":"contact"}
+{"text":"Hotline hỗ trợ mua hàng là số nào?","intent":"contact"}
+{"text":"Tôi cần liên hệ nhân viên, cho xin thông tin cửa hàng","intent":"contact"}
+{"text":"Cửa hàng có email và địa chỉ liên hệ nào?","intent":"contact"}
+{"text":"Thanh toán laptop thành nhiều kỳ hàng tháng có được không?","intent":"installment"}
+{"text":"Tôi muốn chia tiền mua laptop thành các kỳ trả góp","intent":"installment"}
+{"text":"Có thể mua laptop trả góp trong 12 tháng không?","intent":"installment"}
+{"text":"Đăng ký trả góp cho sản phẩm cần những điều kiện gì?","intent":"installment"}
+{"text":"Tôi thanh toán đơn hàng bằng cách nào?","intent":"payment_methods"}
+{"text":"Cửa hàng chấp nhận COD, chuyển khoản hay ví điện tử?","intent":"payment_methods"}
+{"text":"Có những phương thức trả tiền nào khi mua laptop?","intent":"payment_methods"}
+{"text":"Tôi có thể dùng MoMo để thanh toán thay vì trả góp không?","intent":"payment_methods"}
+{"text":"Sản phẩm lỗi do nhà sản xuất được bảo hành thế nào?","intent":"warranty"}
+{"text":"Nếu thiết bị bị lỗi kỹ thuật thì chính sách bảo hành ra sao?","intent":"warranty"}
+{"text":"Tôi muốn hỏi về thời gian bảo hành sản phẩm","intent":"warranty"}
+{"text":"Hàng hỏng trong thời hạn bảo hành thì cửa hàng xử lý thế nào?","intent":"warranty"}
+{"text":"Nếu không muốn giữ hàng nữa thì có được trả lại không?","intent":"return_policy"}
+{"text":"Tôi cần đổi trả sản phẩm, điều kiện nhận lại hàng là gì?","intent":"return_policy"}
+{"text":"Hoàn tiền khi trả sản phẩm được áp dụng trong trường hợp nào?","intent":"return_policy"}
+{"text":"Sản phẩm không bị lỗi nhưng tôi muốn đổi mẫu thì sao?","intent":"return_policy"}
+{"text":"Mua hàng online thì thời gian giao đến nhà là bao lâu?","intent":"shipping"}
+{"text":"Đơn hàng mất mấy ngày để vận chuyển tới địa chỉ của tôi?","intent":"shipping"}
+{"text":"Cửa hàng giao hàng nội thành trong ngày không?","intent":"shipping"}
+{"text":"Phí ship và thời gian giao hàng ngoại thành thế nào?","intent":"shipping"}

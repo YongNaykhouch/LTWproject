@@ -256,14 +256,26 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert('Cập nhật trạng thái thành công!');
+                        if (window.Swal) {
+                            Swal.fire({ icon: 'success', title: 'Thành công', text: 'Cập nhật trạng thái thành công!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                        } else {
+                            alert('Cập nhật trạng thái thành công!');
+                        }
                         location.reload();
                     } else {
-                        alert('Lỗi: ' + data.error);
+                        if (window.Swal) {
+                            Swal.fire({ icon: 'error', title: 'Lỗi', text: data.error || 'Có lỗi xảy ra', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                        } else {
+                            alert('Lỗi: ' + data.error);
+                        }
                     }
                 })
                 .catch(error => {
-                    alert('Lỗi: ' + error);
+                    if (window.Swal) {
+                        Swal.fire({ icon: 'error', title: 'Lỗi', text: String(error), toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                    } else {
+                        alert('Lỗi: ' + error);
+                    }
                 });
         }
 
@@ -283,14 +295,26 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            alert('Hủy đơn hàng thành công!');
+                            if (window.Swal) {
+                                Swal.fire({ icon: 'success', title: 'Thành công', text: 'Hủy đơn hàng thành công!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                            } else {
+                                alert('Hủy đơn hàng thành công!');
+                            }
                             location.reload();
                         } else {
-                            alert('Lỗi: ' + data.error);
+                            if (window.Swal) {
+                                Swal.fire({ icon: 'error', title: 'Lỗi', text: data.error || 'Có lỗi xảy ra', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                            } else {
+                                alert('Lỗi: ' + data.error);
+                            }
                         }
                     })
                     .catch(error => {
-                        alert('Lỗi: ' + error);
+                        if (window.Swal) {
+                            Swal.fire({ icon: 'error', title: 'Lỗi', text: String(error), toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                        } else {
+                            alert('Lỗi: ' + error);
+                        }
                     });
             }
         }

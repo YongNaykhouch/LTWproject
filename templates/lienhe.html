@@ -14,259 +14,457 @@
     <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
 <style>
         :root {
-            --primary-color: #4f46e5;
-            --primary-hover: #4338ca;
-            --text-color: #1f2937;
-            --bg-light: #f9fafb;
-            --border-color: #e5e7eb;
+            --primary-color: #0c06cd;      /* xanh navy của navbar */
+            --primary-hover: #112cb1;
+            --accent-color: #ffc800;       /* vàng của logo */
+            --accent-hover: #ff9900;       /* cam của nút mua */
+            --text-color: #2c3e50;
+            --muted-color: #7f8c8d;
+            --bg-light: #f6f8fb;
+            --border-color: #eef1f5;
         }
 
         body {
-            font-family: 'Merriweather', serif;
+            font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
             color: var(--text-color);
             background-color: var(--bg-light);
-            line-height: 1.6;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* ---------- Thông báo flash ---------- */
+        .alert-success,
+        .alert-error {
+            padding: 15px 24px;
+            margin: 0 auto 26px;
+            border-radius: 14px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            max-width: 720px;
+            border: none;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .06);
         }
 
         .alert-success {
-            background-color: #d1fae5;
-            border-color: #10b981;
-            color: #065f46;
-            padding: 12px 20px;
-            margin: 15px auto;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: 600;
-            max-width: 600px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background-color: #e7f7ef;
+            color: #0f7b4d;
+            border-left: 4px solid #10b981;
         }
 
         .alert-error {
-            background-color: #fee2e2;
-            border-color: #ef4444;
-            color: #991b1b;
-            padding: 12px 20px;
-            margin: 15px auto;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: 600;
-            max-width: 600px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background-color: #fdecec;
+            color: #b02a37;
+            border-left: 4px solid #e74c3c;
         }
 
+        /* ---------- Tiêu đề: đồng bộ với "Sản Phẩm Mới" ở trang chủ ---------- */
         .lienhe-header {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: clamp(2.2rem, 3.2vw, 2.8rem);
             font-weight: 700;
-            color: #111827;
-            margin: 30px 0;
+            margin: 10px 0 10px;
             position: relative;
+            padding-bottom: 18px;
+            color: #172554;
+            letter-spacing: -0.7px;
         }
 
         .lienhe-header::after {
             content: '';
-            display: block;
-            width: 60px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 72px;
             height: 4px;
-            background-color: var(--primary-color);
-            margin: 10px auto 0;
             border-radius: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
         }
 
-        .lienhe-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-
-        .info-left, .info-right, .guithongtin, .thongtinnhom {
-            flex: 1;
-            min-width: 320px;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .info-left:hover, .info-right:hover, .guithongtin:hover, .thongtinnhom:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-        }
-
-        .info-left h2, .guithongtin .title, .thongtinnhom .title {
-            font-size: 1.25rem;
-            color: #111827 !important;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-
-        .info-left p {
-            margin: 12px 0;
-            color: #4b5563;
-        }
-
-        .info-right iframe {
-            border-radius: 8px;
-            border: none;
-            width: 100%;
-        }
-
-        /* --- Tinh chỉnh phần form liên hệ --- */
-        .guithongtin table {
-            width: 100%;
-            max-width: 100%;
-            margin: 0 auto;
-            border-collapse: separate;
-            border-spacing: 0 10px; /* Tạo khoảng cách giữa các dòng trong form */
-        }
-
-        .guithongtin td {
-            padding: 8px 10px;
-            vertical-align: middle;
-            color: #374151;
-            font-weight: 600;
-        }
-
-        /* Cố định chiều rộng cột nhãn bên trái để các hàng thẳng tắp */
-        .guithongtin tr td:first-child {
-            width: 32%;
-            white-space: nowrap;
-        }
-
-        .guithongtin input, .guithongtin textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            font-family: inherit;
-            font-size: 0.95rem;
-            background-color: #fdfdfd;
-        }
-
-        .guithongtin input:focus, .guithongtin textarea:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
-            background-color: #ffffff;
-        }
-
-        .guithongtin button {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: background-color 0.2s, transform 0.1s;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        .guithongtin button:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .guithongtin button:active {
-            transform: scale(0.98);
-        }
-
-        /* --- Bảng thông tin thành viên --- */
-        .thongtinnhom table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-top: 15px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-        }
-
-        .thongtinnhom th, .thongtinnhom td {
-            padding: 12px 15px;
+        .lienhe-intro {
+            max-width: 700px;
+            margin: 0 auto 38px;
+            color: #64748b;
             text-align: center;
+            font-size: 1.05rem;
+            line-height: 1.7;
         }
 
-        .thongtinnhom th {
-            background-color: #f3f4f6;
-            color: #1f2937;
+        /* ---------- Lưới 2 cột ---------- */
+        .lienhe-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            margin-bottom: 28px;
+        }
+
+        /* ---------- Card ---------- */
+        .lh-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 34px 36px;
+            box-shadow: 0 8px 26px rgba(24, 39, 75, .07);
+            border: 1px solid #e6eaf0;
+            transition: box-shadow .25s ease, transform .25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lh-card:hover {
+            box-shadow: 0 14px 34px rgba(24, 39, 75, .11);
+            transform: translateY(-2px);
+        }
+
+        .lh-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1.35rem;
             font-weight: 700;
+            color: #172554;
+            margin-bottom: 24px;
+            padding-bottom: 18px;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .thongtinnhom td {
-            border-bottom: 1px solid var(--border-color);
-            color: #4b5563;
+        .lh-title .tf-icon {
+            width: 46px;
+            height: 46px;
+            flex: 0 0 46px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: rgba(12, 6, 205, .09);
+            color: var(--primary-color);
+            font-size: 1.15rem;
         }
 
-        .thongtinnhom tbody tr:last-child td {
+        .lh-title.accent .tf-icon {
+            background: rgba(255, 153, 0, .14);
+            color: var(--accent-hover);
+        }
+
+        /* ---------- Thông tin liên hệ ---------- */
+        .lh-company {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            letter-spacing: .3px;
+            margin-bottom: 20px;
+        }
+
+        .lh-info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 18px;
+        }
+
+        .lh-info-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 13px 0;
+            border-bottom: 1px dashed #eef1f5;
+            font-size: 1rem;
+        }
+
+        .lh-info-list li:last-child {
             border-bottom: none;
         }
 
-        .thongtinnhom tbody tr:hover {
-            background-color: #f9fafb;
+        .lh-info-list i {
+            color: var(--accent-hover);
+            width: 18px;
+            text-align: center;
+            margin-top: 4px;
+            flex: 0 0 18px;
+        }
+
+        .lh-info-list .lbl {
+            display: block;
+            font-size: .82rem;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            color: var(--muted-color);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .lh-info-list .val {
+            color: var(--text-color);
+            font-size: 1rem;
+            line-height: 1.55;
+            font-weight: 600;
+        }
+
+        .lh-note {
+            margin: 18px 0 0;
+            padding: 17px 20px;
+            background: #fff8f0;
+            border-left: 4px solid var(--accent-hover);
+            border-radius: 0 10px 10px 0;
+            font-size: .98rem;
+            color: #6b5b45;
+            line-height: 1.65;
+        }
+
+        /* ---------- Bản đồ ---------- */
+        .lh-map {
+            flex: 1;
+            min-height: 410px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: #f8f9fa;
+        }
+
+        .lh-map iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 410px;
+            border: 0;
+            display: block;
+        }
+
+        /* ---------- Form ---------- */
+        .lh-form .form-row {
+            margin-bottom: 18px;
+        }
+
+        .lh-form label {
+            display: block;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 9px;
+        }
+
+        .lh-form label .req {
+            color: #e74c3c;
+        }
+
+        .lh-form input,
+        .lh-form textarea {
+            width: 100%;
+            padding: 15px 17px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px;
+            outline: none;
+            font-family: inherit;
+            font-size: 1.08rem;
+            color: var(--text-color);
+            background-color: #fbfcfe;
+            transition: border-color .25s, box-shadow .25s, background-color .25s;
+        }
+
+        .lh-form input::placeholder,
+        .lh-form textarea::placeholder {
+            color: #b0b7c3;
+        }
+
+        .lh-form input:focus,
+        .lh-form textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(12, 6, 205, .1);
+            background-color: #fff;
+        }
+
+        .lh-form textarea {
+            resize: vertical;
+            min-height: 145px;
+        }
+
+        .btn-lh-submit {
+            width: 100%;
+            margin-top: 8px;
+            padding: 15px 24px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #000;
+            background: var(--accent-color);
+            box-shadow: 0 8px 22px rgba(255, 200, 0, .35);
+            transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+        }
+
+        .btn-lh-submit:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(255, 153, 0, .42);
+        }
+
+        .btn-lh-submit:active {
+            transform: translateY(0);
+        }
+
+        /* ---------- Bảng thành viên ---------- */
+        .lh-table-wrap {
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow-x: auto;          /* bảng rộng trên mobile -> cuộn ngang TRONG card */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Chống tràn ngang toàn trang */
+        body { overflow-x: hidden; }
+        .lh-card, .lienhe-grid { min-width: 0; }
+
+        .lh-table {
+            width: 100%;
+            margin: 0;
+            border-collapse: collapse;
+            font-size: .98rem;
+        }
+
+        .lh-table thead th {
+            background: var(--text-color);
+            color: #fff;
+            font-weight: 600;
+            font-size: .8rem;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            padding: 15px 7px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        /* Tỉ lệ là cột hẹp nhất -> giảm đệm để không bị cắt chữ "TỈ LỆ" */
+        .lh-table th:last-child,
+        .lh-table td:last-child {
+            padding-left: 2px;
+            padding-right: 2px;
+            width: 58px;
+        }
+
+        /* "TỈ LỆ" hẹp hơn "HỌ TÊN" -> cho xuống 2 dòng thay vì bị cắt */
+        .lh-table thead th:last-child {
+            white-space: normal;
+            line-height: 1.25;
+            word-break: break-word;
+        }
+
+        .lh-table tbody td {
+            padding: 15px 9px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            color: #495057;
+            vertical-align: middle;
+            line-height: 1.55;
+            font-size: .95rem;
+        }
+
+        /* Tên thành viên: canh trái (kèm tiêu đề cột) cho dễ đọc, cho xuống dòng gọn */
+        .lh-table td.member-name {
+            text-align: left;
+            white-space: normal;
+            min-width: 120px;
+        }
+
+        .lh-table thead th:first-child {
+            text-align: left;
+            padding-left: 14px;
+        }
+
+        .lh-table tbody td.member-name {
+            padding-left: 14px;
+        }
+
+        .lh-table td.mssv {
+            white-space: nowrap;
+        }
+
+        .lh-table .pill {
+            white-space: nowrap;
+        }
+
+        .lh-table tbody tr:nth-child(even) {
+            background: #fafbfc;
+        }
+
+        .lh-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .lh-table tbody tr {
+            transition: background .2s ease;
+        }
+
+        .lh-table tbody tr:hover {
+            background: #eef3ff;
+        }
+
+        .lh-table .member-name {
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        /* Card Thành viên: đẩy note xuống đáy cho cân với card Form */
+        .lh-card .lh-note.mt-auto-note {
+            margin-top: auto;
+        }
+
+        .lh-table .mssv {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: .82rem;
+            font-weight: 700;
+        }
+
+        .pill-female { background: #fde8f1; color: #c2185b; }
+        .pill-male   { background: #e3f0ff; color: #1565c0; }
+        .pill-class  { background: #f1f3f5; color: #495057; }
+        .pill-rate   { background: #e7f7ef; color: #0f7b4d; }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 992px) {
+            .lienhe-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lh-map,
+            .lh-map iframe {
+                min-height: 320px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .lienhe-header { font-size: 2rem; }
+            .lienhe-intro { margin-bottom: 28px; font-size: .98rem; }
+            .lh-card { padding: 24px 20px; border-radius: 16px; }
+            .lh-title { font-size: 1.2rem; }
+            .lh-company { font-size: 1.05rem; }
+            .lh-info-list li { font-size: .95rem; }
+            .lh-note { font-size: .92rem; }
+            .lh-table { font-size: .88rem; }
+            .lh-form label { font-size: 1rem; }
+            .lh-form input,
+            .lh-form textarea { font-size: 1rem; }
+            .lh-table thead th,
+            .lh-table tbody td { padding: 11px 7px; }
         }
     </style>
 </head>
 <body>
-    <div class="top-navbar">
-        <p>CHÀO MỪNG ĐẾN CỬA HÀNG ĐIỆN TỬ</p>
-        <div class="icons">
-            {% if session.username %}
-            <a href="{{ url_for('admin_dashboard') }}">
-                <i class="fas fa-user"></i> Hồ sơ
-            </a>
-            <a href="{{ url_for('logout') }}">
-                <i class="fas fa-sign-out-alt"></i> Đăng xuất
-            </a>
-            {% else %}
-            <a href="{{ url_for('login') }}">
-                <img src="{{ url_for('static', filename='images/register.png') }}" alt="" width="18px">Đăng ký
-            </a>
-            <a href="{{ url_for('register') }}">
-                <img src="{{ url_for('static', filename='images/register.png') }}" alt="" width="18px"> Đăng nhập
-            </a>
-            {% endif %}
-            <a href="#" data-bs-toggle="modal" data-bs-target="#cartModal" class="cart-icon">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count" id="cartCount">0</span>
-            </a>
-        </div>
-    </div>
-
-    <nav class="navbar navbar-expand-lg" id="navbar">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('index') }}" id="logo">
-                <span id="span1"></span>Cửa hàng <span>Điện Tử</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span><img src="{{ url_for('static', filename='images/menu.png') }}" alt="" width="30px"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Trang chủ</a>
-                    </li>
-                
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('lienhe') }}">Liên hệ</a>
-                    </li>
-                </ul>
-                <form class="d-flex" id="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Tìm</button>
-                </form>
-            </div>
-        </div>
-    </nav>
+    {% include 'partials/site_header.html' %}
 
     <section class="container my-5">
         <h1 class="lienhe-header">Liên hệ</h1>
+        <p class="lienhe-intro">Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn về sản phẩm, dịch vụ và các yêu cầu sau mua hàng.</p>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -276,100 +474,193 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <div class="lienhe-info">
-            <div class="info-left">
-                <h2 style="color: gray; margin-bottom: 1rem;">CÔNG TY YN CEO GLOBAL GROUP</h2>
-                <p><strong>Địa chỉ:</strong> 23 Tạ Quang Bửu, Phường Bách Khoa, Quận Hai Bà Trưng, Hà Nội</p>
-                <p><strong>Telephone:</strong> 0917873816</p>
-                <p><strong>Mã số thuế:</strong> 01 02 03 04 05</p>
-                <p><strong>Tài khoản ngân hàng:</strong></p>
-                <p><strong>Số TK:</strong> 060008086888</p>
-                <p><strong>Tại Ngân hàng:</strong> Agribank Chi nhánh HÀ NỘI</p>
-                <p style="margin-top: 2rem;">
-                    <strong>Quý khách có thể gửi liên hệ tới chúng tôi bằng cách hoàn tất biểu mẫu dưới đây. Chúng tôi
-                        sẽ trả lời thư của quý khách, xin vui lòng khai báo đầy đủ. Hân hạnh phục vụ và chân thành
-                        cảm ơn sự quan tâm, đóng góp ý kiến đến Smartphone Store.</strong>
-                </p>
+        <!-- ================= HÀNG 1: Thông tin công ty + Bản đồ ================= -->
+        <div class="lienhe-grid">
+            <div class="lh-card">
+                <h2 class="lh-title">
+                    <span class="tf-icon"><i class="fas fa-building"></i></span>
+                    Thông tin liên hệ
+                </h2>
+
+                <div class="lh-company">CÔNG TY YN CEO GLOBAL GROUP</div>
+
+                <ul class="lh-info-list">
+                    <li>
+                        <i class="fas fa-location-dot"></i>
+                        <div>
+                            <span class="lbl">Địa chỉ</span>
+                            <span class="val">23 Tạ Quang Bửu, Phường Bách Khoa, Quận Hai Bà Trưng, Hà Nội</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <span class="lbl">Điện thoại</span>
+                            <span class="val">0917 873 816</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-file-invoice"></i>
+                        <div>
+                            <span class="lbl">Mã số thuế</span>
+                            <span class="val">01 02 03 04 05</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-building-columns"></i>
+                        <div>
+                            <span class="lbl">Tài khoản ngân hàng</span>
+                            <span class="val">060008086888 · Agribank Chi nhánh Hà Nội</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <span class="lbl">Giờ làm việc</span>
+                            <span class="val">08:00 – 21:00 (Thứ 2 – Chủ nhật)</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="lh-note">
+                    Quý khách có thể gửi liên hệ bằng cách hoàn tất biểu mẫu bên cạnh. Chúng tôi sẽ phản hồi sớm nhất,
+                    xin vui lòng khai báo đầy đủ thông tin. Hân hạnh phục vụ và chân thành cảm ơn sự quan tâm,
+                    đóng góp ý kiến của quý khách.
+                </div>
             </div>
-            <div class="info-right">
-                <iframe width="100%" height="450"
-                    src="https://maps.google.com/maps?width=100%&amp;height=450&amp;hl=en&amp;coord=10.759660000323064,106.68192160315813&amp;q=273%20An%20D%C6%B0%C6%A1ng%20V%C6%B0%C6%A1ng%20Ph%C6%B0%E1%BB%9Dng%203%20Qu%E1%BA%ADn%205%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vi%E1%BB%87t%20Nam+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=16&amp;iwloc=B&amp;output=embed"
-                    frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+
+            <div class="lh-card">
+                <h2 class="lh-title accent">
+                    <span class="tf-icon"><i class="fas fa-map-location-dot"></i></span>
+                    Bản đồ chỉ đường
+                </h2>
+                <div class="lh-map">
+                    <iframe
+                        src="https://maps.google.com/maps?width=100%&amp;height=100%&amp;hl=vi&amp;q=23%20T%E1%BA%A1%20Quang%20B%E1%BB%ADu%20Ph%C6%B0%E1%BB%9Dng%20B%C3%A1ch%20Khoa%20Qu%E1%BA%ADn%20Hai%20B%C3%A0%20Tr%C6%B0ng%20H%C3%A0%20N%E1%BB%99i%2C%20Vi%E1%BB%87t%20Nam&amp;ie=UTF8&amp;t=&amp;z=16&amp;iwloc=B&amp;output=embed"
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                        title="Bản đồ Cửa Hàng Điện Tử - 23 Tạ Quang Bửu, Hà Nội"></iframe>
+                </div>
             </div>
         </div>
-        <div class="lienhe-info">
-            <div class="guithongtin">
-                <p class="title" style="font-size: 22px; color: gray; margin-bottom: 0.5rem;">Gửi thông tin liên lạc cho chúng tôi:</p>
-                <hr>
-                <form name="formlh" method="POST" action="{{ url_for('lienhe') }}">
-                    <table cellspacing="10">
+
+        <!-- ================= HÀNG 2: Form + Thành viên ================= -->
+        <div class="lienhe-grid">
+            <div class="lh-card">
+                <h2 class="lh-title">
+                    <span class="tf-icon"><i class="fas fa-paper-plane"></i></span>
+                    Gửi tin nhắn cho chúng tôi
+                </h2>
+
+                <form name="formlh" method="POST" action="{{ url_for('lienhe') }}" class="lh-form">
+                    <div class="form-row">
+                        <label for="lh-ht">Họ và tên <span class="req">*</span></label>
+                        <input type="text" id="lh-ht" name="ht" maxlength="40"
+                               placeholder="Nguyễn Văn A" autocomplete="name" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="lh-sdt">Số điện thoại <span class="req">*</span></label>
+                        <input type="tel" id="lh-sdt" name="sdt" maxlength="11" minlength="10"
+                               placeholder="0917 873 816" autocomplete="tel" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="lh-em">Địa chỉ Email <span class="req">*</span></label>
+                        <input type="email" id="lh-em" name="em"
+                               placeholder="email@gmail.com" autocomplete="email" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="lh-tde">Tiêu đề <span class="req">*</span></label>
+                        <input type="text" id="lh-tde" name="tde" maxlength="100"
+                               placeholder="Chủ đề bạn muốn liên hệ" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="lh-nd">Nội dung <span class="req">*</span></label>
+                        <textarea id="lh-nd" name="nd" maxlength="500"
+                                  placeholder="Nhập nội dung liên hệ..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-lh-submit">
+                        <i class="fas fa-paper-plane"></i> Gửi thông tin liên hệ
+                    </button>
+                </form>
+
+                <div class="lh-note mt-auto-note" style="margin-top: 18px;">
+                    <i class="fas fa-circle-info me-1"></i>
+                    Chúng tôi tiếp nhận <strong>mọi yêu cầu</strong> về tư vấn sản phẩm, bảo hành và đổi trả trong
+                    <strong>24 giờ</strong>, kể cả ngày lễ.
+                </div>
+            </div>
+            <div class="lh-card">
+                <h2 class="lh-title accent">
+                    <span class="tf-icon"><i class="fas fa-users"></i></span>
+                    Thành viên nhóm thực hiện
+                </h2>
+
+                <div class="lh-table-wrap">
+                    <table class="lh-table">
+                        <thead>
+                            <tr>
+                                <th>Họ tên</th>
+                                <th>MSSV</th>
+                                <th>Giới tính</th>
+                                <th>Lớp</th>
+                                <th>Tỉ lệ</th>
+                            </tr>
+                        </thead>
                         <tbody>
                             <tr>
-                                <td>Họ và tên</td>
-                                <td><input type="text" name="ht" size="40" maxlength="40" placeholder="Họ tên" autocomplete="off" required></td>
+                                <td class="member-name">YONG NAYKHOUCH</td>
+                                <td class="mssv">11248514</td>
+                                <td><span class="pill pill-female">Nữ</span></td>
+                                <td><span class="pill pill-class">CNTT 66B</span></td>
+                                <td><span class="pill pill-rate">100%</span></td>
                             </tr>
                             <tr>
-                                <td>Điện thoại liên hệ</td>
-                                <td><input type="text" name="sdt" size="40" maxlength="11" minlength="10" placeholder="Điện thoại" required></td>
+                                <td class="member-name">Nguyễn Thị Thuỳ Dương</td>
+                                <td class="mssv">11243917</td>
+                                <td><span class="pill pill-female">Nữ</span></td>
+                                <td><span class="pill pill-class">CNTT 66B</span></td>
+                                <td><span class="pill pill-rate">100%</span></td>
                             </tr>
                             <tr>
-                                <td>Địa chỉ Email</td>
-                                <td><input type="email" name="em" size="40" placeholder="Email" autocomplete="off" required></td>
-                            </tr>
-                            <tr>
-                                <td>Tiêu đề</td>
-                                <td><input type="text" name="tde" size="40" maxlength="100" placeholder="Tiêu đề" required></td>
-                            </tr>
-                            <tr>
-                                <td>Nội dung</td>
-                                <td><textarea name="nd" rows="5" cols="44" maxlength="500" placeholder="Nội dung liên hệ" required></textarea></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><button type="submit">Gửi thông tin liên hệ</button></td>
+                                <td class="member-name">Trần Thị Yến</td>
+                                <td class="mssv">11244065</td>
+                                <td><span class="pill pill-female">Nữ</span></td>
+                                <td><span class="pill pill-class">CNTT 66A</span></td>
+                                <td><span class="pill pill-rate">100%</span></td>
                             </tr>
                         </tbody>
                     </table>
-                </form>
-            </div>
-            <div class="thongtinnhom">
-                <p class="title" style="font-size: 22px; color: gray; margin-bottom: 0.5rem;">Thông tin thành viên nhóm:</p>
-                <hr>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Họ tên</th>
-                            <th>MSSV</th>
-                            <th>Giới tính</th>
-                            <th>Lớp</th>
-                            <th>Tỉ lệ công việc</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>YONG NAYKHOUCH</td>
-                            <td>11248514</td>
-                            <td>NỮ</td>
-                            <td>CNTT 66B</td>
-                            <td>100%</td>
-                        </tr>
-                        <tr>
-                            <td>DƯƠNG</td>
-                            <td>11111111</td>
-                            <td>NỮ</td>
-                            <td>CNTT 66B</td>
-                            <td>100%</td>
-                        </tr>
-                        <tr>
-                            <td>Yến </td>
-                            <td>22222222</td>
-                            <td>NỮ</td>
-                            <td>CNTT 66C</td>
-                            <td>100%</td>
-                        </tr>
+                </div>
 
-                    </tbody>
-                </table>
+                <div class="lh-note mt-auto-note">
+                    <i class="fas fa-graduation-cap me-1"></i>
+                    Dự án môn Lập Trình CNTT 66B
+                    <br>
+                    <strong>Đồ án thực hành</strong> — Website thương mại điện tử bán đồ điện tử, xây dựng bằng Flask &amp; SQLite.
+                </div>
+
+                <ul class="lh-info-list mt-3 mb-0">
+                    <li>
+                        <i class="fas fa-code"></i>
+                        <div>
+                            <span class="lbl">Công nghệ sử dụng</span>
+                            <span class="val">Python (Flask) · SQLite · Bootstrap 5 · Chart.js</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-calendar-days"></i>
+                        <div>
+                            <span class="lbl">Thời gian thực hiện</span>
+                            <span class="val">Học kỳ 1 — Năm thứ 3 : 2026-2027</span>
+                        
+
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
@@ -386,7 +677,7 @@
                             Cambodia <br>
                         </p>
                         <strong>Phone:</strong> 0917873816 <br>
-                        <strong>Email:</strong> yongnaykhoouch1@gmail.com <br>
+                        <strong>Email:</strong> yongnaykhouch1@gmail.com <br>
                     </div>
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4>Usefull Links</h4>
@@ -426,9 +717,6 @@
         <div class="container py-4">
             <div class="copyright">
                 &copy; Copyright <strong><span>Cửa hàng điện tử</span></strong>. All Rights Reserved
-            </div>
-            <div class="credits">
-                Designed by <a href="#">YONG NAYKHOUCH</a>
             </div>
         </div>
     </footer>
@@ -471,7 +759,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        function showToast(icon, title, text) {
+            Swal.fire({
+                icon: icon,
+                title: title,
+                text: text,
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1800
+            });
+        }
+
         // Pass customer_id from session to JavaScript
         const customerId = {{ session.customer_id | tojson if session.customer_id is defined and session.customer_id is not none else 0 | tojson }};
         // Cart functionality (unchanged from index.html)
@@ -490,7 +791,7 @@
             }
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
-            alert('Đã thêm sản phẩm vào giỏ hàng!');
+            showToast('success', 'Thành công', 'Đã thêm sản phẩm vào giỏ hàng!');
         }
         function updateCartDisplay() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -528,7 +829,7 @@
         function checkoutCart() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             if (cart.length === 0) {
-                alert('Giỏ hàng trống!');
+                showToast('warning', 'Giỏ hàng', 'Giỏ hàng trống!');
                 return;
             }
             const items = cart.map(item => ({
@@ -548,19 +849,21 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert('Đặt hàng thành công! Mã đơn hàng: ' + data.order_id);
+                        showToast('success', 'Đặt hàng thành công', 'Mã đơn hàng: ' + data.order_id);
                         localStorage.removeItem('cart');
                         updateCartDisplay();
                         $('#cartModal').modal('hide');
                     } else {
-                        alert('Lỗi khi đặt hàng: ' + data.error);
+                        showToast('error', 'Lỗi', data.error || 'Lỗi khi đặt hàng');
                     }
                 })
                 .catch(error => {
-                    alert('Lỗi: ' + error);
+                    showToast('error', 'Lỗi', error && error.message ? error.message : String(error));
                 });
         }
         document.addEventListener('DOMContentLoaded', updateCartDisplay);
     </script>
+
+    {% include 'chatbot1.html' %}
 </body>
 </html>

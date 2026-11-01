@@ -1,90 +1,456 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chỉnh sửa hồ sơ</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chỉnh sửa hồ sơ - Cửa Hàng Điện Tử</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      :root {
+        --brand-navy: #0c06cd;
+        --brand-yellow: #ffc800;
+        --brand-orange: #ff9900;
+        --text-color: #2c3e50;
+        --muted-color: #7f8c8d;
+        --border-color: #eef1f5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background-color: #f6f8fb;
+        background-image:
+          radial-gradient(
+            circle at 12% 8%,
+            rgba(12, 6, 205, 0.1),
+            transparent 42%
+          ),
+          radial-gradient(
+            circle at 88% 92%,
+            rgba(255, 200, 0, 0.16),
+            transparent 45%
+          );
+        background-attachment: fixed;
+        min-height: 100vh;
+        padding: 0 0 40px;
+        font-family: "Be Vietnam Pro", "Segoe UI", Tahoma, sans-serif;
+        color: var(--text-color);
+      }
+
+      .edit-card {
+        max-width: 640px;
+        margin: 40px auto 0;
+        background: #fff;
+        border-radius: 22px;
+        padding: 36px 40px 32px;
+        box-shadow: 0 18px 45px rgba(12, 6, 205, 0.1);
+        border: 1px solid var(--border-color);
+      }
+
+      .edit-title {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-color);
+        margin: 0 0 6px;
+      }
+
+      .edit-subtitle {
+        text-align: center;
+        font-size: 0.88rem;
+        color: var(--muted-color);
+        margin-bottom: 26px;
+      }
+
+      /* ---------- Avatar ---------- */
+      .avatar-wrap {
+          text-align: center;
+          margin-bottom: 28px;
+      }
+
+      /* Vòng navy tách rời khung ảnh -> trông như "avatar ring" */
+      .avatar-wrap > .avatar-preview,
+      .avatar-wrap > img.avatar-preview {
+          padding: 3px;
+          background-clip: content-box;
+          background-color: var(--brand-navy);
+          border: 3px solid var(--brand-navy);
+          box-shadow: 0 8px 22px rgba(12, 6, 205, .22);
+      }
+
+      .avatar-preview {
+        width: 132px;
+        height: 132px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 3rem;
+        font-weight: 700;
+        overflow: hidden;
+      }
+
+      .btn-avatar {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 16px;
+        padding: 10px 22px;
+        border: 2px solid var(--brand-navy);
+        border-radius: 50px;
+        background: #fff;
+        color: var(--brand-navy);
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        margin-bottom: 0;
+      }
+
+      .btn-avatar:hover {
+        background: var(--brand-navy);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px rgba(12, 6, 205, 0.28);
+      }
+
+      /* ---------- Form ---------- */
+      .form-label {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 0.86rem;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 8px;
+      }
+
+      .form-label i {
+        color: var(--brand-orange);
+        width: 16px;
+        text-align: center;
+        font-size: 0.92rem;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1.5px solid var(--border-color);
+        border-radius: 12px;
+        font-family: inherit;
+        font-size: 0.95rem;
+        color: var(--text-color);
+        background-color: #fbfcfe;
+        transition:
+          border-color 0.25s,
+          box-shadow 0.25s,
+          background-color 0.25s;
+      }
+
+      .form-control::placeholder {
+        color: #b0b7c3;
+      }
+
+      .form-control:focus {
+        border-color: var(--brand-navy);
+        box-shadow: 0 0 0 4px rgba(12, 6, 205, 0.1);
+        background-color: #fff;
+      }
+
+      /* Ô bị khóa (username, email) */
+      .form-control:disabled {
+        background-color: #f1f3f5;
+        color: #868e96;
+        cursor: not-allowed;
+        border-style: dashed;
+      }
+
+      .readonly-hint {
+        display: block;
+        font-size: 0.76rem;
+        color: #adb5bd;
+        margin-top: 6px;
+      }
+
+      textarea.form-control {
+        resize: vertical;
+        min-height: 92px;
+      }
+
+      /* ---------- Nút ---------- */
+      .actions {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+      }
+
+      .btn-save,
+      .btn-cancel {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-width: 170px;
+        padding: 14px 28px;
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
+
+      .btn-save {
+        background: var(--brand-yellow);
+        color: #1a1200;
+        box-shadow: 0 8px 22px rgba(255, 200, 0, 0.35);
+      }
+
+      .btn-save:hover {
+        background: var(--brand-orange);
+        color: #1a1200;
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px rgba(255, 153, 0, 0.42);
+      }
+
+      .btn-cancel {
+        background: #fff;
+        color: #6c757d;
+        border-color: #dee2e6;
+      }
+
+      .btn-cancel:hover {
+        background: #f1f3f5;
+        color: #495057;
+        border-color: #ced4da;
+        transform: translateY(-3px);
+      }
+
+      /* ---------- Thông báo ---------- */
+      .alert {
+        border-radius: 12px;
+        border: none;
+        padding: 13px 18px;
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border-left: 4px solid transparent;
+      }
+
+      .alert-danger {
+        background-color: #fdecec;
+        color: #b02a37;
+        border-left-color: #e74c3c;
+      }
+
+      .alert-success {
+        background-color: #e7f7ef;
+        color: #0f7b4d;
+        border-left-color: #198754;
+      }
+
+      @media (max-width: 576px) {
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
+          padding: 24px 14px;
         }
-        .card {
-            max-width: 700px;
-            margin: 0 auto;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        .edit-card {
+          padding: 26px 20px 24px;
+          border-radius: 18px;
         }
-        .avatar-preview {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid #667eea;
+        .avatar-preview { width: 112px; height: 112px; font-size: 2.4rem; }
+        .avatar-wrap > .avatar-preview { border-width: 3px; }
+        .btn-save,
+        .btn-cancel {
+          width: 100%;
+          min-width: 0;
         }
+      }
     </style>
-</head>
-<body>
-<div class="container">
-    <div class="card p-5">
-        <h2 class="text-center mb-4">Chỉnh sửa hồ sơ</h2>
+  </head>
+  <body>
+    {% include 'partials/site_header.html' %}
+    <div class="edit-card">
+      <h2 class="edit-title">Chỉnh sửa hồ sơ</h2>
+      <p class="edit-subtitle">Cập nhật thông tin cá nhân của bạn</p>
 
-        <form method="POST" enctype="multipart/form-data">
-            <div class="text-center mb-4">
-                {% if user.avatar %}
-                    <img src="{{ url_for('static', filename='uploads/' ~ user.avatar) }}" 
-                         alt="Avatar" class="avatar-preview">
-                {% else %}
-                    <div class="avatar-preview d-inline-flex align-items-center justify-content-center bg-primary text-white fs-1">
-                        {{ user.username[0]|upper }}
-                    </div>
-                {% endif %}
-                <div class="mt-3">
-                    <label class="btn btn-outline-primary">
-                        <i class="fas fa-camera"></i> Thay đổi ảnh đại diện
-                        <input type="file" name="avatar" accept="image/*" class="d-none">
-                    </label>
-                </div>
-            </div>
+      {% with messages = get_flashed_messages(with_categories=true) %} {% for
+      category, message in messages %}
+      <div
+        class="alert alert-{{ 'danger' if category == 'error' else 'success' }}"
+      >
+        <i
+          class="fas {{ 'fa-exclamation-triangle' if category == 'error' else 'fa-check-circle' }} me-2"
+        ></i
+        >{{ message }}
+      </div>
+      {% endfor %} {% endwith %}
 
-            <div class="mb-3">
-                <label class="form-label"><i class="fas fa-user"></i> Tên đăng nhập</label>
-                <input type="text" class="form-control" value="{{ user.username }}" disabled>
-            </div>
+      <form method="POST" enctype="multipart/form-data" id="editProfileForm">
+        <!-- Avatar -->
+        <div class="avatar-wrap">
+          {% if user.avatar %}
+          <img
+            src="{{ url_for('static', filename='uploads/' ~ user.avatar) }}"
+            alt="Ảnh đại diện"
+            class="avatar-preview"
+            id="avatarPreview"
+          />
+          {% else %}
+          <div class="avatar-preview" id="avatarPreview">
+            {{ user.username[0]|upper }}
+          </div>
+          {% endif %}
 
-            <div class="mb-3">
-                <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
-                <input type="email" class="form-control" value="{{ user.email }}" disabled>
-            </div>
+          <div>
+            <label for="avatarInput" class="btn-avatar">
+              <i class="fas fa-camera"></i> Thay đổi ảnh đại diện
+              <input
+                type="file"
+                name="avatar"
+                id="avatarInput"
+                accept="image/*"
+                class="d-none"
+              />
+            </label>
+          </div>
+        </div>
 
-            <div class="mb-3">
-                <label class="form-label"><i class="fas fa-phone"></i> Số điện thoại</label>
-                <input type="text" name="phone" class="form-control" value="{{ user.phone or '' }}" placeholder="Nhập số điện thoại">
-            </div>
+        <!-- Tên đăng nhập (không sửa được) -->
+        <div class="mb-3">
+          <label class="form-label"
+            ><i class="fas fa-user"></i> Tên đăng nhập</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            value="{{ user.username }}"
+            disabled
+          />
+          <span class="readonly-hint">Tên đăng nhập không thể thay đổi.</span>
+        </div>
 
-            <div class="mb-3">
-                <label class="form-label"><i class="fas fa-calendar"></i> Ngày sinh</label>
-                <input type="date" name="dob" class="form-control" value="{{ user.dob or '' }}">
-            </div>
+        <!-- Email (không sửa được) -->
+        <div class="mb-3">
+          <label class="form-label"
+            ><i class="fas fa-envelope"></i> Email</label
+          >
+          <input
+            type="email"
+            class="form-control"
+            value="{{ user.email }}"
+            disabled
+          />
+          <span class="readonly-hint"
+            >Liên hệ quản trị viên nếu cần đổi email.</span
+          >
+        </div>
 
-            <div class="mb-4">
-                <label class="form-label"><i class="fas fa-map-marker-alt"></i> Địa chỉ</label>
-                <textarea name="address" class="form-control" rows="3" placeholder="Nhập địa chỉ">{{ user.address or '' }}</textarea>
-            </div>
+        <!-- SĐT -->
+        <div class="mb-3">
+          <label class="form-label" for="phone"
+            ><i class="fas fa-phone"></i> Số điện thoại</label
+          >
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            class="form-control"
+            maxlength="15"
+            value="{{ user.phone or '' }}"
+            placeholder="Nhập số điện thoại"
+          />
+        </div>
 
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary btn-lg px-5">
-                    <i class="fas fa-save"></i> Lưu thay đổi
-                </button>
-                <a href="{{ url_for('profile') }}" class="btn btn-secondary btn-lg px-5 ms-3">
-                    Hủy
-                </a>
-            </div>
-        </form>
+        <!-- Ngày sinh -->
+        <div class="mb-3">
+          <label class="form-label" for="dob"
+            ><i class="fas fa-calendar"></i> Ngày sinh</label
+          >
+          <input
+            type="date"
+            id="dob"
+            name="dob"
+            class="form-control"
+            value="{{ user.dob or '' }}"
+          />
+        </div>
+
+        <!-- Địa chỉ -->
+        <div class="mb-4">
+          <label class="form-label" for="address"
+            ><i class="fas fa-map-marker-alt"></i> Địa chỉ</label
+          >
+          <textarea
+            id="address"
+            name="address"
+            class="form-control"
+            rows="3"
+            placeholder="Nhập địa chỉ của bạn"
+          >
+{{ user.address or '' }}</textarea
+          >
+        </div>
+
+        <!-- Nút -->
+        <div class="actions">
+          <button type="submit" class="btn-save">
+            <i class="fas fa-save"></i> Lưu thay đổi
+          </button>
+          <a href="{{ url_for('profile') }}" class="btn-cancel">Hủy</a>
+        </div>
+      </form>
     </div>
-</div>
-</body>
+
+    <script>
+      // Xem trước ảnh đại diện trước khi lưu
+      document
+        .getElementById("avatarInput")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = function (ev) {
+            const holder = document.getElementById("avatarPreview");
+            const img = document.createElement("img");
+            img.className = "avatar-preview";
+            img.id = "avatarPreview";
+            img.alt = "Ảnh đại diện";
+            img.src = ev.target.result;
+            holder.replaceWith(img);
+          };
+          reader.readAsDataURL(file);
+        });
+
+      // Hiển thị trạng thái khi lưu
+      document
+        .getElementById("editProfileForm")
+        .addEventListener("submit", function () {
+          const btn = this.querySelector(".btn-save");
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang lưu...';
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

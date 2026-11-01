@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
+    <!-- thêm chatbot
+    Quản Lý Đơn Hàng : đang giao , đã giao, đã hủy
+    thêm chức năng tìm kiếm hóa đơn theo số điện thoại, mã hóa đơn, tên khách hàng
+    thêm chức năng thống kê doanh thu theo ngày, tháng, năm
+    thêm chức năng thống kê sản phẩm bán chạy nhất, sản phẩm tồn kho nhiều nhất
+    thêm chức năng quản lý khách hàng : thêm, sửa, xóa, tìm -->
+
 
 <head>
     <meta charset="UTF-8">
@@ -41,100 +48,164 @@
         /* Sidebar Styles */
         .sidebar {
             width: 260px;
-            background: linear-gradient(180deg, #2c3e50, #34495e);
+            background: linear-gradient(180deg, #0f172a 0%, #172554 38%, #1e293b 100%);
             color: white;
             padding-top: 20px;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
-            box-shadow: 3px 0 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 8px 0 24px rgba(15, 23, 42, 0.2);
             z-index: 1000;
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .sidebar-header {
-            padding: 0 20px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 18px 22px;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.16);
             text-align: center;
         }
 
         .sidebar-header h3 {
-            margin: 0;
-            font-weight: 600;
+            margin: 0 0 7px;
+            font-size: 1.2rem;
+            font-weight: 700;
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 11px;
+            letter-spacing: 0.01em;
+        }
+
+        .sidebar-header h3 i {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(191, 219, 254, 0.28);
+            border-radius: 8px;
+            background: rgba(96, 165, 250, 0.16);
+            color: #bfdbfe;
+            font-size: 1rem;
         }
 
         .sidebar-header small {
-            color: #bdc3c7;
-            font-size: 0.85rem;
+            display: block;
+            color: #cbd5e1;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
         }
 
         .sidebar-menu {
             list-style: none;
-            padding: 20px 0;
+            padding: 18px 12px 0;
             margin: 0;
+            flex: 1;
         }
 
         .sidebar-menu li {
-            margin-bottom: 2px;
+            margin-bottom: 8px;
         }
 
         .sidebar-menu a {
             display: flex;
             align-items: center;
-            padding: 14px 25px;
-            color: #ecf0f1;
+            padding: 13px 16px;
+            color: #e2e8f0;
             text-decoration: none;
-            transition: all 0.3s;
-            border-left: 4px solid transparent;
-            font-weight: 500;
+            transition: all 0.25s ease;
+            border-left: 3px solid transparent;
+            font-weight: 600;
+            border-radius: 12px;
+            background: rgba(148, 163, 184, 0.02);
         }
 
         .sidebar-menu a:hover {
-            background: #130c78c4;
-            color: #eec214;
-            border-left-color: #130c78c4;
-            padding-left: 30px;
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.18), rgba(96, 165, 250, 0.06));
+            color: #f8fafc;
+            border-left-color: #facc15;
+            transform: translateX(2px);
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.18);
         }
 
         .sidebar-menu a.active {
-            background: #130c78c4;
-            color: #eec214;
-            border-left-color: #130c78c4;
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.22), rgba(37, 99, 235, 0.12));
+            color: #fbbf24;
+            border-left-color: #fbbf24;
+            box-shadow: 0 10px 18px rgba(30, 64, 175, 0.22), inset 0 0 0 1px rgba(251, 191, 36, 0.12);
         }
 
         .sidebar-menu i {
-            width: 25px;
-            font-size: 1.1rem;
-            margin-right: 15px;
+            width: 22px;
+            font-size: 1rem;
+            margin-right: 12px;
+            text-align: center;
+            opacity: 0.92;
         }
 
         .logout-section {
-            position: absolute;
-            bottom: 0;
+            position: static;
             width: 100%;
-            padding: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(0, 0, 0, 0.1);
+            margin-top: auto;
+            padding: 18px 16px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.15), rgba(15, 23, 42, 0.42));
+            box-sizing: border-box;
         }
 
         .logout-section a {
             display: flex;
             align-items: center;
-            color: #e74c3c;
+            justify-content: center;
+            gap: 10px;
+            color: #ffffff;
             text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: all 0.3s;
+            padding: 12px 16px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #f87171 0%, #ef4444 38%, #dc2626 100%);
+            box-shadow: 0 20px 35px rgba(239, 68, 68, 0.32);
+            transition: all 0.25s ease;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logout-section a::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(255,255,255,0.14), transparent 45%, rgba(255,255,255,0.09));
+            transform: translateX(-100%);
+            transition: transform 0.45s ease;
+        }
+
+        .logout-section a i {
+            font-size: 1.05rem;
+            line-height: 1;
+            display: inline-block;
         }
 
         .logout-section a:hover {
-            background: rgba(231, 76, 60, 0.1);
-            color: #c0392b;
+            background: linear-gradient(135deg, #fb7185 0%, #f43f5e 35%, #e11d48 100%);
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 24px 38px rgba(244, 63, 94, 0.42);
+            color: #ffffff;
+        }
+
+        .logout-section a:hover::before {
+            transform: translateX(100%);
+        }
+
+        .logout-section a:active {
+            transform: translateY(0);
         }
 
         /* Main Content Styles */
@@ -175,12 +246,18 @@
         .user-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
+        }
+
+        .user-details .role {
+            color: #334155;
+            font-size: 1.15rem;
+            font-weight: 600;
         }
 
         .user-avatar {
-            width: 45px;
-            height: 45px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #ecf0f1;
@@ -197,6 +274,90 @@
 
         .content-area {
             padding: 30px;
+        }
+
+        /* ================== NÚT THAO TÁC TRONG BẢNG ĐƠN HÀNG ================== */
+        .order-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .order-actions .btn {
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .order-actions .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+        }
+
+        /* ================== HỘP THOẠI XÁC NHẬN (thay confirm mặc định) ================== */
+        .swal2-popup.yn-confirm {
+            border-radius: 18px !important;
+            padding: 28px 24px 22px !important;
+            font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif !important;
+            box-shadow: 0 24px 60px rgba(16, 24, 40, 0.25) !important;
+        }
+
+        .yn-classify svg {
+            width: 76px !important;
+            height: 76px !important;
+            margin: 0 auto 10px !important;
+        }
+
+        .yn-popup-title {
+            font-size: 1.5rem !important;
+            font-weight: 700 !important;
+            color: #1f2937 !important;
+            margin-bottom: 10px !important;
+        }
+
+        .yn-popup-text {
+            font-size: 1.1rem !important;
+            color: #6b7280 !important;
+            line-height: 1.65 !important;
+        }
+
+        .yn-confirm-btn,
+        .yn-cancel-btn {
+            border-radius: 999px !important;
+            padding: 12px 30px !important;
+            font-weight: 600 !important;
+            font-size: 1.05rem !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .yn-cancel-btn {
+            background: #f1f3f5 !important;
+            color: #495057 !important;
+        }
+
+        .yn-cancel-btn:hover {
+            background: #e3e7ea !important;
+        }
+
+        .yn-confirm-btn:hover {
+            transform: translateY(-1px) !important;
+            filter: brightness(0.95);
+        }
+
+        @media (max-width: 420px) {
+            .order-actions .btn {
+                width: 30px;
+                height: 30px;
+                font-size: 0.78rem;
+            }
         }
 
         /* Responsive */
@@ -284,6 +445,109 @@
             }
         }
 
+        /* ================== BẢNG THỐNG KÊ (Báo cáo) ================== */
+        .card .card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #eef1f5;
+        }
+
+        .card .card-title i {
+            font-size: 1.1rem;
+        }
+
+        /* Bảng: hàng tiêu đề rõ ràng, số căn thẳng cột */
+        .card table.table thead th {
+            background: #f7f9fc;
+            color: #6b7a90;
+            font-size: .74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            border-bottom: 2px solid #eef1f5;
+            border-top: none;
+            padding: 11px 10px;
+            white-space: nowrap;
+        }
+
+        .card table.table tbody td {
+            padding: 11px 10px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f2f5f9;
+            font-size: .9rem;
+        }
+
+        .card table.table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .card table.table tbody tr {
+            transition: background-color .15s ease;
+        }
+
+        .card table.table tbody tr:hover {
+            background-color: #f8faff;
+        }
+
+        /* Cột STT: xám nhạt, hẹp */
+        .card table.table tbody td:first-child {
+            color: #9aa6b8;
+            font-weight: 600;
+            width: 40px;
+        }
+
+        /* Số liệu cột phải canh đều, chữ số không nhảy */
+        .card table.table td.text-end,
+        .card table.table th.text-end {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Tên dài thì cắt gọn, không phá layout */
+        .card table.table td strong {
+            display: inline-block;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            vertical-align: bottom;
+        }
+
+        .top-table-name {
+            max-width: 230px;
+        }
+
+        .top-table-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 42px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* Tag danh mục / thương hiệu trong bảng tồn kho */
+        .tag-soft {
+            display: inline-block;
+            padding: 5px 11px;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: #f1f3f6;
+            color: #55606f;
+            white-space: nowrap;
+        }
+
+        .tag-soft.brand {
+            background: #eef3ff;
+            color: #4058b4;
+        }
+
         /* Stats Cards */
         .stats-card {
             background: white;
@@ -327,6 +591,16 @@
         .stats-card.revenue .icon {
             background: rgba(241, 196, 15, 0.1);
             color: #f1c40f;
+        }
+
+        .stats-card.pending .icon {
+            background: rgba(243, 156, 18, 0.12);
+            color: #f39c12;
+        }
+
+        .stats-card.completed .icon {
+            background: rgba(46, 204, 113, 0.12);
+            color: #27ae60;
         }
 
         .stats-card h3 {
@@ -453,6 +727,378 @@
             padding: 25px;
             box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
         }
+
+        /* Consistent, readable styling across admin pages */
+        body {
+            color: #334155;
+            font-size: 16px;
+            line-height: 1.55;
+        }
+
+        .sidebar {
+            background: linear-gradient(180deg, #1e293b, #26374d);
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.45rem;
+        }
+
+        .sidebar-header h3 i {
+            width: 40px;
+            height: 40px;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-header small {
+            font-size: 1rem;
+        }
+
+        .sidebar-menu a {
+            padding-top: 16px;
+            padding-bottom: 16px;
+            font-size: 1.08rem;
+            border-radius: 0 8px 8px 0;
+            margin-right: 12px;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: #1d4ed8;
+            color: #fff;
+            border-left-color: #93c5fd;
+        }
+
+        .sidebar-menu i {
+            width: 28px;
+            font-size: 1.2rem;
+            color: #cbd5e1;
+        }
+
+        .logout-section a {
+            font-size: 1.08rem;
+        }
+
+        .logout-section a i {
+            font-size: 1.2rem;
+        }
+
+        .sidebar-menu a:hover i,
+        .sidebar-menu a.active i {
+            color: #fff;
+        }
+
+        .page-title h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .page-title p {
+            font-size: 1rem;
+        }
+
+        .content-area {
+            background: #f3f6fb;
+        }
+
+        .content-area .card,
+        .content-area .stats-card,
+        .content-area .chart-container,
+        .content-area .form-card {
+            border: 1px solid #e5eaf2;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+        }
+
+        .content-area .card {
+            overflow: hidden;
+        }
+
+        .stats-card {
+            padding: 26px;
+            border-left-width: 4px;
+        }
+
+        .stats-card .icon {
+            border-radius: 14px;
+        }
+
+        .stats-card p {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.45;
+        }
+
+        .card .card-title {
+            color: #1e293b;
+            font-size: 1.12rem;
+        }
+
+        .card table.table thead th {
+            color: #475569;
+            font-size: 0.82rem;
+        }
+
+        .card table.table tbody td {
+            color: #334155;
+            font-size: 0.98rem;
+        }
+
+        .card table.table tbody td .small,
+        .content-area .small {
+            font-size: 0.88rem;
+        }
+
+        .content-area .btn {
+            min-height: 46px;
+            padding: 0.55rem 0.9rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .content-area {
+            font-size: 1.125rem;
+        }
+
+        .content-area .form-label {
+            margin-bottom: 0.45rem;
+            color: #334155;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .content-area .form-control,
+        .content-area .form-select,
+        .content-area .input-group-text {
+            min-height: 52px;
+            padding: 0.65rem 0.85rem;
+            font-size: 1.1rem;
+        }
+
+        .content-area textarea.form-control {
+            min-height: 100px;
+        }
+
+        .content-area .form-text,
+        .content-area .small {
+            font-size: 1rem;
+        }
+
+        .content-area .chat-message-time {
+            font-size: 1rem !important;
+            opacity: 0.7;
+        }
+
+        .content-area .card .card-header {
+            padding: 14px 18px;
+        }
+
+        .content-area .card .card-header h1,
+        .content-area .card .card-header h2,
+        .content-area .card .card-header h3,
+        .content-area .card .card-header h4,
+        .content-area .card .card-header h5,
+        .content-area .card .card-header h6 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .content-area .card .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .content-area .card table.table thead th {
+            padding: 14px 12px;
+            font-size: 1rem;
+            vertical-align: middle;
+        }
+
+        .content-area .card table.table tbody td {
+            padding: 15px 12px;
+            font-size: 1.1rem;
+            vertical-align: middle;
+        }
+
+        .content-area .card table.table tbody td small,
+        .content-area .card table.table tbody td .small {
+            font-size: 1rem;
+        }
+
+        .content-area .small,
+        .content-area small {
+            font-size: 1rem !important;
+        }
+
+        .content-area .btn-sm {
+            min-height: 46px;
+            padding: 0.55rem 0.9rem;
+            font-size: 1.1rem !important;
+        }
+
+        .content-area .badge {
+            padding: 0.45rem 0.7rem;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .content-area .pagination .page-link {
+            min-width: 44px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+        }
+
+        .content-area .modal-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .content-area .modal-body {
+            font-size: 1.08rem;
+        }
+
+        .admin-date-picker {
+            position: relative;
+            width: 100%;
+        }
+
+        .admin-date-display {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            text-align: left;
+            background: #fff;
+            color: #293747;
+        }
+
+        .admin-date-display .date-display-value {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .admin-date-calendar {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            z-index: 1080;
+            width: min(360px, calc(100vw - 32px));
+            padding: 20px;
+            border: 1px solid #cbd2da;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 8px 24px rgba(30, 41, 59, 0.18);
+        }
+
+        .admin-date-calendar[hidden] {
+            display: none;
+        }
+
+        .admin-date-calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .admin-date-calendar-title {
+            color: #293747;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .admin-date-calendar-nav {
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #d7dde5;
+            border-radius: 5px;
+            background: #fff;
+            color: #344256;
+            font-size: 1.15rem;
+        }
+
+        .admin-date-calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 5px;
+            text-align: center;
+        }
+
+        .admin-date-weekday {
+            padding: 8px 0;
+            color: #64748b;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .admin-date-day {
+            min-width: 40px;
+            min-height: 42px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            background: #fff;
+            color: #293747;
+            font-size: 1.1rem;
+        }
+
+        .admin-date-day:hover {
+            border-color: #9aa6b2;
+            background: #eef2f6;
+        }
+
+        .admin-date-day.is-selected {
+            border-color: #344256;
+            background: #344256;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .admin-date-day.is-outside-month {
+            color: #94a3b8;
+        }
+
+        .admin-date-clear {
+            margin-top: 12px;
+            padding: 8px 0 0;
+            border: 0;
+            background: transparent;
+            color: #475569;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .content-area .card.admin-card-with-date-picker {
+            overflow: visible;
+        }
+
+        @media (max-width: 768px) {
+            .content-area {
+                font-size: 1.05rem;
+            }
+
+            .content-area .card table.table tbody td {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title h1 {
+                font-size: 1.5rem;
+            }
+
+            .content-area .card table.table tbody td {
+                font-size: 1rem;
+            }
+        }
     </style>
 
     {% block extra_css %}{% endblock %}
@@ -463,7 +1109,7 @@
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h3><i class="fas fa-store-alt"></i> Admin Panel</h3>
+                <h3><i class="fas fa-store" aria-hidden="true"></i> Admin Panel</h3>
                 <small>Cửa Hàng Điện Tử</small>
             </div>
 
@@ -471,47 +1117,60 @@
                 <li>
                     <a href="{{ url_for('admin_dashboard') }}"
                         class="{{ 'active' if request.endpoint == 'admin_dashboard' else '' }}">
-                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                        <i class="fas fa-gauge-high"></i> Dashboard
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if page == 'orders' %}active{% endif %}" href="{{ url_for('admin_orders') }}">
-                        <i class="fas fa-tasks me-2"></i> Quản Lý Đơn Hàng
+                <li>
+                    <a href="{{ url_for('admin_orders') }}" class="{% if page == 'orders' %}active{% endif %}">
+                        <i class="fas fa-truck-fast"></i> Quản Lý Đơn Hàng
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if page == 'order_list' %}active{% endif %}"
-                        href="{{ url_for('admin_order_list') }}">
-                        <i class="fas fa-magnifying-glass-chart me-2"></i> Tra Cứu Hóa Đơn
+                <li>
+                    <a href="{{ url_for('admin_order_list') }}"
+                        class="{% if page == 'order_list' %}active{% endif %}">
+                        <i class="fas fa-file-invoice"></i> Tra Cứu Hóa Đơn
                     </a>
                 </li>
                 <li>
                     <a href="{{ url_for('admin_products') }}"
                         class="{{ 'active' if request.endpoint == 'admin_products' else '' }}">
-                        <i class="fas fa-box"></i> Sản Phẩm
+                        <i class="fas fa-boxes-stacked"></i> Sản Phẩm
                     </a>
                 </li>
                 <li>
                     <a href="{{ url_for('admin_add_product') }}"
                         class="{{ 'active' if request.endpoint in ['admin_add_product', 'admin_add_product_category'] else '' }}">
-                        <i class="fas fa-plus-circle"></i> Thêm Sản Phẩm
+                        <i class="fas fa-circle-plus"></i> Thêm Sản Phẩm
                     </a>
                 </li>
                 <li>
                     <a href="{{ url_for('admin_customers') }}" class="{% if page == 'customers' %}active{% endif %}">
-                        <i class="fas fa-address-book"></i> Khách Hàng
+                        <i class="fas fa-user"></i> Khách Hàng
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('admin_users') }}"
+                        class="{{ 'active' if page == 'admin_users' or request.endpoint == 'admin_edit_user' else '' }}">
+                        <i class="fas fa-user-gear"></i> Tài Khoản Quản Trị
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ url_for('admin_reports') }}" class="{% if page == 'reports' %}active{% endif %}">
-                        <i class="fas fa-chart-bar"></i> Báo Cáo
+                        <i class="fas fa-chart-line"></i> Báo Cáo
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ url_for('index') }}">
-                        <i class="fas fa-home"></i> Trang Chủ
+                        <i class="fas fa-house"></i> Trang Chủ
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('admin_chat_history') }}"
+                        class="{{ 'active' if request.endpoint == 'admin_chat_history' else '' }}">
+                        <i class="fas fa-comments"></i> Lịch Sử Chatbot
                     </a>
                 </li>
             </ul>
@@ -645,9 +1304,297 @@
         $(function () {
             $('[data-bs-toggle="tooltip"]').tooltip();
         });
+
+        /* ==================================================================
+           HỘP THOẠI XÁC NHẬN ĐẸP (thay window.confirm mặc định của trình duyệt)
+           - Gắn qua data-confirm trên <form>
+           - Tự lấy nội dung nút submit: data-confirm-btn, data-confirm-icon
+        ================================================================== */
+        const CONFIRM_THEME = {
+            success: { icon: 'question', color: '#198754', btn: 'Đồng ý' },
+            warning: { icon: 'warning',  color: '#f59e0b', btn: 'Tiếp tục' },
+            danger:  { icon: 'error',    color: '#dc3545', btn: 'Xác nhận' },
+            info:    { icon: 'info',     color: '#0d6efd', btn: 'Đồng ý' }
+        };
+
+        function askConfirm(form) {
+            const kind = form.dataset.confirmType || 'warning';
+            const theme = CONFIRM_THEME[kind] || CONFIRM_THEME.warning;
+
+            Swal.fire({
+                title: form.dataset.confirmTitle || 'Xác nhận',
+                html: form.dataset.confirm,
+                icon: theme.icon,
+                iconColor: theme.color,
+                showCancelButton: true,
+                confirmButtonText: form.dataset.confirmBtn || theme.btn,
+                cancelButtonText: 'Hủy bỏ',
+                confirmButtonColor: theme.color,
+                reverseButtons: true,
+                focusCancel: true,
+                customClass: {
+                    popup: 'yn-confirm',
+                    title: 'yn-popup-title',
+                    htmlContainer: 'yn-popup-text',
+                    confirmButton: 'yn-confirm-btn',
+                    cancelButton: 'yn-cancel-btn',
+                    icon: 'yn-classify'
+                }
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    form.dataset.confirmed = '1';
+                    form.submit();
+                }
+            });
+        }
+
+        // Chặn submit lần đầu -> hiện hộp thoại; lần hai (đã xác nhận) -> cho đi
+        document.addEventListener('submit', function (e) {
+            const form = e.target;
+            if (!form.dataset.confirm || form.dataset.confirmed === '1') return;
+            e.preventDefault();
+            askConfirm(form);
+        }, true);
+    </script>
+
+    <script>
+        (function () {
+            function createElement(tagName, className, text) {
+                const element = document.createElement(tagName);
+                if (className) element.className = className;
+                if (text) element.textContent = text;
+                return element;
+            }
+
+            function createDatePicker(input) {
+                if (input.closest('[data-date-picker]')) return;
+
+                const picker = createElement('div', 'admin-date-picker');
+                picker.dataset.datePicker = '';
+                input.parentNode.insertBefore(picker, input);
+                picker.appendChild(input);
+
+                input.type = 'hidden';
+                input.dataset.dateValue = '';
+
+                const label = input.id
+                    ? document.querySelector('label[for="' + CSS.escape(input.id) + '"]')
+                    : input.parentElement.previousElementSibling;
+                const labelText = label ? label.textContent.trim() : 'ngày';
+                const displayButton = createElement('button', 'form-control admin-date-display');
+                displayButton.type = 'button';
+                displayButton.dataset.dateDisplay = '';
+                displayButton.setAttribute('aria-haspopup', 'dialog');
+                displayButton.setAttribute('aria-expanded', 'false');
+                displayButton.setAttribute('aria-label', 'Chọn ' + labelText);
+
+                const displayLabel = createElement('span', 'date-display-value');
+                displayLabel.dataset.dateLabel = '';
+                displayButton.appendChild(displayLabel);
+                const calendarIcon = createElement('i', 'fas fa-calendar-days');
+                calendarIcon.setAttribute('aria-hidden', 'true');
+                displayButton.appendChild(calendarIcon);
+                picker.appendChild(displayButton);
+
+                const calendar = createElement('div', 'admin-date-calendar');
+                calendar.dataset.dateCalendar = '';
+                calendar.setAttribute('role', 'dialog');
+                calendar.setAttribute('aria-label', 'Chọn ' + labelText);
+                calendar.hidden = true;
+
+                const header = createElement('div', 'admin-date-calendar-header');
+                const previousButton = createElement('button', 'admin-date-calendar-nav');
+                previousButton.type = 'button';
+                previousButton.dataset.datePrevious = '';
+                previousButton.setAttribute('aria-label', 'Tháng trước');
+                previousButton.appendChild(createElement('i', 'fas fa-chevron-left'));
+                const monthLabel = createElement('strong', 'admin-date-calendar-title');
+                monthLabel.dataset.dateMonth = '';
+                const nextButton = createElement('button', 'admin-date-calendar-nav');
+                nextButton.type = 'button';
+                nextButton.dataset.dateNext = '';
+                nextButton.setAttribute('aria-label', 'Tháng sau');
+                nextButton.appendChild(createElement('i', 'fas fa-chevron-right'));
+                header.append(previousButton, monthLabel, nextButton);
+                calendar.appendChild(header);
+
+                const daysGrid = createElement('div', 'admin-date-calendar-grid');
+                daysGrid.dataset.dateGrid = '';
+                calendar.appendChild(daysGrid);
+
+                const clearButton = createElement('button', 'admin-date-clear', 'Xóa ngày');
+                clearButton.type = 'button';
+                clearButton.dataset.dateClear = '';
+                calendar.appendChild(clearButton);
+                picker.appendChild(calendar);
+
+                const card = picker.closest('.card');
+                if (card) card.classList.add('admin-card-with-date-picker');
+            }
+
+            function initializeDatePicker(picker) {
+                if (picker.dataset.dateInitialized === 'true') return;
+                picker.dataset.dateInitialized = 'true';
+
+                const card = picker.closest('.card');
+                if (card) card.classList.add('admin-card-with-date-picker');
+
+                const valueInput = picker.querySelector('[data-date-value]');
+                const displayButton = picker.querySelector('[data-date-display]');
+                const displayLabel = picker.querySelector('[data-date-label]');
+                const calendar = picker.querySelector('[data-date-calendar]');
+                const monthLabel = picker.querySelector('[data-date-month]');
+                const daysGrid = picker.querySelector('[data-date-grid]');
+                let visibleMonth;
+
+                function parseValue(value) {
+                    const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+                    if (!match) return null;
+                    const date = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+                    return date.getFullYear() === Number(match[1])
+                        && date.getMonth() === Number(match[2]) - 1
+                        && date.getDate() === Number(match[3])
+                        ? date
+                        : null;
+                }
+
+                function formatValue(date) {
+                    return [
+                        date.getFullYear(),
+                        String(date.getMonth() + 1).padStart(2, '0'),
+                        String(date.getDate()).padStart(2, '0')
+                    ].join('-');
+                }
+
+                function updateDisplay() {
+                    const selected = parseValue(valueInput.value);
+                    displayLabel.textContent = selected
+                        ? selected.toLocaleDateString('vi-VN')
+                        : 'Chọn ngày';
+                }
+
+                function renderCalendar() {
+                    const year = visibleMonth.getFullYear();
+                    const month = visibleMonth.getMonth();
+                    const selectedValue = valueInput.value;
+                    monthLabel.textContent = visibleMonth.toLocaleDateString('vi-VN', {
+                        month: 'long',
+                        year: 'numeric'
+                    });
+                    daysGrid.replaceChildren();
+
+                    ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'].forEach(function (weekday) {
+                        daysGrid.appendChild(createElement('span', 'admin-date-weekday', weekday));
+                    });
+
+                    const firstWeekday = new Date(year, month, 1).getDay();
+                    const daysInMonth = new Date(year, month + 1, 0).getDate();
+                    const daysInPreviousMonth = new Date(year, month, 0).getDate();
+
+                    for (let index = 0; index < 42; index += 1) {
+                        let day;
+                        let date;
+                        let isOutsideMonth = false;
+
+                        if (index < firstWeekday) {
+                            day = daysInPreviousMonth - firstWeekday + index + 1;
+                            date = new Date(year, month - 1, day);
+                            isOutsideMonth = true;
+                        } else if (index >= firstWeekday + daysInMonth) {
+                            day = index - firstWeekday - daysInMonth + 1;
+                            date = new Date(year, month + 1, day);
+                            isOutsideMonth = true;
+                        } else {
+                            day = index - firstWeekday + 1;
+                            date = new Date(year, month, day);
+                        }
+
+                        const button = createElement('button', 'admin-date-day', String(day));
+                        button.type = 'button';
+                        button.setAttribute('aria-label', date.toLocaleDateString('vi-VN'));
+                        if (isOutsideMonth) button.classList.add('is-outside-month');
+                        if (formatValue(date) === selectedValue) button.classList.add('is-selected');
+                        button.addEventListener('click', function () {
+                            valueInput.value = formatValue(date);
+                            valueInput.dispatchEvent(new Event('change', { bubbles: true }));
+                            updateDisplay();
+                            calendar.hidden = true;
+                            displayButton.setAttribute('aria-expanded', 'false');
+                            displayButton.focus();
+                        });
+                        daysGrid.appendChild(button);
+                    }
+                }
+
+                displayButton.addEventListener('click', function () {
+                    const shouldOpen = calendar.hidden;
+                    document.querySelectorAll('[data-date-calendar]').forEach(function (otherCalendar) {
+                        otherCalendar.hidden = true;
+                        otherCalendar.closest('[data-date-picker]')
+                            .querySelector('[data-date-display]')
+                            .setAttribute('aria-expanded', 'false');
+                    });
+                    if (!shouldOpen) return;
+
+                    visibleMonth = parseValue(valueInput.value) || new Date();
+                    visibleMonth = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), 1);
+                    renderCalendar();
+                    calendar.hidden = false;
+                    displayButton.setAttribute('aria-expanded', 'true');
+                });
+
+                picker.querySelector('[data-date-previous]').addEventListener('click', function () {
+                    visibleMonth = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() - 1, 1);
+                    renderCalendar();
+                });
+
+                picker.querySelector('[data-date-next]').addEventListener('click', function () {
+                    visibleMonth = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() + 1, 1);
+                    renderCalendar();
+                });
+
+                picker.querySelector('[data-date-clear]').addEventListener('click', function () {
+                    valueInput.value = '';
+                    valueInput.dispatchEvent(new Event('change', { bubbles: true }));
+                    updateDisplay();
+                    calendar.hidden = true;
+                    displayButton.setAttribute('aria-expanded', 'false');
+                    displayButton.focus();
+                });
+
+                updateDisplay();
+            }
+
+            document.querySelectorAll('.content-area input[type="date"]').forEach(createDatePicker);
+            document.querySelectorAll('[data-date-picker]').forEach(initializeDatePicker);
+
+            document.addEventListener('click', function (event) {
+                if (event.target.closest('[data-date-picker]')) return;
+                document.querySelectorAll('[data-date-calendar]').forEach(function (calendar) {
+                    calendar.hidden = true;
+                    calendar.closest('[data-date-picker]')
+                        .querySelector('[data-date-display]')
+                        .setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key !== 'Escape') return;
+                document.querySelectorAll('[data-date-calendar]:not([hidden])').forEach(function (calendar) {
+                    calendar.hidden = true;
+                    const displayButton = calendar.closest('[data-date-picker]')
+                        .querySelector('[data-date-display]');
+                    displayButton.setAttribute('aria-expanded', 'false');
+                    displayButton.focus();
+                });
+            });
+        })();
     </script>
 
     {% block extra_js %}{% endblock %}
+
+    <!-- Chatbot tư vấn (dùng chung với trang khách hàng) -->
+    {% include 'chatbot1.html' %}
 </body>
 
 </html>

@@ -1,0 +1,90 @@
+{"text":"Chào cửa hàng, tôi cần hỏi về đồ điện tử","intent":"greeting"}
+{"text":"Xin chào, có thể tư vấn cho mình được không?","intent":"greeting"}
+{"text":"Shop ơi, cho mình hỏi một việc","intent":"greeting"}
+{"text":"Rất cảm ơn vì bạn đã hỗ trợ","intent":"thanks"}
+{"text":"Mình nhận được câu trả lời rồi, cảm ơn nhé","intent":"thanks"}
+{"text":"Cảm ơn cửa hàng đã giải đáp thắc mắc","intent":"thanks"}
+{"text":"Món hàng nào có giá thấp nhất hiện giờ?","intent":"cheapest_product"}
+{"text":"Trong kho còn mặt hàng nào rẻ nhất?","intent":"cheapest_product"}
+{"text":"Tìm giúp sản phẩm có giá mềm nhất theo danh mục laptop","intent":"cheapest_product"}
+{"text":"Sản phẩm cao cấp nhất mà cửa hàng đang bán là gì?","intent":"expensive_product"}
+{"text":"Tôi muốn biết món nào đắt tiền nhất trong kho","intent":"expensive_product"}
+{"text":"Điện thoại phân khúc cao cấp nào có giá cao nhất?","intent":"expensive_product"}
+{"text":"Có điện thoại nào khoảng 9 triệu cho sinh viên không?","intent":"search_by_budget"}
+{"text":"Ngân sách 14 triệu, tư vấn cho mình một chiếc laptop","intent":"search_by_budget"}
+{"text":"Tôi tìm quạt có giá không quá 1 triệu","intent":"search_by_budget"}
+{"text":"Những ngành hàng nào đang được bày bán vậy?","intent":"product_category"}
+{"text":"Cho tôi xem nhóm sản phẩm gia dụng của shop","intent":"product_category"}
+{"text":"Tôi muốn biết cửa hàng có những danh mục gì","intent":"product_category"}
+{"text":"Tôi đang cần tìm iPhone 17 Air","intent":"product_search"}
+{"text":"Cửa hàng có laptop HP nào không?","intent":"product_search"}
+{"text":"Cho tôi xem mẫu Samsung Inverter 9kg","intent":"product_search"}
+{"text":"Trong kho còn máy ảnh Sony để mua không?","intent":"stock_status"}
+{"text":"Điện thoại Oppo hiện còn sẵn hàng chứ?","intent":"stock_status"}
+{"text":"Tủ lạnh nào đang có thể đặt mua ngay?","intent":"stock_status"}
+{"text":"Đơn hàng ORD-9a8b7c6d đang được giao tới đâu?","intent":"order_status"}
+{"text":"Bạn tra giúp tình hình xử lý đơn 112233aa","intent":"order_status"}
+{"text":"Mã vận đơn ORD-44aa55bb đã giao chưa?","intent":"order_status"}
+{"text":"Tôi muốn xem lại tất cả đơn mua trước đây","intent":"my_orders"}
+{"text":"Kiểm tra giúp những đơn tôi đã đặt trong tài khoản","intent":"my_orders"}
+{"text":"Có thể cho xem các đơn hàng gần nhất của tôi không?","intent":"my_orders"}
+{"text":"Nếu tủ lạnh bị lỗi thì bảo hành theo quy định nào?","intent":"warranty"}
+{"text":"Thời gian bảo hành máy ảnh là bao lâu vậy?","intent":"warranty"}
+{"text":"Cửa hàng có hỗ trợ sửa chữa trong thời gian bảo hành không?","intent":"warranty"}
+{"text":"Tôi muốn đổi sản phẩm vì chọn nhầm mẫu","intent":"return_policy"}
+{"text":"Trả hàng thì có được hoàn lại tiền không?","intent":"return_policy"}
+{"text":"Điều kiện để đổi một sản phẩm đã mua là gì?","intent":"return_policy"}
+{"text":"Đặt hàng hôm nay thì bao lâu nhận được?","intent":"shipping"}
+{"text":"Cước giao sản phẩm về nhà tính thế nào?","intent":"shipping"}
+{"text":"Shop có giao nhanh tới khu vực ngoại thành không?","intent":"shipping"}
+{"text":"Có thể trả tiền bằng thẻ Visa không?","intent":"payment_methods"}
+{"text":"Tôi muốn dùng ví điện tử để trả đơn hàng","intent":"payment_methods"}
+{"text":"Khi nhận hàng có được thanh toán tiền mặt chứ?","intent":"payment_methods"}
+{"text":"Mua hàng trả góp cần chuẩn bị giấy tờ gì?","intent":"installment"}
+{"text":"Có thể đăng ký trả góp 0% cho điện thoại không?","intent":"installment"}
+{"text":"Tôi muốn chia tiền mua hàng thành nhiều kỳ","intent":"installment"}
+{"text":"Cửa hàng đang giảm giá mặt hàng nào vậy?","intent":"promotion_products"}
+{"text":"Tìm các sản phẩm có giá ưu đãi hiện nay","intent":"promotion_products"}
+{"text":"Có chương trình khuyến mại nào cho khách mua hàng không?","intent":"promotion_products"}
+{"text":"Cho tôi xin thông tin để liên lạc với shop","intent":"contact"}
+{"text":"Địa chỉ email chăm sóc khách hàng là gì?","intent":"contact"}
+{"text":"Tôi muốn biết số tổng đài của cửa hàng","intent":"contact"}
+{"text":"So sánh giá và cấu hình iPhone 16 với Samsung Galaxy S26 Ultra","intent":"compare_products"}
+{"text":"Laptop HP khác laptop Dell ở những điểm nào?","intent":"compare_products"}
+{"text":"Bạn so sánh giúp hai mẫu máy giặt Samsung và Electrolux","intent":"compare_products"}
+{"text":"Tôi muốn so sánh hai sản phẩm trước khi quyết định mua","intent":"compare_products"}
+{"text":"Xin chào, cửa hàng có hỗ trợ khách hàng không?","intent":"greeting"}
+{"text":"Chào bạn, mình muốn tìm hiểu sản phẩm","intent":"greeting"}
+{"text":"Cảm ơn bạn đã kiểm tra thông tin hộ mình","intent":"thanks"}
+{"text":"Cảm ơn nhé, tôi sẽ cân nhắc thêm","intent":"thanks"}
+{"text":"Cho biết món hàng thấp giá nhất còn sẵn","intent":"cheapest_product"}
+{"text":"Mẫu laptop nào có giá rẻ nhất bên bạn?","intent":"cheapest_product"}
+{"text":"Mẫu máy tính cao cấp có giá cao nhất là mẫu nào?","intent":"expensive_product"}
+{"text":"Tìm sản phẩm đắt nhất trong nhóm máy ảnh","intent":"expensive_product"}
+{"text":"Có tai nghe nào tầm 2 triệu không?","intent":"search_by_budget"}
+{"text":"Tôi muốn mua tủ lạnh với ngân sách khoảng 16 triệu","intent":"search_by_budget"}
+{"text":"Cửa hàng có bán thiết bị nhà bếp nào?","intent":"product_category"}
+{"text":"Cho hỏi shop có kinh doanh máy tính bàn không?","intent":"product_category"}
+{"text":"Tìm giúp Samsung Galaxy Watch 6","intent":"product_search"}
+{"text":"Mình muốn xem quạt Toshiba F-LSA10","intent":"product_search"}
+{"text":"Bếp từ có còn hàng để giao không?","intent":"stock_status"}
+{"text":"Kiểm tra giúp mẫu tai nghe này còn trong kho không","intent":"stock_status"}
+{"text":"Tôi muốn tra cứu đơn ORD-778899aa","intent":"order_status"}
+{"text":"Mã đơn 665544cc của tôi đã xử lý xong chưa?","intent":"order_status"}
+{"text":"Hiển thị lịch sử mua hàng trong tài khoản giúp tôi","intent":"my_orders"}
+{"text":"Tôi cần danh sách các đơn đã mua gần đây","intent":"my_orders"}
+{"text":"Sản phẩm điện tử bị lỗi phần cứng có được bảo hành không?","intent":"warranty"}
+{"text":"Mua máy giặt thì thời hạn bảo hành thế nào?","intent":"warranty"}
+{"text":"Tôi không hài lòng với hàng đã mua, muốn đổi lại","intent":"return_policy"}
+{"text":"Có thể hoàn hàng nếu còn đủ phụ kiện không?","intent":"return_policy"}
+{"text":"Giao đến địa chỉ ở tỉnh mất khoảng mấy ngày?","intent":"shipping"}
+{"text":"Phí vận chuyển đơn hàng nhỏ có được miễn không?","intent":"shipping"}
+{"text":"Cửa hàng hỗ trợ chuyển khoản qua ngân hàng nào?","intent":"payment_methods"}
+{"text":"Thanh toán bằng mã QR có được không?","intent":"payment_methods"}
+{"text":"Trả góp có tính lãi suất hàng tháng không?","intent":"installment"}
+{"text":"Cửa hàng cho trả góp tối đa bao nhiêu tháng?","intent":"installment"}
+{"text":"Mặt hàng nào đang có giá giảm so với bình thường?","intent":"promotion_products"}
+{"text":"Tôi muốn xem danh sách sản phẩm đang khuyến mại","intent":"promotion_products"}
+{"text":"Cửa hàng ở đâu và liên hệ qua số nào?","intent":"contact"}
+{"text":"Xin cho biết hotline tư vấn sản phẩm","intent":"contact"}
+{"text":"Đối chiếu thông số của iPhone 15 Pro Max và iPhone 16 Pro Max","intent":"compare_products"}

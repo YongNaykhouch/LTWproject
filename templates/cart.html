@@ -36,9 +36,9 @@
             padding: 2rem 0;
             margin-bottom: 2rem;
             text-align: center;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(120deg, #1d4ed8 0%, #4338ca 55%, #6d28d9 100%);
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.3);
+            box-shadow: 0 12px 30px rgba(67, 97, 238, 0.2);
             overflow: hidden;
         }
 
@@ -73,16 +73,16 @@
         .cart-card {
             background: white;
             border-radius: 15px;
-            border: none;
-            box-shadow: 0 5px 15px var(--shadow);
+            border: 1px solid #e8edf5;
+            box-shadow: 0 5px 18px rgba(15, 23, 42, 0.06);
             transition: all 0.3s ease;
             overflow: hidden;
             margin-bottom: 1.5rem;
         }
 
         .cart-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(15, 23, 42, 0.1);
         }
 
         .product-image {
@@ -134,13 +134,65 @@
         }
 
         .total-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            padding: 2rem;
-            color: white;
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
-            position: sticky;
-            top: 20px;
+            background: #fff;
+            border: 1px solid #e5eaf2;
+            border-radius: 18px;
+            padding: 1.75rem;
+            color: #1e293b;
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.09);
+            width: 100%;
+        }
+
+        .order-summary-column {
+            align-self: stretch;
+        }
+
+        @media (min-width: 992px) {
+            .order-summary-column .total-section {
+                position: sticky;
+                top: 24px;
+                z-index: 2;
+            }
+        }
+
+        .total-section h4 {
+            color: #172554 !important;
+            font-size: 1.25rem;
+        }
+
+        .total-section .summary-row {
+            color: #64748b;
+        }
+
+        .total-section .summary-row strong,
+        .total-section .summary-row .fw-bold {
+            color: #1e293b;
+        }
+
+        .total-section hr {
+            border-color: #e2e8f0;
+            opacity: 1;
+        }
+
+        .total-section .grand-total {
+            color: #172554;
+        }
+
+        .total-section .grand-total .h2 {
+            color: #2563eb;
+            font-size: 1.7rem;
+        }
+
+        .total-section .btn-outline-light {
+            color: #475569 !important;
+            border-color: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .total-section .btn-outline-light:hover {
+            color: #1d4ed8 !important;
+            background: #eff6ff;
+            border-color: #93c5fd;
         }
 
         .empty-cart {
@@ -164,7 +216,6 @@
             border-left: 5px solid var(--primary);
             box-shadow: 0 5px 15px var(--shadow);
             transition: all 0.3s ease;
-            cursor: pointer;
             margin-bottom: 1rem;
         }
 
@@ -172,6 +223,7 @@
             transform: translateX(5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
+        .history-card > .row { cursor: pointer; }
 
         .badge-status {
             padding: 0.5rem 1rem;
@@ -180,33 +232,38 @@
         }
 
         .btn-checkout {
-            background: linear-gradient(135deg, var(--success) 0%, #04b486 100%);
+            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
             border: none;
-            padding: 1rem 3rem;
-            border-radius: 15px;
+            padding: 0.95rem 1.5rem;
+            border-radius: 12px;
             font-weight: 700;
-            font-size: 1.2rem;
-            box-shadow: 0 8px 20px rgba(6, 214, 160, 0.3);
+            font-size: 1.05rem;
+            letter-spacing: 0.02em;
+            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.24);
             transition: all 0.3s ease;
         }
 
         .btn-checkout:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(6, 214, 160, 0.4);
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #1d4ed8 0%, #4338ca 100%);
+            box-shadow: 0 12px 22px rgba(37, 99, 235, 0.3);
         }
 
         .btn-clear {
-            background: linear-gradient(135deg, #160d23 0%, #a047ff 100%);
-            color: white;
-            border: none;
+            background: #fff;
+            color: #64748b;
+            border: 1px solid #cbd5e1;
             padding: 0.8rem 2rem;
             border-radius: 10px;
             transition: all 0.3s ease;
         }
 
         .btn-clear:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(255, 107, 107, 0.3);
+            background: #fff1f2;
+            color: #dc3545;
+            border-color: #fecdd3;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(220, 53, 69, 0.12);
         }
 
         .modal-header {
@@ -215,15 +272,71 @@
             border-radius: 15px 15px 0 0;
         }
 
+        #checkoutModal .modal-content {
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        #checkoutModal .modal-header > div {
+            background: linear-gradient(120deg, #1d4ed8 0%, #4338ca 55%, #6d28d9 100%) !important;
+        }
+
         .shipping-info-card {
-            background: var(--light-bg);
-            border-radius: 12px;
-            border: 2px solid #e9ecef;
+            background: #f8fafc;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
             padding: 1.5rem;
         }
 
+        #checkoutModal .form-control {
+            border-color: #dbe3ef;
+            border-radius: 10px;
+            padding: 0.65rem 0.85rem;
+        }
+
+        #checkoutModal .form-control:focus {
+            border-color: #818cf8;
+            box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.12);
+        }
+
+        #checkoutModal .payment-option {
+            display: flex;
+            align-items: flex-start;
+            flex: 1 1 240px;
+            gap: 0.65rem;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #fff;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        #checkoutModal .payment-option:has(.form-check-input:checked) {
+            border-color: #6366f1;
+            background: #f5f7ff;
+        }
+
+        #checkoutModal .payment-option .form-check-input {
+            flex: 0 0 auto;
+            margin-top: 0.25rem;
+        }
+
+        #checkoutModal .payment-option .form-check-label {
+            cursor: pointer;
+        }
+
+        #checkoutModal .payment-options {
+            flex-wrap: wrap;
+        }
+
+        #checkoutModal .modal-footer .btn-success {
+            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            border: 0;
+            border-radius: 10px;
+        }
+
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
             .page-header h1 {
                 font-size: 2rem;
             }
@@ -233,8 +346,7 @@
             }
             
             .total-section {
-                position: relative;
-                top: 0;
+                position: static;
                 margin-top: 2rem;
             }
         }
@@ -277,10 +389,11 @@
 </head>
 
 <body>
+    {% include 'partials/site_header.html' %}
     <div class="container-main">
         <!-- Header -->
         <div class="page-header animate-fade">
-            <h1>🛒 Giỏ Hàng Của Bạn</h1>
+            <h1><i class="fas fa-cart-shopping me-2" aria-hidden="true"></i>Giỏ Hàng Của Bạn</h1>
             <div class="subtitle">Quản lý và thanh toán đơn hàng của bạn một cách dễ dàng</div>
         </div>
 
@@ -313,7 +426,10 @@
                         Sản phẩm trong giỏ ({{ cart|length }})
                     </h4>
                     <a href="{{ url_for('clear_cart') }}" class="btn btn-clear"
-                        onclick="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?')">
+                        data-confirm="Toàn bộ sản phẩm trong giỏ hàng sẽ bị xóa."
+                        data-confirm-title="Xóa toàn bộ giỏ hàng"
+                        data-confirm-type="danger"
+                        data-confirm-btn="Xóa tất cả">
                         <i class="fas fa-trash-alt me-2"></i>Xóa tất cả
                     </a>
                 </div>
@@ -337,16 +453,14 @@
                         <div class="col-md-3">
                             <div class="quantity-control">
                                 <form action="{{ url_for('update_cart', product_id=item.id) }}" method="POST" class="d-flex align-items-center">
-                                    <button type="button" class="quantity-btn decrease" onclick="this.parentNode.querySelector('input').stepDown()">
+                                    <button type="button" class="quantity-btn decrease">
                                         <i class="fas fa-minus"></i>
                                     </button>
-                                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1"
-                                        class="form-control quantity-input mx-2">
-                                    <button type="button" class="quantity-btn increase" onclick="this.parentNode.querySelector('input').stepUp()">
+                                    <input type="number" name="quantity" value="{{ item.quantity }}" min="0"
+                                        class="form-control quantity-input mx-2"
+                                        title="Nhập 0 để xóa sản phẩm khỏi giỏ">
+                                    <button type="button" class="quantity-btn increase">
                                         <i class="fas fa-plus"></i>
-                                    </button>
-                                    <button type="submit" class="btn btn-sm btn-outline-primary ms-3">
-                                        <i class="fas fa-sync-alt"></i>
                                     </button>
                                 </form>
                             </div>
@@ -359,7 +473,10 @@
                             </div>
                             <a href="{{ url_for('remove_from_cart', product_id=item.id) }}"
                                 class="btn btn-outline-danger btn-sm"
-                                onclick="return confirm('Xóa sản phẩm này khỏi giỏ hàng?')">
+                                data-confirm="Sản phẩm <b>{{ item.name }}</b> sẽ được bỏ khỏi giỏ hàng."
+                                data-confirm-title="Xóa khỏi giỏ hàng"
+                                data-confirm-type="danger"
+                                data-confirm-btn="Xóa">
                                 <i class="fas fa-trash me-1"></i> Xóa
                             </a>
                         </div>
@@ -369,34 +486,34 @@
             </div>
 
             <!-- Order Summary -->
-            <div class="col-lg-4">
+            <div class="col-lg-4 order-summary-column">
                 <div class="total-section">
                     <h4 class="fw-bold mb-4 text-white">
                         <i class="fas fa-receipt me-2"></i>Tóm tắt đơn hàng
                     </h4>
 
                     <div class="mb-4">
-                        <div class="d-flex justify-content-between mb-3">
+                        <div class="d-flex justify-content-between mb-3 summary-row">
                             <span>Số lượng sản phẩm:</span>
                             <span class="fw-bold">{{ cart|length }}</span>
                         </div>
-                        <div class="d-flex justify-content-between mb-3">
+                        <div class="d-flex justify-content-between mb-3 summary-row">
                             <span>Tạm tính:</span>
                             <span class="fw-bold">{{ total | format_currency }}</span>
                         </div>
-                        <div class="d-flex justify-content-between mb-3">
+                        <div class="d-flex justify-content-between mb-3 summary-row">
                             <span>Phí vận chuyển:</span>
                             <span class="fw-bold">Miễn phí</span>
                         </div>
                         <hr class="bg-white">
-                        <div class="d-flex justify-content-between mb-4">
+                        <div class="d-flex justify-content-between mb-4 grand-total">
                             <span class="h5">Tổng cộng:</span>
                             <span class="h2 fw-bold">{{ total | format_currency }}</span>
                         </div>
                     </div>
 
                     <button class="btn btn-checkout w-100 text-white mb-3" data-bs-toggle="modal" data-bs-target="#checkoutModal">
-                        <i class="fas fa-lock me-2"></i>TIẾN HÀNH THANH TOÁN
+                        TIẾN HÀNH THANH TOÁN
                     </button>
 
                     <a href="{{ url_for('index') }}" class="btn btn-outline-light w-100">
@@ -429,12 +546,17 @@
                     </h4>
                     <p class="text-muted mb-0">Theo dõi các đơn hàng đã đặt</p>
                 </div>
-                <span class="badge bg-primary px-3 py-2">{{ orders|length }} đơn hàng</span>
+                <a href="{{ url_for('my_orders') }}" class="btn btn-primary rounded-pill px-3">
+                    <i class="fas fa-truck-fast me-1"></i>Theo dõi đơn hàng
+                </a>
             </div>
 
             {% for order in orders %}
-            <div class="history-card p-4 mb-3" data-bs-toggle="collapse" data-bs-target="#order-{{ loop.index }}">
-                <div class="row align-items-center">
+            <div class="history-card p-4 mb-3">
+                <div class="row align-items-center" role="button" tabindex="0"
+                    data-bs-toggle="collapse" data-bs-target="#order-{{ loop.index }}"
+                    aria-controls="order-{{ loop.index }}" aria-expanded="false"
+                    onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }">
                     <div class="col-md-2">
                         <div class="order-id bg-light px-3 py-2 rounded text-center">
                             <small class="text-muted d-block">Mã đơn</small>
@@ -456,17 +578,17 @@
                     </div>
                     <div class="col-md-3">
                         {% if order.status == 'pending' %}
-                        <span class="badge-status bg-warning text-dark">⏳ Chờ xác nhận</span>
+                        <span class="badge-status bg-warning text-dark"><i class="fas fa-clock me-1"></i>Chờ xác nhận</span>
                         {% elif order.status == 'processing' %}
-                        <span class="badge-status bg-info text-white">✅ Đã xác nhận</span>
+                        <span class="badge-status bg-info text-white"><i class="fas fa-box me-1"></i>Đang xử lý</span>
                         {% elif order.status == 'shipped' %}
-                        <span class="badge-status bg-primary text-white">🚚 Đang giao</span>
+                        <span class="badge-status bg-primary text-white"><i class="fas fa-truck me-1"></i>Đang giao</span>
                         {% elif order.status == 'completed' %}
-                        <span class="badge-status bg-success text-white">📦 Đã giao</span>
+                        <span class="badge-status bg-success text-white"><i class="fas fa-check me-1"></i>Đã giao</span>
                         {% elif order.status == 'cancelled' %}
-                        <span class="badge-status bg-danger text-white">❌ Đã hủy</span>
+                        <span class="badge-status bg-danger text-white"><i class="fas fa-xmark me-1"></i>Đã hủy</span>
                         {% else %}
-                        <span class="badge-status bg-secondary text-white">❓ Không xác định</span>
+                        <span class="badge-status bg-secondary text-white"><i class="fas fa-question me-1"></i>Không xác định</span>
                         {% endif %}
                     </div>
                     <div class="col-md-1 text-end">
@@ -484,7 +606,13 @@
                                 <p class="text-muted mb-0">📞 {{ order.phone }}</p>
                             </div>
                             <div class="col-md-4 text-end">
-                                <a href="#" class="btn btn-outline-primary btn-sm">
+                                <a href="{{ url_for('my_order_detail', order_id=order.order_id) }}"
+                                    class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-eye me-1"></i> Xem chi tiết
+                                </a>
+                                <a href="{{ url_for('my_order_detail', order_id=order.order_id, print=1) }}"
+                                    target="_blank" rel="noopener"
+                                    class="btn btn-outline-secondary btn-sm">
                                     <i class="fas fa-print me-1"></i> In hóa đơn
                                 </a>
                             </div>
@@ -528,7 +656,7 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label fw-bold">Họ và tên *</label>
-                                    <input type="text" name="full_name" class="form-control" 
+                                    <input type="text" name="full_name" class="form-control"
                                            value="{{ user.full_name or user.username }}" required>
                                 </div>
                                 <div class="col-md-6">
@@ -541,7 +669,7 @@
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label fw-bold">Địa chỉ giao hàng *</label>
-                                    <textarea name="address" class="form-control {{ 'is-invalid' if error_address else '' }}" 
+                                    <textarea name="address" class="form-control {{ 'is-invalid' if error_address else '' }}"
                                               rows="3" required>{{ user.address or '' }}</textarea>
                                     {% if error_address %}
                                     <div class="invalid-feedback d-block">{{ error_address }}</div>
@@ -602,8 +730,8 @@
                             <h6 class="fw-bold mb-3">
                                 <i class="fas fa-credit-card me-2"></i>Phương thức thanh toán
                             </h6>
-                            <div class="d-flex gap-3">
-                                <div class="form-check flex-grow-1">
+                            <div class="d-flex gap-3 payment-options">
+                                <div class="form-check flex-grow-1 payment-option">
                                     <input class="form-check-input" type="radio" name="payment_method" id="cod" value="cod" checked>
                                     <label class="form-check-label d-flex align-items-center" for="cod">
                                         <i class="fas fa-money-bill-wave me-2 text-success"></i>
@@ -613,7 +741,7 @@
                                         </div>
                                     </label>
                                 </div>
-                                <div class="form-check flex-grow-1">
+                                <div class="form-check flex-grow-1 payment-option">
                                     <input class="form-check-input" type="radio" name="payment_method" id="banking" value="banking">
                                     <label class="form-check-label d-flex align-items-center" for="banking">
                                         <i class="fas fa-university me-2 text-primary"></i>
@@ -671,6 +799,8 @@
             });
         });
     </script>
+
+    {% include 'chatbot1.html' %}
 </body>
 
 </html>

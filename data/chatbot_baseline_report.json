@@ -1,0 +1,194 @@
+{
+  "test_samples": 90,
+  "correct_predictions": 82,
+  "accuracy": 0.9111,
+  "per_intent": {
+    "cheapest_product": {
+      "support": 5,
+      "precision": 0.8333,
+      "recall": 1.0,
+      "f1": 0.9091
+    },
+    "compare_products": {
+      "support": 5,
+      "precision": 1.0,
+      "recall": 0.8,
+      "f1": 0.8889
+    },
+    "contact": {
+      "support": 5,
+      "precision": 0.8333,
+      "recall": 1.0,
+      "f1": 0.9091
+    },
+    "expensive_product": {
+      "support": 5,
+      "precision": 0.8,
+      "recall": 0.8,
+      "f1": 0.8
+    },
+    "greeting": {
+      "support": 5,
+      "precision": 1.0,
+      "recall": 0.8,
+      "f1": 0.8889
+    },
+    "installment": {
+      "support": 5,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "my_orders": {
+      "support": 5,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "order_status": {
+      "support": 5,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "payment_methods": {
+      "support": 5,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "product_category": {
+      "support": 5,
+      "precision": 0.8,
+      "recall": 0.8,
+      "f1": 0.8
+    },
+    "product_search": {
+      "support": 5,
+      "precision": 1.0,
+      "recall": 0.8,
+      "f1": 0.8889
+    },
+    "promotion_products": {
+      "support": 5,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "return_policy": {
+      "support": 5,
+      "precision": 0.8333,
+      "recall": 1.0,
+      "f1": 0.9091
+    },
+    "search_by_budget": {
+      "support": 5,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "shipping": {
+      "support": 5,
+      "precision": 1.0,
+      "recall": 0.6,
+      "f1": 0.75
+    },
+    "stock_status": {
+      "support": 5,
+      "precision": 0.8,
+      "recall": 0.8,
+      "f1": 0.8
+    },
+    "thanks": {
+      "support": 5,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "warranty": {
+      "support": 5,
+      "precision": 0.7143,
+      "recall": 1.0,
+      "f1": 0.8333
+    }
+  },
+  "misclassifications": [
+    {
+      "actual": "shipping",
+      "predicted": "warranty",
+      "count": 2
+    },
+    {
+      "actual": "compare_products",
+      "predicted": "return_policy",
+      "count": 1
+    },
+    {
+      "actual": "expensive_product",
+      "predicted": "cheapest_product",
+      "count": 1
+    },
+    {
+      "actual": "greeting",
+      "predicted": "contact",
+      "count": 1
+    },
+    {
+      "actual": "product_category",
+      "predicted": "expensive_product",
+      "count": 1
+    },
+    {
+      "actual": "product_search",
+      "predicted": "stock_status",
+      "count": 1
+    },
+    {
+      "actual": "stock_status",
+      "predicted": "product_category",
+      "count": 1
+    }
+  ],
+  "misclassified_samples": [
+    {
+      "text": "Tôi muốn biết món nào đắt tiền nhất trong kho",
+      "actual": "expensive_product",
+      "predicted": "cheapest_product"
+    },
+    {
+      "text": "Cho tôi xem nhóm sản phẩm gia dụng của shop",
+      "actual": "product_category",
+      "predicted": "expensive_product"
+    },
+    {
+      "text": "Cửa hàng có laptop HP nào không?",
+      "actual": "product_search",
+      "predicted": "stock_status"
+    },
+    {
+      "text": "Tủ lạnh nào đang có thể đặt mua ngay?",
+      "actual": "stock_status",
+      "predicted": "product_category"
+    },
+    {
+      "text": "Đặt hàng hôm nay thì bao lâu nhận được?",
+      "actual": "shipping",
+      "predicted": "warranty"
+    },
+    {
+      "text": "Cước giao sản phẩm về nhà tính thế nào?",
+      "actual": "shipping",
+      "predicted": "warranty"
+    },
+    {
+      "text": "Tôi muốn so sánh hai sản phẩm trước khi quyết định mua",
+      "actual": "compare_products",
+      "predicted": "return_policy"
+    },
+    {
+      "text": "Xin chào, cửa hàng có hỗ trợ khách hàng không?",
+      "actual": "greeting",
+      "predicted": "contact"
+    }
+  ]
+}

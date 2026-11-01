@@ -45,111 +45,7 @@
 
 
 
-    <!-- Top Navbar -->
-    <div class="top-navbar">
-        <p>CHÀO MỪNG ĐẾN CỬA HÀNG ĐIỆN TỬ</p>
-
-        <div class="icons">
-            {% if session.get('username') %}
-            <!-- ADMIN -->
-            {% if session.get('role') == 'admin' %}
-            <a href="{{ url_for('admin_dashboard') }}">
-                <i class="fas fa-user-shield"></i> Admin Panel
-            </a>
-            {% else %}
-            <!-- USER -->
-            <a href="{{ url_for('profile') }}">
-                <i class="fas fa-user"></i> Hồ sơ
-            </a>
-            {% endif %}
-
-            <a href="{{ url_for('logout') }}">
-                <i class="fas fa-sign-out-alt"></i> Đăng xuất
-            </a>
-
-            {% else %}
-            <!-- GUEST -->
-            <a href="{{ url_for('register') }}">
-                <i class="fas fa-user-plus"></i> Đăng ký
-            </a>
-            <a href="{{ url_for('login') }}">
-                <i class="fas fa-sign-in-alt"></i> Đăng nhập
-            </a>
-            {% endif %}
-            <a href="{{ url_for('view_cart') }}" class="cart-icon">
-                <i class="fas fa-shopping-cart"></i> Cart
-                {% if session.cart %}
-                ({{ session.cart.values() | map(attribute='quantity') | sum }})
-                {% else %}
-                (0)
-                {% endif %}
-            </a>
-        </div>
-    </div>
-
-    <!-- Main Navbar -->
-    <nav class="navbar navbar-expand-lg" id="navbar">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('index') }}" id="logo">
-                <span id="span1"></span>Cửa hàng <span>Điện Tử</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span><img src="{{ url_for('static', filename='images/menu.png') }}" alt="" width="30px"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Trang chủ</a>
-                    </li>
-                    
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Danh mục
-                        </a>
-                        <ul class="dropdown-menu bg-primary text-white" aria-labelledby="navbarDropdown">
-                            <li><h6 class="dropdown-header text-primary">Điện Tử</h6></li>
-                            <li><a class="dropdown-item" href="{{ url_for('category_products', category='dienthoai') }}"><i class="fas fa-mobile-alt me-2"></i>Điện thoại</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('category_products', category='laptop') }}"><i class="fas fa-laptop me-2"></i>Laptop</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('category_products', category='dongho') }}"><i class="fas fa-watch me-2"></i>Đồng hồ thông minh</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('category_products', category='maytinhbanpc') }}"><i class="fas fa-desktop me-2"></i>Máy tính bàn</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><h6 class="dropdown-header text-success">Gia Dụng</h6></li>
-                            <li><a class="dropdown-item" href="{{ url_for('category_products', category='tulanh') }}"><i class="fas fa-snowflake me-2"></i>Tủ lạnh</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('category_products', category='quat') }}"><i class="fas fa-fan me-2"></i>Quạt</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('category_products', category='maygiatsay') }}"><i class="fas fa-tshirt me-2"></i>Máy giặt & sấy</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('category_products', category='beptu') }}"><i class="fas fa-fire-burner me-2"></i>Bếp từ</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('lienhe') }}">Liên hệ</a>
-
-                    </li>
-                </ul>
-                <form class="d-flex" action="{{ url_for('search') }}" method="GET">
-                        <input class="form-control me-2" type="search" name="q" placeholder="Tìm sản phẩm..." aria-label="Search">
-                        <button class="btn btn-outline-primary" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </form>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Bottom Navbar -->
-    <div class="bottom_navbar">
-        <ul>
-            <li><a href="{{ url_for('category_products', category='dienthoai') }}">Điện thoại</a></li>
-            <li><a href="{{ url_for('category_products', category='maytinhbanpc') }}">Máy Tính Bàn</a></li>
-            <li><a href="{{ url_for('category_products', category='tulanh') }}">Tủ lạnh</a></li>
-            <li><a href="{{ url_for('category_products', category='beptu') }}">Bếp Từ</a></li>
-            <li><a href="{{ url_for('category_products', category='dongho') }}">Đồng hồ</a></li>
-            <li><a href="{{ url_for('category_products', category='quat') }}">Quạt</a></li>
-            <li><a href="{{ url_for('category_products', category='laptop') }}">Laptop</a></li>
-            <li><a href="{{ url_for('category_products', category='maygiatsay') }}">Máy Giặt & Sấy</a></li>
-        </ul>
-    </div>
+    {% include 'partials/site_header.html' %}
 
     <!-- Main Content -->
     {% block content %}{% endblock %}
@@ -211,9 +107,6 @@
             <div class="copyright">
                 &copy; Copyright <strong><span>Cửa hàng điện tử</span></strong>. All Rights Reserved
             </div>
-            <div class="credits">
-                Designed by <a href="#">YONG NAYKHOUCH</a>
-            </div>
         </div>
     </footer>
 
@@ -227,6 +120,97 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        /* Hộp thoại xác nhận phía khách hàng (dùng chung với trang admin) */
+        .swal2-popup.yn-confirm {
+            border-radius: 18px !important;
+            padding: 28px 24px 22px !important;
+            font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif !important;
+            box-shadow: 0 24px 60px rgba(16, 24, 40, 0.25) !important;
+        }
+
+        .yn-popup-title {
+            font-size: 1.2rem !important;
+            font-weight: 700 !important;
+            color: #1f2937 !important;
+            margin-bottom: 6px !important;
+        }
+
+        .yn-popup-text {
+            font-size: 0.95rem !important;
+            color: #6b7280 !important;
+            line-height: 1.55 !important;
+        }
+
+        .yn-confirm-btn,
+        .yn-cancel-btn {
+            border-radius: 999px !important;
+            padding: 10px 26px !important;
+            font-weight: 600 !important;
+            font-size: 0.92rem !important;
+        }
+
+        .yn-cancel-btn {
+            background: #f1f3f5 !important;
+            color: #495057 !important;
+        }
+    </style>
+
+    <script>
+        /* Xác nhận đẹp cho mọi form có data-confirm (thay confirm() mặc định) */
+        window.YN_CONFIRM_THEME = {
+            success: { icon: 'question', color: '#198754', btn: 'Đồng ý' },
+            warning: { icon: 'warning', color: '#f59e0b', btn: 'Tiếp tục' },
+            danger: { icon: 'error', color: '#dc3545', btn: 'Xác nhận' },
+            info: { icon: 'info', color: '#0d6efd', btn: 'Đồng ý' }
+        };
+
+        window.ynConfirm = function (form) {
+            const kind = form.dataset.confirmType || 'warning';
+            const theme = YN_CONFIRM_THEME[kind] || YN_CONFIRM_THEME.warning;
+            Swal.fire({
+                title: form.dataset.confirmTitle || 'Xác nhận',
+                html: form.dataset.confirm,
+                icon: theme.icon,
+                iconColor: theme.color,
+                showCancelButton: true,
+                confirmButtonText: form.dataset.confirmBtn || theme.btn,
+                cancelButtonText: 'Hủy bỏ',
+                confirmButtonColor: theme.color,
+                reverseButtons: true,
+                focusCancel: true,
+                customClass: {
+                    popup: 'yn-confirm',
+                    title: 'yn-popup-title',
+                    htmlContainer: 'yn-popup-text',
+                    confirmButton: 'yn-confirm-btn',
+                    cancelButton: 'yn-cancel-btn'
+                }
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    form.dataset.confirmed = '1';
+                    form.submit();
+                }
+            });
+        };
+
+        document.addEventListener('submit', function (e) {
+            const form = e.target;
+            if (!form.dataset || !form.dataset.confirm || form.dataset.confirmed === '1') return;
+            e.preventDefault();
+            window.ynConfirm(form);
+        }, true);
+
+        /* Hỗ trợ cả thẻ <a data-confirm> (VD: nút xóa trong giỏ hàng) */
+        document.addEventListener('click', function (e) {
+            const el = e.target.closest('a[data-confirm]');
+            if (!el) return;
+            e.preventDefault();
+            window.ynConfirm(el);
+        }, true);
+    </script>
 
     <script>
         // Pass customer_id from session to JavaScript
@@ -250,7 +234,15 @@
 
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
-            alert('Đã thêm sản phẩm vào giỏ hàng!');
+            Swal.fire({
+                title: 'Thành công',
+                text: 'Đã thêm sản phẩm vào giỏ hàng!',
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end'
+            });
         }
 
         function updateCartDisplay() {
@@ -291,6 +283,60 @@
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
         }
+
+        document.addEventListener('click', function (event) {
+            const addLink = event.target.closest('a[href*="/add_to_cart/"]');
+            if (!addLink || !addLink.classList.contains('btn-add-to-cart')) return;
+
+            event.preventDefault();
+            const url = addLink.getAttribute('href');
+
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                credentials: 'same-origin'
+            })
+            .then(async function (response) {
+                const contentType = response.headers.get('content-type') || '';
+                let data = null;
+                if (contentType.includes('application/json')) {
+                    data = await response.json();
+                }
+
+                if (!response.ok) {
+                    throw new Error((data && data.error) || 'Không thể thêm sản phẩm vào giỏ.');
+                }
+
+                if (data && data.cart_count !== undefined) {
+                    const cartCount = document.getElementById('cartCount');
+                    if (cartCount) cartCount.textContent = data.cart_count;
+                }
+
+                const message = (data && data.message) || 'Đã thêm sản phẩm vào giỏ hàng!';
+                Swal.fire({
+                    title: 'Thành công',
+                    text: message,
+                    icon: 'success',
+                    timer: 1800,
+                    showConfirmButton: false,
+                    toast: true,
+                    position: 'top-end'
+                });
+            })
+            .catch(function (error) {
+                Swal.fire({
+                    title: 'Lỗi',
+                    text: error.message || 'Có lỗi xảy ra khi thêm vào giỏ.',
+                    icon: 'error',
+                    timer: 2200,
+                    showConfirmButton: false,
+                    toast: true,
+                    position: 'top-end'
+                });
+            });
+        });
 
         // Back to top button
         window.addEventListener('scroll', function () {
@@ -362,7 +408,7 @@
             color: #ff9900;
         }
 
-        /* Nút Mua ngay - nền vàng cam đầy, chữ đen đậm */
+        /* Nút Mua ngay - nền vàng cam đậm, chữ đen đậm */
         .btn-buy-now {
             min-height: 54px;
             padding: 0 20px;
@@ -385,7 +431,7 @@
             color: #000;
         }
 
-        /* Icon màu đúng */
+        /* Icon màu đàºng */
         .btn-add-to-cart i,
         .btn-add-to-cart1 i {
             color: #ff9900;
@@ -429,6 +475,9 @@
     </style>
 
     {% block extra_js %}{% endblock %}
+
+    <!-- Chatbot tư vấn -->
+    {% include 'chatbot1.html' %}
 </body>
 
 </html>

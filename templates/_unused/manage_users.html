@@ -288,15 +288,27 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert('Thêm quản trị viên thành công!');
+                        if (window.Swal) {
+                            Swal.fire({ icon: 'success', title: 'Thành công', text: 'Thêm quản trị viên thành công!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                        } else {
+                            alert('Thêm quản trị viên thành công!');
+                        }
                         closeAddModal();
                         location.reload();
                     } else {
-                        alert('Lỗi: ' + data.error);
+                        if (window.Swal) {
+                            Swal.fire({ icon: 'error', title: 'Lỗi', text: data.error || 'Có lỗi xảy ra', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                        } else {
+                            alert('Lỗi: ' + data.error);
+                        }
                     }
                 })
                 .catch(error => {
-                    alert('Lỗi: ' + error);
+                    if (window.Swal) {
+                        Swal.fire({ icon: 'error', title: 'Lỗi', text: String(error), toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                    } else {
+                        alert('Lỗi: ' + error);
+                    }
                 });
         });
 
@@ -312,15 +324,27 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert('Cập nhật quản trị viên thành công!');
+                        if (window.Swal) {
+                            Swal.fire({ icon: 'success', title: 'Thành công', text: 'Cập nhật quản trị viên thành công!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                        } else {
+                            alert('Cập nhật quản trị viên thành công!');
+                        }
                         closeEditModal();
                         location.reload();
                     } else {
-                        alert('Lỗi: ' + data.error);
+                        if (window.Swal) {
+                            Swal.fire({ icon: 'error', title: 'Lỗi', text: data.error || 'Có lỗi xảy ra', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                        } else {
+                            alert('Lỗi: ' + data.error);
+                        }
                     }
                 })
                 .catch(error => {
-                    alert('Lỗi: ' + error);
+                    if (window.Swal) {
+                        Swal.fire({ icon: 'error', title: 'Lỗi', text: String(error), toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                    } else {
+                        alert('Lỗi: ' + error);
+                    }
                 });
         });
 
@@ -337,14 +361,26 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            alert('Xóa quản trị viên thành công!');
+                            if (window.Swal) {
+                                Swal.fire({ icon: 'success', title: 'Thành công', text: 'Xóa quản trị viên thành công!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                            } else {
+                                alert('Xóa quản trị viên thành công!');
+                            }
                             location.reload();
                         } else {
-                            alert('Lỗi: ' + data.error);
+                            if (window.Swal) {
+                                Swal.fire({ icon: 'error', title: 'Lỗi', text: data.error || 'Có lỗi xảy ra', toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                            } else {
+                                alert('Lỗi: ' + data.error);
+                            }
                         }
                     })
                     .catch(error => {
-                        alert('Lỗi: ' + error);
+                        if (window.Swal) {
+                            Swal.fire({ icon: 'error', title: 'Lỗi', text: String(error), toast: true, position: 'top-end', showConfirmButton: false, timer: 1800 });
+                        } else {
+                            alert('Lỗi: ' + error);
+                        }
                     });
             }
         }

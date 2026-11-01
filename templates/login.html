@@ -5,29 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Nhập Hệ Thống</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ===== Bảng màu lấy từ website: navy #0c06cd + vàng #ffc800 ===== */
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --light-bg: #f8f9fa;
-            --card-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+            --brand-navy: #0c06cd;
+            --brand-yellow: #ffc800;
+            --brand-orange: #ff9900;
+            --header-gradient: linear-gradient(135deg, #0c06cd 0%, #4a3aff 100%);
+            --light-bg: #f6f8fb;
+            --card-shadow: 0 15px 35px rgba(12, 6, 205, 0.12), 0 5px 15px rgba(0, 0, 0, 0.06);
             --transition: all 0.3s ease;
         }
 
         body {
-            background: var(--primary-gradient);
+            background: var(--light-bg);
+            background-image:
+                radial-gradient(circle at 12% 8%, rgba(12, 6, 205, .10), transparent 42%),
+                radial-gradient(circle at 88% 92%, rgba(255, 200, 0, .16), transparent 45%);
+            background-attachment: fixed;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 20px 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: block;
+            padding: 0 0 20px;
+            font-family: 'Be Vietnam Pro', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .login-container {
             max-width: 450px;
-            margin: 0 auto;
+            margin: 32px auto 0;
             animation: fadeIn 0.5s ease-out;
         }
 
@@ -57,23 +64,28 @@
         }
 
         .card-header {
-            background: var(--primary-gradient);
+            background: var(--header-gradient);
             color: white;
-            padding: 35px 20px;
+            padding: 32px 20px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            /* Bo góc trên theo đúng card (Bootstrap đang đặt 5px) */
+            border-radius: 20px 20px 0 0 !important;
+            border-bottom: none;
         }
 
+        /* Vệt sáng chéo thay cho mảng méo cũ */
         .card-header::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.1);
-            transform: skewY(-5deg) translateY(-50%);
+            top: -60%;
+            left: -10%;
+            width: 60%;
+            height: 220%;
+            background: rgba(255, 255, 255, 0.07);
+            transform: rotate(18deg);
+            pointer-events: none;
         }
 
         .card-header h3 {
@@ -97,14 +109,14 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 80px;
-            height: 80px;
+            width: 74px;
+            height: 74px;
             border-radius: 50%;
-            background: var(--primary-gradient);
-            color: white;
-            font-size: 36px;
-            margin-bottom: 15px;
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            background: rgba(12, 6, 205, .08);
+            color: var(--brand-navy);
+            font-size: 32px;
+            margin-bottom: 14px;
+            border: 2px solid rgba(12, 6, 205, .15);
         }
 
         .form-label {
@@ -119,7 +131,7 @@
             margin-right: 10px;
             width: 20px;
             text-align: center;
-            color: #667eea;
+            color: var(--brand-orange);
         }
 
         .form-control,
@@ -134,34 +146,60 @@
 
         .form-control:focus,
         .form-select:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.2);
+            border-color: var(--brand-navy);
+            box-shadow: 0 0 0 0.25rem rgba(12, 6, 205, 0.12);
             background-color: white;
         }
 
+        /* Ô icon đầu dòng: chỉ bo góc TRÁI */
         .input-group-text {
-            background-color: transparent;
+            background-color: #f8f9fb;
+            color: #8b93a1;
             border: 2px solid #e8e8e8;
             border-right: none;
             border-radius: 12px 0 0 12px;
+            padding: 0 14px;
+            font-size: .95rem;
         }
 
+        /* Ô icon CUỐI dòng (hiện/ẩn mật khẩu): bo góc PHẢI, có viền phải */
+        .input-group > .input-group-text:last-child {
+            border-right: 2px solid #e8e8e8;
+            border-left: none;
+            border-radius: 0 12px 12px 0;
+            cursor: pointer;
+            transition: color .2s ease, background-color .2s ease;
+        }
+
+        .input-group > .input-group-text:last-child:hover {
+            color: var(--brand-navy);
+            background-color: #eef3ff;
+        }
+
+        /* Nút chính: vàng cam giống "Mua ngay" / "Đặt hàng" */
         .btn-login {
-            background: var(--primary-gradient);
+            background: var(--brand-yellow);
+            color: #1a1200;
             border: none;
             padding: 16px;
-            border-radius: 12px;
+            border-radius: 50px;
             font-weight: 700;
-            font-size: 18px;
+            font-size: 17px;
             letter-spacing: 0.5px;
             transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 22px rgba(255, 200, 0, 0.35);
         }
 
         .btn-login:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
-            background: linear-gradient(135deg, #5a6fd8 0%, #6a4196 100%);
+            color: #1a1200;
+            background: var(--brand-orange);
+            box-shadow: 0 14px 30px rgba(255, 153, 0, 0.42);
+        }
+
+        .btn-login:disabled {
+            opacity: .75;
+            transform: none;
         }
 
         .btn-login:active {
@@ -195,7 +233,7 @@
         }
 
         .register-link a {
-            color: #667eea;
+            color: var(--brand-navy);
             font-weight: 600;
             text-decoration: none;
             transition: var(--transition);
@@ -204,7 +242,7 @@
         }
 
         .register-link a:hover {
-            color: #764ba2;
+            color: var(--brand-orange);
             text-decoration: underline;
         }
 
@@ -238,14 +276,14 @@
         }
 
         .forgot-password a {
-            color: #667eea;
+            color: #6c757d;
             text-decoration: none;
             font-size: 14px;
             transition: var(--transition);
         }
 
         .forgot-password a:hover {
-            color: #764ba2;
+            color: var(--brand-orange);
             text-decoration: underline;
         }
 
@@ -266,6 +304,7 @@
 </head>
 
 <body>
+    {% include 'partials/site_header.html' %}
     <div class="container">
         <div class="login-container">
             <div class="card">
@@ -350,9 +389,13 @@
             </div>
 
             <div class="text-center mt-4">
-                <p class="text-white small">
-                    &copy; Hà Nội 2026 Hệ thống Quản lý. Bảo lưu mọi quyền.
+                <p class="text-muted small mb-2">
+                    &copy; 2026 Cửa Hàng Điện Tử. Bảo lưu mọi quyền.
                 </p>
+                <a href="{{ url_for('index') }}" class="small text-decoration-none"
+                   style="color:#0c06cd;">
+                    <i class="fas fa-arrow-left me-1"></i>Về trang chủ
+                </a>
             </div>
         </div>
     </div>
